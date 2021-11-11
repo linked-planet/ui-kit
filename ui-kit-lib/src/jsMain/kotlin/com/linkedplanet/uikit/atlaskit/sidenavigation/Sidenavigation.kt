@@ -17,7 +17,9 @@ external interface NavigationHeaderProps : RProps
 @JsName("Header")
 external val Header: RClass<HeaderProps>
 
-external interface HeaderProps : RProps
+external interface HeaderProps : RProps {
+    var description: String
+}
 
 @JsName("NavigationContent")
 external val NavigationContent: RClass<NavigationContentProps>

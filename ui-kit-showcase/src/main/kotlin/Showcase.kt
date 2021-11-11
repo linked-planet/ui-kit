@@ -2,7 +2,9 @@ import com.linkedplanet.uikit.atlaskit.button.Button
 import com.linkedplanet.uikit.atlaskit.cssreset.CssReset
 import com.linkedplanet.uikit.atlaskit.pagelayout.*
 import com.linkedplanet.uikit.atlaskit.sidenavigation.*
+import kotlinx.browser.document
 import react.*
+import react.dom.a
 import styled.*
 
 external interface ShowcaseProps : RProps {
@@ -31,7 +33,10 @@ class Showcase(props: ShowcaseProps) : RComponent<ShowcaseProps, ShowcaseState>(
                     SideNavigation {
 
                         NavigationHeader {
-                            Header { +"linked-planet UIKit Showcase" }
+                            Header {
+                                +document.title.uppercase()
+                                attrs.description = "linked-planet"
+                            }
                         }
 
                         NavigationContent {
@@ -42,7 +47,10 @@ class Showcase(props: ShowcaseProps) : RComponent<ShowcaseProps, ShowcaseState>(
 
                         NavigationFooter {
                             Footer {
-                                +"Made with ❤ by linked-planet"
+                                +"Made with ❤ by "
+                                a(href = "https://www.linked-planet.com/") {
+                                    +"linked-planet"
+                                }
                             }
                         }
                     }
