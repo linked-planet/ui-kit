@@ -2,6 +2,9 @@ plugins {
     kotlin("multiplatform") version "1.5.31"
 }
 
+group = "com.linked-planet"
+version = "1.0-SNAPSHOT"
+
 repositories {
     mavenCentral()
 }
