@@ -9,6 +9,17 @@ external val PageLayout: RClass<PageLayoutProps>
 
 external interface PageLayoutProps : RProps
 
+@JsName("TopNavigation")
+external val TopNavigation: RClass<TopNavigationProps>
+
+external interface TopNavigationProps : RProps {
+
+    var id: String
+    var isFixed: Boolean
+    var skipLinkTitle: String
+
+}
+
 @JsName("Main")
 external val Main: RClass<MainProps>
 

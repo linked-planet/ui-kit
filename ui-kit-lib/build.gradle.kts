@@ -29,6 +29,10 @@ kotlin {
                 implementation(npm("@atlaskit/button", "16.1.2"))
                 implementation(npm("@atlaskit/page-layout", "0.8.0"))
                 implementation(npm("@atlaskit/side-navigation", "1.1.2"))
+                implementation(npm("@atlaskit/atlassian-navigation", "1.2.1"))
+                implementation(npm("@atlaskit/popup", "0.6.0"))
+                implementation(npm("@atlaskit/menu", "0.5.0"))
+                implementation(npm("@atlaskit/icon", "^17.0.1"))
             }
         }
         val jsTest by getting {

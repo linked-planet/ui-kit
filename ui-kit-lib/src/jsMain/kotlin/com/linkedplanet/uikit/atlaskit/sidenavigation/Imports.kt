@@ -2,6 +2,7 @@
 
 package com.linkedplanet.uikit.atlaskit.sidenavigation
 
+import org.w3c.dom.events.Event
 import react.*
 
 @JsName("SideNavigation")
@@ -46,4 +47,29 @@ external val Section: RClass<SectionProps>
 
 external interface SectionProps : RProps {
     var title: String
+}
+
+@JsName("NestableNavigationContent")
+external val NestableNavigationContent: RClass<NestableNavigationContentProps>
+
+external interface NestableNavigationContentProps : RProps
+
+@JsName("ButtonItem")
+external val ButtonItem: RClass<ButtonItemProps>
+
+external interface ButtonItemProps : RProps {
+    var iconBefore: ReactElement
+    var iconAfter: ReactElement
+    var onClick: (Event) -> Unit
+}
+
+@JsName("NestingItem")
+external val NestingItem: RClass<NestingItemProps>
+
+external interface NestingItemProps : RProps {
+    var id: String
+    var title: String
+    var iconBefore: ReactElement
+    var iconAfter: ReactElement
+    var onClick: (Event) -> Unit
 }
