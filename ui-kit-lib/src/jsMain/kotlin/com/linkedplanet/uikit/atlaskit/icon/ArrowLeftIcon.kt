@@ -1,10 +1,10 @@
 @file:JsModule("@atlaskit/icon/glyph/arrow-left")
 
-package imports.atlaskit.icon
+package com.linkedplanet.uikit.atlaskit.icon
 
-import react.RClass
+import react.ComponentClass
 
 @JsName("default")
-external val ArrowLeftIcon: RClass<IconProps>
+external val ArrowLeftIcon: ComponentClass<IconProps>
 
 

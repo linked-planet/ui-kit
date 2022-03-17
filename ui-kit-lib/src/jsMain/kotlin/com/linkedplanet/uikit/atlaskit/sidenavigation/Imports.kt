@@ -6,67 +6,67 @@ import org.w3c.dom.events.Event
 import react.*
 
 @JsName("SideNavigation")
-external val SideNavigation: RClass<SideNavigationProps>
+external val SideNavigation: ComponentClass<SideNavigationProps>
 
-external interface SideNavigationProps : RProps
+external interface SideNavigationProps : Props
 
 @JsName("NavigationHeader")
-external val NavigationHeader: RClass<NavigationHeaderProps>
+external val NavigationHeader: ComponentClass<NavigationHeaderProps>
 
-external interface NavigationHeaderProps : RProps
+external interface NavigationHeaderProps : Props
 
 @JsName("Header")
-external val Header: RClass<HeaderProps>
+external val Header: ComponentClass<HeaderProps>
 
-external interface HeaderProps : RProps {
+external interface HeaderProps : Props {
     var description: String
 }
 
 @JsName("NavigationContent")
-external val NavigationContent: RClass<NavigationContentProps>
+external val NavigationContent: ComponentClass<NavigationContentProps>
 
-external interface NavigationContentProps : RProps
+external interface NavigationContentProps : Props
 
 @JsName("NavigationFooter")
-external val NavigationFooter: RClass<NavigationFooterProps>
+external val NavigationFooter: ComponentClass<NavigationFooterProps>
 
-external interface NavigationFooterProps : RProps
+external interface NavigationFooterProps : Props
 
 @JsName("Footer")
-external val Footer: RClass<FooterProps>
+external val Footer: ComponentClass<FooterProps>
 
-external interface FooterProps : RProps
+external interface FooterProps : Props
 
 @JsName("HeadingItem")
-external val HeadingItem: RClass<HeadingItemProps>
+external val HeadingItem: ComponentClass<HeadingItemProps>
 
-external interface HeadingItemProps : RProps
+external interface HeadingItemProps : Props
 
 @JsName("Section")
-external val Section: RClass<SectionProps>
+external val Section: ComponentClass<SectionProps>
 
-external interface SectionProps : RProps {
+external interface SectionProps : Props {
     var title: String
 }
 
 @JsName("NestableNavigationContent")
-external val NestableNavigationContent: RClass<NestableNavigationContentProps>
+external val NestableNavigationContent: ComponentClass<NestableNavigationContentProps>
 
-external interface NestableNavigationContentProps : RProps
+external interface NestableNavigationContentProps : Props
 
 @JsName("ButtonItem")
-external val ButtonItem: RClass<ButtonItemProps>
+external val ButtonItem: ComponentClass<ButtonItemProps>
 
-external interface ButtonItemProps : RProps {
+external interface ButtonItemProps : Props {
     var iconBefore: ReactElement
     var iconAfter: ReactElement
     var onClick: (Event) -> Unit
 }
 
 @JsName("NestingItem")
-external val NestingItem: RClass<NestingItemProps>
+external val NestingItem: ComponentClass<NestingItemProps>
 
-external interface NestingItemProps : RProps {
+external interface NestingItemProps : Props {
     var id: String
     var title: String
     var iconBefore: ReactElement

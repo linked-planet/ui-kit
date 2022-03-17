@@ -1,8 +1,8 @@
 @file:JsModule("@atlaskit/icon/glyph/trash")
 
-package imports.atlaskit.icon
+package com.linkedplanet.uikit.atlaskit.icon
 
-import react.RClass
+import react.ComponentClass
 
 @JsName("default")
-external val TrashIcon: RClass<IconProps>
+external val TrashIcon: ComponentClass<IconProps>

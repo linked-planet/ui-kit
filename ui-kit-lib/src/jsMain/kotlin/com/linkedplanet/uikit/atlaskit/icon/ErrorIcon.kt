@@ -1,8 +1,8 @@
 @file:JsModule("@atlaskit/icon/glyph/error")
 
-package imports.atlaskit.icon
+package com.linkedplanet.uikit.atlaskit.icon
 
-import react.RClass
+import react.ComponentClass
 
 @JsName("default")
-external val ErrorIcon: RClass<IconProps>
+external val ErrorIcon: ComponentClass<IconProps>

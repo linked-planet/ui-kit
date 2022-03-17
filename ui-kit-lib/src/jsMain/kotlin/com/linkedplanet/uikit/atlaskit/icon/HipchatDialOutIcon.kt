@@ -1,8 +1,8 @@
 @file:JsModule("@atlaskit/icon/glyph/hipchat/dial-out")
 
-package imports.atlaskit.icon
+package com.linkedplanet.uikit.atlaskit.icon
 
-import react.RClass
+import react.ComponentClass
 
 @JsName("default")
-external val HipchatDialOutIcon: RClass<IconProps>
+external val HipchatDialOutIcon: ComponentClass<IconProps>

@@ -1,8 +1,8 @@
 @file:JsModule("@atlaskit/icon/glyph/email")
 
-package imports.atlaskit.icon
+package com.linkedplanet.uikit.atlaskit.icon
 
-import react.RClass
+import react.ComponentClass
 
 @JsName("default")
-external val EmailIcon: RClass<IconProps>
+external val EmailIcon: ComponentClass<IconProps>

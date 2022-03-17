@@ -4,14 +4,14 @@ package com.linkedplanet.uikit.atlaskit.navigation
 
 import com.linkedplanet.uikit.atlaskit.button.ButtonProps
 import org.w3c.dom.events.MouseEvent
-import react.RClass
-import react.RProps
+import react.ComponentClass
+import react.Props
 import react.ReactElement
 
 @JsName("AtlassianNavigation")
-external val AtlassianNavigation: RClass<AtlassianNavigationProps>
+external val AtlassianNavigation: ComponentClass<AtlassianNavigationProps>
 
-external interface AtlassianNavigationProps : RProps {
+external interface AtlassianNavigationProps : Props {
 
     var label: String
 
@@ -24,9 +24,9 @@ external interface AtlassianNavigationProps : RProps {
 }
 
 @JsName("CustomProductHome")
-external val CustomProductHome: RClass<CustomProductHomeProps>
+external val CustomProductHome: ComponentClass<CustomProductHomeProps>
 
-external interface CustomProductHomeProps : RProps {
+external interface CustomProductHomeProps : Props {
 
     var iconAlt: String
 
@@ -41,9 +41,9 @@ external interface CustomProductHomeProps : RProps {
 }
 
 @JsName("PrimaryButton")
-external val PrimaryButton: RClass<PrimaryButtonProps>
+external val PrimaryButton: ComponentClass<PrimaryButtonProps>
 
-external interface PrimaryButtonProps : RProps {
+external interface PrimaryButtonProps : Props {
 
     var isHighlighted: Boolean
 
@@ -56,7 +56,7 @@ external interface PrimaryButtonProps : RProps {
 }
 
 @JsName("Profile")
-external val Profile: RClass<ProfileProps>
+external val Profile: ComponentClass<ProfileProps>
 
 external interface ProfileProps : ButtonProps {
 

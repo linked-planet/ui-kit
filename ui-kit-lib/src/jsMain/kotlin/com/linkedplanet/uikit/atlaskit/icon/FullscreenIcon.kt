@@ -1,10 +1,10 @@
 @file:JsModule("@atlaskit/icon/glyph/media-services/actual-size")
 
-package imports.atlaskit.icon
+package com.linkedplanet.uikit.atlaskit.icon
 
-import react.RClass
+import react.ComponentClass
 
 @JsName("default")
-external val FullscreenIcon: RClass<IconProps>
+external val FullscreenIcon: ComponentClass<IconProps>
 
 

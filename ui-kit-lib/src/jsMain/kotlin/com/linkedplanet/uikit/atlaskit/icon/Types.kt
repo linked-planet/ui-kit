@@ -1,9 +1,9 @@
-package imports.atlaskit.icon
+package com.linkedplanet.uikit.atlaskit.icon
 
 import org.w3c.dom.events.MouseEvent
-import react.RProps
+import react.Props
 
-interface IconProps : RProps {
+interface IconProps : Props {
     /**
      * For primary colour for icons
      */

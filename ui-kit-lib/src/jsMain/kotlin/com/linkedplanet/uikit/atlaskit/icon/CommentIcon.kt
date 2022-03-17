@@ -1,8 +1,8 @@
 @file:JsModule("@atlaskit/icon/glyph/comment")
 
-package imports.atlaskit.icon
+package com.linkedplanet.uikit.atlaskit.icon
 
-import react.RClass
+import react.ComponentClass
 
 @JsName("default")
-external val CommentIcon: RClass<IconProps>
+external val CommentIcon: ComponentClass<IconProps>

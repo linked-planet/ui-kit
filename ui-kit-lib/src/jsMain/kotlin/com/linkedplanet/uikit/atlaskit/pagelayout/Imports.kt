@@ -1,36 +1,107 @@
 @file:JsModule("@atlaskit/page-layout")
-
 package com.linkedplanet.uikit.atlaskit.pagelayout
 
-import react.*
+import react.ComponentClass
+import react.Props
+import react.ReactElement
 
 @JsName("PageLayout")
-external val PageLayout: RClass<PageLayoutProps>
+external val PageLayout: ComponentClass<PageLayoutCProps>
 
-external interface PageLayoutProps : RProps
-
-@JsName("TopNavigation")
-external val TopNavigation: RClass<TopNavigationProps>
-
-external interface TopNavigationProps : RProps {
+external interface PageLayoutCProps : Props {
 
     var id: String
-    var isFixed: Boolean
-    var skipLinkTitle: String
 
+    var children: ReactElement
+}
+
+@JsName("Banner")
+external val Banner: ComponentClass<BanneProps>
+
+external interface BanneProps : Props {
+
+    var id: String
+
+    var children: ReactElement
+
+    var height: Int
 }
 
 @JsName("Main")
-external val Main: RClass<MainProps>
+external val Main: ComponentClass<MainCProps>
 
-external interface MainProps : RProps
+external interface MainCProps : Props {
+
+    var id: String
+
+    var children: ReactElement
+
+    var width: Int
+}
 
 @JsName("Content")
-external val Content: RClass<ContentProps>
+external val Content: ComponentClass<ContentCProps>
 
-external interface ContentProps : RProps
+external interface ContentCProps : Props {
+
+    var id: String
+
+    var children: ReactElement
+
+    var width: Int
+}
+
+@JsName("RightSidebar")
+external val RightSidebar: ComponentClass<RightSidebaProps>
+
+external interface RightSidebaProps : Props {
+
+    var id: String
+
+    var children: ReactElement
+
+    var width: Int
+
+    var isFixed: Boolean
+
+
+}
 
 @JsName("LeftSidebar")
-external val LeftSidebar: RClass<LeftSidebarProps>
+external val LeftSidebar: ComponentClass<LeftSidebaProps>
 
-external interface LeftSidebarProps : RProps
+external interface LeftSidebaProps : Props {
+
+    var id: String
+
+    var children: ReactElement
+
+    var width: Int
+
+    var isFixed: Boolean
+
+    var onCollapse: () -> Unit
+
+    var onExpand: () -> Unit
+
+    var onResizeStart: () -> Unit
+
+    var onResizeEnd: () -> Unit
+
+    var onFlyoutExpand: () -> Unit
+
+}
+
+@JsName("TopNavigation")
+external val TopNavigation: ComponentClass<TopNavigationCProps>
+
+external interface TopNavigationCProps : Props {
+
+    var id: String
+
+    var children: ReactElement
+
+    var height: Int
+
+    var isFixed: Boolean
+}

@@ -1,34 +1,30 @@
 import com.linkedplanet.uikit.atlaskit.button.Button
-import com.linkedplanet.uikit.atlaskit.cssreset.CssReset
-import com.linkedplanet.uikit.atlaskit.icon.SelectClearIcon
-import com.linkedplanet.uikit.atlaskit.navigation.AtlassianNavigation
-import com.linkedplanet.uikit.atlaskit.navigation.CustomProductHome
-import com.linkedplanet.uikit.atlaskit.navigation.PrimaryButton
-import com.linkedplanet.uikit.atlaskit.navigation.Profile
+import com.linkedplanet.uikit.atlaskit.icon.*
+import com.linkedplanet.uikit.atlaskit.menu.LinkItem
+import com.linkedplanet.uikit.atlaskit.menu.MenuGroup
+import com.linkedplanet.uikit.atlaskit.navigation.*
 import com.linkedplanet.uikit.atlaskit.pagelayout.*
+import com.linkedplanet.uikit.atlaskit.popup.Popup
 import com.linkedplanet.uikit.atlaskit.sidenavigation.*
-import imports.atlaskit.icon.EmojiTravelIcon
-import imports.atlaskit.icon.FileIcon
-import imports.atlaskit.icon.IconProps
-import imports.atlaskit.icon.PersonIcon
-import imports.atlaskit.menu.LinkItem
-import imports.atlaskit.menu.MenuGroup
-import imports.atlaskit.popup.Popup
 import kotlinext.js.Object
 import kotlinext.js.jsObject
 import kotlinx.browser.document
+import kotlinx.css.margin
+import kotlinx.css.px
 import react.*
 import react.dom.a
+import react.dom.div
 import react.dom.img
 import react.dom.jsStyle
 import styled.css
 import styled.styledDiv
+import kotlin.js.json
 
-external interface ShowcaseProps : RProps {
+external interface ShowcaseProps : Props {
     var name: String
 }
 
-interface ShowcaseState : RState {
+interface ShowcaseState : State {
     var name: String
     var profilePopupIsOpen: Boolean
 }
@@ -51,8 +47,6 @@ class Showcase(props: ShowcaseProps) : RComponent<ShowcaseProps, ShowcaseState>(
     }
 
     override fun RBuilder.render() {
-        CssReset
-
         PageLayout {
 
             TopNavigation {
@@ -61,17 +55,17 @@ class Showcase(props: ShowcaseProps) : RComponent<ShowcaseProps, ShowcaseState>(
                 AtlassianNavigation {
                     attrs.label = "Test"
                     attrs.renderProductHome = {
-                        CustomProductHome {
-                            attrs.iconAlt = "https://www.linked-planet.com/shared/img/loader.png"
-                            attrs.iconUrl = "https://www.linked-planet.com/shared/img/loader.png"
-                            attrs.logoAlt = "https://www.linked-planet.com/shared/img/loader.png"
-                            attrs.logoUrl = "https://www.linked-planet.com/shared/img/loader.png"
-                            attrs.siteTitle = "UI-KIT"
-                        }
+                        createElement(CustomProductHome, jsObject {
+                            iconAlt = "https://www.linked-planet.com/shared/img/loader.png"
+                            iconUrl = "https://www.linked-planet.com/shared/img/loader.png"
+                            logoAlt = "https://www.linked-planet.com/shared/img/loader.png"
+                            logoUrl = "https://www.linked-planet.com/shared/img/loader.png"
+                            siteTitle = "UI-KIT"
+                        })
                     }
                     attrs.label = "My Label"
 
-                    val icon = img {
+                    val iconIn = img {
                         attrs.src =
                             "https://w7.pngwing.com/pngs/7/618/png-transparent-man-illustration-avatar-icon-fashion-men-avatar-face-fashion-girl-heroes.png"
                         attrs.jsStyle {
@@ -82,38 +76,32 @@ class Showcase(props: ShowcaseProps) : RComponent<ShowcaseProps, ShowcaseState>(
                     }
 
                     attrs.primaryItems = listOf(
-                        PrimaryButton {
-                            +"Menu 1"
-                        },
-                        PrimaryButton {
-                            +"Menu 2"
-                        },
-                        PrimaryButton {
-                            +"Menu 3"
-                        }
+                        createElement(PrimaryButton, jsObject { +"Menu 1" }),
+                        createElement(PrimaryButton, jsObject { +"Menu 2" }),
+                        createElement(PrimaryButton, jsObject { +"Menu 3" })
                     ).toTypedArray()
 
                     attrs.renderProfile = {
-                        Popup {
-                            attrs.isOpen = state.profilePopupIsOpen
-                            attrs.onClose = {
+                        createElement(Popup, jsObject {
+                            isOpen = state.profilePopupIsOpen
+                            onClose = {
                                 setState { profilePopupIsOpen = false }
                             }
-                            attrs.placement = "bottom-start"
-                            attrs.trigger = { triggerProps ->
-                                Profile {
+                            placement = "bottom-start"
+                            trigger = { triggerProps ->
+                                createElement(Profile, jsObject {
                                     Object.keys(triggerProps).forEach { key ->
                                         val descriptor = Object.getOwnPropertyDescriptor<RProps>(triggerProps, key)
                                         Object.defineProperty(attrs, key, descriptor)
                                     }
-                                    attrs.icon = icon
-                                    attrs.onClick = {
+                                    icon = iconIn
+                                    onClick = {
                                         setState { profilePopupIsOpen = !profilePopupIsOpen }
                                     }
-                                }
+                                })
                             }
-                            attrs.content = { _ ->
-                                MenuGroup {
+                            content = { _ ->
+                                createElement(MenuGroup, jsObject {
                                     LinkItem {
                                         +"Profile"
                                         attrs.iconBefore = createElement<IconProps>(PersonIcon, jsObject{})
@@ -128,9 +116,9 @@ class Showcase(props: ShowcaseProps) : RComponent<ShowcaseProps, ShowcaseState>(
                                             setState { profilePopupIsOpen = false }
                                         }
                                     }
-                                }
+                                })
                             }
-                        }
+                        })
                     }
                 }
             }
@@ -192,10 +180,10 @@ class Showcase(props: ShowcaseProps) : RComponent<ShowcaseProps, ShowcaseState>(
 
                 Main {
 
-                    styledDiv {
-                        css {
-                            +ShowcaseStyles.mainContainer
-                        }
+                    div {
+                        attrs["style"] = json(
+                            "margin" to "30px"
+                        )
                         Button {
                             +"Test"
                             attrs.appearance = "primary"

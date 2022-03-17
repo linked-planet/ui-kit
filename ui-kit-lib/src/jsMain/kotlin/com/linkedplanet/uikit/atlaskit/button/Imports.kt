@@ -3,13 +3,13 @@
 package com.linkedplanet.uikit.atlaskit.button
 
 import org.w3c.dom.events.Event
-import react.RClass
-import react.RProps
+import react.ComponentClass
+import react.Props
 
 @JsName("default")
-external val Button: RClass<ButtonProps>
+external val Button: ComponentClass<ButtonProps>
 
-external interface ButtonProps : RProps {
+external interface ButtonProps : Props {
 
     /**
      * Sets whether the checkbox is checked or unchecked.
@@ -47,4 +47,38 @@ external interface ButtonProps : RProps {
 
     var onClick: (Event) -> Unit
 
+}
+
+@JsName("ButtonGroup")
+external val ButtonGroup: ComponentClass<ButtonGroupProps>
+
+external interface ButtonGroupProps : Props
+
+@JsName("LoadingButton")
+external val LoadingButton: ComponentClass<LoadingButtonProps>
+
+external interface LoadingButtonProps : Props {
+
+    var isDisabled: Boolean
+
+    var title: String
+
+    /**
+     * Conditionally show a spinner over the top of a button.
+     */
+    var isLoading: Boolean
+
+    /**
+     * Sets whether the checkbox is disabled.
+     */
+    var appearance: String
+
+    var iconBefore: dynamic
+
+    var className: String
+
+    /**
+     * Handler to be called on click. The second argument can be used to track analytics data.
+     */
+    var onClick: (Event, dynamic) -> Unit
 }

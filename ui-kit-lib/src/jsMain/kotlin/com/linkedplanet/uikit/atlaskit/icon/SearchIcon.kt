@@ -1,8 +1,8 @@
 @file:JsModule("@atlaskit/icon/glyph/search")
 
-package imports.atlaskit.icon
+package com.linkedplanet.uikit.atlaskit.icon
 
-import react.RClass
+import react.ComponentClass
 
 @JsName("default")
-external val SearchIcon: RClass<IconProps>
+external val SearchIcon: ComponentClass<IconProps>

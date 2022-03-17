@@ -1,8 +1,8 @@
 @file:JsModule("@atlaskit/icon/glyph/check-circle")
 
-package imports.atlaskit.icon
+package com.linkedplanet.uikit.atlaskit.icon
 
-import react.RClass
+import react.ComponentClass
 
 @JsName("default")
-external val CheckCircleIcon: RClass<IconProps>
+external val CheckCircleIcon: ComponentClass<IconProps>

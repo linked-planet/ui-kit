@@ -2,10 +2,9 @@
 
 package com.linkedplanet.uikit.atlaskit.icon
 
-import imports.atlaskit.icon.IconProps
-import react.RClass
+import react.ComponentClass
 
 @JsName("default")
-external val SelectClearIcon: RClass<IconProps>
+external val SelectClearIcon: ComponentClass<IconProps>
 
 

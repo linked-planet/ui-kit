@@ -1,21 +1,21 @@
 @file:JsModule("@atlaskit/popup")
 
-package imports.atlaskit.popup
+package com.linkedplanet.uikit.atlaskit.popup
 
-import react.RClass
-import react.RProps
+import react.ComponentClass
+import react.Props
 import react.ReactElement
 
 @JsName("Popup")
-external val Popup: RClass<PopupProps>
+external val Popup: ComponentClass<PopupCProps>
 
-external interface PopupProps : RProps {
+external interface PopupCProps : Props {
 
     var isOpen: Boolean
 
-    var trigger: (RProps) -> ReactElement
+    var trigger: (Props) -> ReactElement
 
-    var content: (RProps) -> ReactElement
+    var content: (Props) -> ReactElement
 
     var boundariesElement: String
 

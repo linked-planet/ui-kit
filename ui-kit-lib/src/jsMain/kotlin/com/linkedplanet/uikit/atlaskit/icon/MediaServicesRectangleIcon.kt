@@ -1,8 +1,8 @@
 @file:JsModule("@atlaskit/icon/glyph/media-services/rectangle")
 
-package imports.atlaskit.icon
+package com.linkedplanet.uikit.atlaskit.icon
 
-import react.RClass
+import react.ComponentClass
 
 @JsName("default")
-external val MediaServicesRectangleIcon: RClass<IconProps>
+external val MediaServicesRectangleIcon: ComponentClass<IconProps>

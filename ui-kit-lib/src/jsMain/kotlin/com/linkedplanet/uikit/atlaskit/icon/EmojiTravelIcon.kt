@@ -1,8 +1,8 @@
 @file:JsModule("@atlaskit/icon/glyph/emoji/travel")
 
-package imports.atlaskit.icon
+package com.linkedplanet.uikit.atlaskit.icon
 
-import react.RClass
+import react.ComponentClass
 
 @JsName("default")
-external val EmojiTravelIcon: RClass<IconProps>
+external val EmojiTravelIcon: ComponentClass<IconProps>

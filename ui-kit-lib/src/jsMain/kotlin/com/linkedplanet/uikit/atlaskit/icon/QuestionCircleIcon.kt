@@ -1,8 +1,8 @@
 @file:JsModule("@atlaskit/icon/glyph/question-circle")
 
-package imports.atlaskit.icon
+package com.linkedplanet.uikit.atlaskit.icon
 
-import react.RClass
+import react.ComponentClass
 
 @JsName("default")
-external val QuestionCircleIcon: RClass<IconProps>
+external val QuestionCircleIcon: ComponentClass<IconProps>

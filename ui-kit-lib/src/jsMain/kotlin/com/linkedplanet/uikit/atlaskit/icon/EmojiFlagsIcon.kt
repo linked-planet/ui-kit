@@ -1,8 +1,8 @@
 @file:JsModule("@atlaskit/icon/glyph/emoji/flags")
 
-package imports.atlaskit.icon
+package com.linkedplanet.uikit.atlaskit.icon
 
-import react.RClass
+import react.ComponentClass
 
 @JsName("default")
-external val EmojiFlagsIcon: RClass<IconProps>
+external val EmojiFlagsIcon: ComponentClass<IconProps>
