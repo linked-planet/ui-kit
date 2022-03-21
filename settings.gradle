@@ -1,4 +1,4 @@
 rootProject.name = 'ui-kit'
 include 'ui-kit-lib'
-include 'ui-kit-showcase'
+//include 'ui-kit-showcase'
 
