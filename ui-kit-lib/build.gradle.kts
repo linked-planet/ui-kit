@@ -1,5 +1,7 @@
 plugins {
     kotlin("multiplatform") version "1.5.31"
+    id("maven-publish")
+    id("pl.allegro.tech.build.axion-release") version "1.13.6"
 }
 
 group = "com.linked-planet"
@@ -65,6 +67,29 @@ kotlin {
         val jsTest by getting {
             dependencies {
                 implementation(kotlin("test"))
+            }
+        }
+    }
+
+    val publicationsFromMainHost =
+        listOf(jvm(), js()).map { it.name } + "kotlinMultiplatform"
+    publishing {
+        publications {
+            matching { it.name in publicationsFromMainHost }.all {
+                val targetPublication = this@all
+                tasks.withType<AbstractPublishToMaven>()
+                    .matching { it.publication == targetPublication }
+                    .configureEach { onlyIf { findProperty("isMainHost") == "true" } }
+            }
+        }
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/linked-planet/libraries")
+                credentials {
+                    username = System.getenv("GITHUB_ACTOR")
+                    password = System.getenv("GITHUB_TOKEN")
+                }
             }
         }
     }

@@ -1,0 +1,25 @@
+name: Publish Library
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  release:
+    types: [ created ]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build and Test library
+        run: ./gradlew test build --info
+      - uses: actions/checkout@v2
+        # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
+        # the publishing section of your build.gradle
+      - name: Publish to GitHub Packages
+        run: |
+          echo "Github username: ${GITHUB_ACTOR}"
+          ./gradlew publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_API_TOKEN }}
