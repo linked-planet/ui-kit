@@ -12,7 +12,7 @@ repositories {
 }
 
 kotlin {
-    js(LEGACY) {
+    js {
         browser {
             commonWebpackConfig {
                 cssSupport.enabled = true
@@ -28,40 +28,27 @@ kotlin {
                 implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:17.0.2-pre.257-kotlin-1.5.31")
 
                 // Atlaskit
-                implementation(npm("@atlaskit/banner", "^11.2.2"))
-                implementation(npm("@atlaskit/button", "^16.1.2"))
-                implementation(npm("@atlaskit/checkbox", "^7.0.0"))
-                implementation(npm("@atlaskit/dropdown-menu", "10.0.0"))
-                implementation(npm("@atlaskit/flag", "^11.0.0"))
-                implementation(npm("@atlaskit/icon", "^17.0.1"))
-                implementation(npm("@atlaskit/textfield", "^2.0.0"))
-                implementation(npm("@atlaskit/textarea", "^2.0.0"))
-                implementation(npm("@atlaskit/select", "^9.0.1"))
-                implementation(npm("@atlaskit/modal-dialog", "^9.0.0"))
-                implementation(npm("@atlaskit/table-tree", "^8.0.5"))
-                implementation(npm("@atlaskit/tag", "11.2.1"))
-                implementation(npm("@atlaskit/tag-group", "10.0.10"))
-                implementation(npm("@atlaskit/dynamic-table", "^13.7.7"))
-                implementation(npm("@atlaskit/atlassian-navigation", "^0.10.13"))
-                implementation(npm("@atlaskit/inline-edit", "^10.0.33"))
-                implementation(npm("@atlaskit/logo", "^12.3.5"))
-                implementation(npm("@atlaskit/page-layout", "0.8.0"))
-                implementation(npm("@atlaskit/avatar", "19.0.0"))
-                implementation(npm("@atlaskit/lozenge", "^11.1.2"))
-                implementation(npm("@atlaskit/popup", "0.6.0"))
-                implementation(npm("@atlaskit/menu", "0.5.0"))
-                implementation(npm("@atlaskit/tabs", "12.1.3"))
-                implementation(npm("@atlaskit/datetime-picker", "11.1.5"))
-                implementation(npm("styled-components", "^3.5.0-0"))
-                //implementation(npm("styled-components", "^5.3.1"))
-                implementation(npm("@fortawesome/fontawesome-free", "^5.15.1"))
+                implementation(npm("@atlaskit/atlassian-navigation", "2.1.3"))
+                implementation(npm("@atlaskit/avatar", "20.5.7"))
+                implementation(npm("@atlaskit/button", "16.2.1"))
+                implementation(npm("@atlaskit/checkbox", "12.3.10"))
+                implementation(npm("@atlaskit/css-reset", "6.2.0"))
+                implementation(npm("@atlaskit/datetime-picker", "6.2.0"))
+                implementation(npm("@atlaskit/dropdown-menu", "11.1.2"))
+                implementation(npm("@atlaskit/icon", "21.10.5"))
+                implementation(npm("@atlaskit/inline-edit", "12.1.10"))
+                implementation(npm("@atlaskit/menu", "1.3.1"))
+                implementation(npm("@atlaskit/page-layout", "1.2.0"))
+                implementation(npm("@atlaskit/popup", "1.3.4"))
+                implementation(npm("@atlaskit/select", "15.2.10"))
+                implementation(npm("@atlaskit/side-navigation", "1.2.6"))
+                implementation(npm("@atlaskit/tabs", "12.1.3")) // TODO: update!
+                implementation(npm("@atlaskit/textfield", "5.1.8"))
 
-                implementation(npm("@atlaskit/section-message", "6.1.4"))
-                implementation(npm("@atlaskit/side-navigation", "1.1.2"))
-                implementation(npm("@atlaskit/toggle", "12.2.1"))
-
-                // awesome slider
-                implementation(npm("react-awesome-slider", "4.1.0"))
+                // Atlaskit dependencies
+                implementation(npm("exenv", "1.2.2"))
+                implementation(npm("memoize-one", "6.0.0"))
+                implementation(npm("tiny-invariant", "1.2.0"))
             }
         }
         val jsTest by getting {

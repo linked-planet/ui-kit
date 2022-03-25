@@ -4,18 +4,14 @@ package com.linkedplanet.uikit.atlaskit.navigation
 
 import com.linkedplanet.uikit.atlaskit.button.ButtonProps
 import org.w3c.dom.events.MouseEvent
-import react.ComponentClass
-import react.Props
-import react.ReactElement
+import react.*
 
 @JsName("AtlassianNavigation")
 external val AtlassianNavigation: ComponentClass<AtlassianNavigationProps>
 
 external interface AtlassianNavigationProps : Props {
 
-    var label: String
-
-    var primaryItems: Array<ReactElement>
+    var primaryItems: Array<ReactNode>
 
     var renderProductHome: () -> ReactElement
 
@@ -28,11 +24,7 @@ external val CustomProductHome: ComponentClass<CustomProductHomeProps>
 
 external interface CustomProductHomeProps : Props {
 
-    var iconAlt: String
-
     var iconUrl: String
-
-    var logoAlt: String
 
     var logoUrl: String
 

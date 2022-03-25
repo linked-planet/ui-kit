@@ -7,9 +7,9 @@ import react.ComponentClass
 import react.Props
 
 @JsName("default")
-external val Avatar: ComponentClass<AvataProps>
+external val Avatar: ComponentClass<AvatarProps>
 
-external interface AvataProps : Props {
+external interface AvatarProps : Props {
     var src: String
     var name: String
     var size: String
@@ -17,9 +17,9 @@ external interface AvataProps : Props {
 }
 
 @JsName("AvatarItem")
-external val AvatarItem: ComponentClass<AvatarItemCProps>
+external val AvatarItem: ComponentClass<AvatarItemProps>
 
-external interface AvatarItemCProps : Props {
+external interface AvatarItemProps : Props {
     var avatar: dynamic
     var key: String
     var primaryText: String

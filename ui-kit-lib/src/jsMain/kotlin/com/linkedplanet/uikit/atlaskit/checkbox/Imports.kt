@@ -47,6 +47,10 @@ external interface CheckboxCProps : Props {
      */
     var value: String?
 
+    /**
+     * Function that is called whenever the state of the checkbox changes. It will be called with an object containing
+     * the react synthetic event. Use currentTarget to get value, name and checked.
+     */
     var onChange: (Event) -> Unit
 
 }

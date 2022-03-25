@@ -10,4 +10,4 @@ ui-kit provides several ui components and functionality used throughout our proj
 
 Run the following command to start the showcase app and open it in your browser: 
 
-```./gradlew browserDevelopmentRun```
+```./gradlew browserDevelopmentRun -t```

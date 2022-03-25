@@ -12,3 +12,8 @@ external interface TabsProps : Props {
     var selected: Number
     var onSelect: (dynamic, Number, dynamic) -> Unit
 }
+
+@JsName("default")
+external val TabContentComponentProvider: ComponentClass<TabContentComponentProviderProps>
+
+external interface TabContentComponentProviderProps : Props
