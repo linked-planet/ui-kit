@@ -1,5 +1,5 @@
 plugins {
-    kotlin("js") version "1.5.31"
+    kotlin("js")
 }
 
 group = "com.linked-planet"
@@ -44,7 +44,7 @@ kotlin {
     sourceSets.all {
         languageSettings.optIn("kotlin.RequiresOptIn")
     }
-    js {
+    js(LEGACY) {
         useCommonJs()
         browser {
             runTask {

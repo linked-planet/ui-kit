@@ -1,5 +1,5 @@
 plugins {
-    kotlin("multiplatform") version "1.5.31"
+    kotlin("multiplatform")
     id("maven-publish")
     id("pl.allegro.tech.build.axion-release") version "1.13.6"
 }
@@ -12,7 +12,7 @@ repositories {
 }
 
 kotlin {
-    js {
+    js(LEGACY) {
         browser {
             commonWebpackConfig {
                 cssSupport.enabled = true
