@@ -6,6 +6,7 @@ import com.linkedplanet.uikit.atlaskit.button.*
 import com.linkedplanet.uikit.atlaskit.checkbox.Checkbox
 import com.linkedplanet.uikit.atlaskit.datetimepicker.DateTimePicker
 import com.linkedplanet.uikit.atlaskit.dropdownmenu.*
+import com.linkedplanet.uikit.atlaskit.flag.Flag
 import com.linkedplanet.uikit.atlaskit.inlineedit.InlineTextfield
 import com.linkedplanet.uikit.atlaskit.pagelayout.Main
 import com.linkedplanet.uikit.atlaskit.select.*
@@ -119,6 +120,17 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
             hr {}
             h1 {
                 +"TODO!"
+            }
+
+            // ---------------------
+            hr {}
+            h1 {
+                +"Flag"
+            }
+
+            Flag {
+                attrs.title = "Flag"
+                attrs.description = "Description of flag."
             }
 
             // ---------------------
