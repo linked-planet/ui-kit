@@ -28,6 +28,7 @@ external interface ShowcaseMainProps : Props
 val ShowcaseMain = fc<ShowcaseMainProps> { props ->
 
     val (isLoading, setIsLoading) = useState(false)
+    val (isCheckboxActive, setIsCheckboxActive) = useState(false)
 
     Main {
         styledDiv {
@@ -38,8 +39,8 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
             // ---------------------
             ShowcaseItem {
                 name = "Avatar"
-                docUrl = "https://atlassian.design/components/avatar/examples"
                 packageName = "@atlaskit/avatar"
+                docUrl = "https://atlassian.design/components/avatar/examples"
 
                 val avatar = createElement {
                     Avatar {
@@ -64,73 +65,91 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
                 examples = listOfNotNull(example1, example2)
             }
 
-            // ---------------------
-            hr {}
-            h1 {
-                +"Buttons"
-            }
+            ShowcaseItem {
+                name = "Button & Button-Group"
+                packageName = "@atlaskit/button"
+                docUrl = "https://atlassian.design/components/button/examples"
 
-            ButtonGroup {
-                Button {
-                    +"Normal button"
-                    attrs.appearance = "primary"
-                    attrs.onClick = {
-                        window.postMessage("TEST", "")
+                val example = createElement {
+                    ButtonGroup {
+                        Button {
+                            +"Normal button"
+                            attrs.appearance = "primary"
+                            attrs.onClick = {
+                                window.postMessage("TEST", "")
+                            }
+                        }
+
+                        LoadingButton {
+                            +"Loading button"
+                            attrs.isLoading = isLoading
+                            attrs.onClick = { _, _ ->
+                                setIsLoading(true)
+                                window.setTimeout({ setIsLoading(false) }, 5000)
+                            }
+                        }
                     }
                 }
 
-                LoadingButton {
-                    +"Loading button"
-                    attrs.isLoading = isLoading
-                    attrs.onClick = { _, _ ->
-                        setIsLoading(true)
-                        window.setTimeout({ setIsLoading(false) }, 5000)
+                examples = listOfNotNull(example)
+            }
+
+            ShowcaseItem {
+                name = "Checkbox"
+                packageName = "@atlaskit/checkbox"
+                docUrl = "https://atlassian.design/components/checkbox/code"
+
+                val example = createElement {
+                    Checkbox {
+                        attrs.isChecked = isCheckboxActive
+                        attrs.onChange = {
+                            setIsCheckboxActive(!isCheckboxActive)
+                        }
                     }
                 }
+
+                examples = listOfNotNull(example)
             }
 
-            // ---------------------
-            hr {}
-            h1 {
-                +"Checkbox"
-            }
 
-            Checkbox {
-                attrs.isChecked = isLoading
-            }
+            ShowcaseItem {
+                name = "Date time picker"
+                packageName = "@atlaskit/datetime-picker"
+                docUrl = "https://atlassian.design/components/datetime-picker/examples"
 
-            // ---------------------
-            hr {}
-            h1 {
-                +"Date time picker"
-            }
-
-            DateTimePicker {
-            }
-
-            // ---------------------
-            hr {}
-            h1 {
-                +"Dropdown menu"
-            }
-
-            DropdownMenu {
-                attrs.trigger = "Dropdown"
-
-                DropdownItemCheckbox { +"Dropdown Checkbox Item" }
-                DropdownItemGroup {
-                    attrs.title = "Group"
-
-                    DropdownItem { +"First dropdown Item" }
-                    DropdownItem { +"First dropdown Item" }
+                val example = createElement {
+                    styledDiv {
+                        css {
+                            +ShowcaseStyles.showcaseItemExampleDateTimePicker
+                        }
+                        DateTimePicker {}
+                    }
                 }
 
+                examples = listOfNotNull(example)
             }
 
-            // ---------------------
-            hr {}
-            h1 {
-                +"TODO!"
+            ShowcaseItem {
+                name = "Dropdown menu"
+                packageName = "@atlaskit/dropdown-menu"
+                docUrl = "https://atlassian.design/components/dropdown-menu/examples"
+
+                val example = createElement {
+                    DropdownMenu {
+                        attrs.trigger = "Dropdown"
+
+                        DropdownItemCheckbox { +"Dropdown Checkbox Item" }
+                        DropdownItemGroup {
+                            attrs.title = "Group"
+
+                            DropdownItem { +"First dropdown Item" }
+                            DropdownItem { +"First dropdown Item" }
+                        }
+
+                    }
+                }
+
+                examples = listOfNotNull(example)
             }
 
             // ---------------------

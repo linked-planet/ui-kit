@@ -30,8 +30,11 @@ object ShowcaseStyles : StyleSheet("ShowcaseStyles") {
         padding(5.px)
 
         firstChild {
-            paddingLeft = 0.px
             marginLeft = 0.px
         }
+    }
+
+    val showcaseItemExampleDateTimePicker by css {
+        minWidth = 300.px
     }
 }
