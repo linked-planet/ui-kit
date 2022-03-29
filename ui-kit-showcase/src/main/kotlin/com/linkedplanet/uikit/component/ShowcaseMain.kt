@@ -7,16 +7,14 @@ import com.linkedplanet.uikit.atlaskit.checkbox.Checkbox
 import com.linkedplanet.uikit.atlaskit.datetimepicker.DateTimePicker
 import com.linkedplanet.uikit.atlaskit.dropdownmenu.*
 import com.linkedplanet.uikit.atlaskit.flag.Flag
-import com.linkedplanet.uikit.atlaskit.inlineedit.InlineTextfield
 import com.linkedplanet.uikit.atlaskit.pagelayout.Main
 import com.linkedplanet.uikit.atlaskit.select.*
 import com.linkedplanet.uikit.atlaskit.tab.Tab
 import com.linkedplanet.uikit.atlaskit.tab.Tabs
+import com.linkedplanet.uikit.atlaskit.tag.SimpleTag
 import com.linkedplanet.uikit.style.ShowcaseStyles
 import kotlinx.browser.window
-import kotlinx.css.span
 import react.*
-import react.dom.div
 import react.dom.html.ReactHTML.br
 import react.dom.html.ReactHTML.h1
 import react.dom.html.ReactHTML.hr
@@ -37,20 +35,18 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
             }
 
             // ---------------------
-            div(classes = "showcase-demo-item") {
-                h1 {
-                    +"Avatar"
-                }
+            h1 {
+                +"Avatar"
+            }
 
-                val avatar = createElement {
-                    Avatar {
-                        attrs.name = "Karl Test"
-                        attrs.size = "large"
-                    }
+            val avatar = createElement {
+                Avatar {
+                    attrs.name = "Karl Test"
+                    attrs.size = "large"
                 }
-                AvatarItem {
-                    attrs.avatar = avatar
-                }
+            }
+            AvatarItem {
+                attrs.avatar = avatar
             }
 
             // ---------------------
@@ -161,9 +157,19 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
 
             Tabs {
                 attrs.tabs = arrayOf(
-                    Tab("First tab", createElement { span {+"First"} }!!),
-                    Tab("Second tab", createElement { span {+"Second"} }!!),
+                    Tab("First tab", createElement { span { +"First" } }!!),
+                    Tab("Second tab", createElement { span { +"Second" } }!!),
                 )
+            }
+
+            // ---------------------
+            hr {}
+            h1 {
+                +"Tag"
+            }
+
+            SimpleTag {
+                attrs.text = "Simple Tag"
             }
         }
     }

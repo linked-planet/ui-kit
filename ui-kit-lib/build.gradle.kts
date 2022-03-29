@@ -40,6 +40,7 @@ kotlin {
                 implementation(npm("@atlaskit/select", "15.2.10"))
                 implementation(npm("@atlaskit/side-navigation", "1.2.6"))
                 implementation(npm("@atlaskit/tabs", "12.1.3")) // TODO: update!
+                implementation(npm("@atlaskit/tag", "11.3.0"))
                 implementation(npm("@atlaskit/textfield", "5.1.8"))
 
                 // Atlaskit dependencies
