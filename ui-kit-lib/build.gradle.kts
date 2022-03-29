@@ -47,8 +47,8 @@ kotlin {
                 // Atlaskit dependencies
                 implementation(npm("exenv", "1.2.2"))
                 implementation(npm("memoize-one", "6.0.0"))
-                implementation(npm("tiny-invariant", "1.2.0"))
                 implementation(npm("styled-components", "3.2.6"))
+                implementation(npm("tiny-invariant", "1.2.0"))
             }
         }
         val jsTest by getting {
