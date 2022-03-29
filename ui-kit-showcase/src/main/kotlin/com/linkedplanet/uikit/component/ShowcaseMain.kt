@@ -32,22 +32,36 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
     Main {
         styledDiv {
             css {
-                +ShowcaseStyles.mainContainer
+                +ShowcaseStyles.showcaseItemsContainer
             }
 
             // ---------------------
-            h1 {
-                +"Avatar"
-            }
+            ShowcaseItem {
+                name = "Avatar"
+                docUrl = "https://atlassian.design/components/avatar/examples"
+                packageName = "@atlaskit/avatar"
 
-            val avatar = createElement {
-                Avatar {
-                    attrs.name = "Karl Test"
-                    attrs.size = "large"
+                val avatar = createElement {
+                    Avatar {
+                        attrs.size = "large"
+                    }
                 }
-            }
-            AvatarItem {
-                attrs.avatar = avatar
+
+                val example1 = createElement {
+                    AvatarItem {
+                        attrs.avatar = avatar
+                    }
+                }
+
+                val example2 = createElement {
+                    AvatarItem {
+                        attrs.avatar = avatar
+                        attrs.primaryText = "Carl Coder"
+                        attrs.secondaryText = "Software Engineer"
+                    }
+                }
+
+                examples = listOfNotNull(example1, example2)
             }
 
             // ---------------------
