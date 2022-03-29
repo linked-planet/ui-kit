@@ -12,6 +12,7 @@ import com.linkedplanet.uikit.atlaskit.select.*
 import com.linkedplanet.uikit.atlaskit.tab.Tab
 import com.linkedplanet.uikit.atlaskit.tab.Tabs
 import com.linkedplanet.uikit.atlaskit.tag.SimpleTag
+import com.linkedplanet.uikit.atlaskit.taggroup.TagGroup
 import com.linkedplanet.uikit.style.ShowcaseStyles
 import kotlinx.browser.window
 import react.*
@@ -165,11 +166,13 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
             // ---------------------
             hr {}
             h1 {
-                +"Tag"
+                +"Tag & Tag-Group"
             }
 
-            SimpleTag {
-                attrs.text = "Simple Tag"
+            TagGroup {
+                SimpleTag {
+                    attrs.text = "Simple Tag"
+                }
             }
         }
     }
