@@ -44,11 +44,6 @@ external interface TextfieldCProps : Props {
     var isInvalid: Boolean
 
     /**
-     * Sets styling to indicate that the input is focused
-     */
-    var isFocused: Boolean
-
-    /**
      * Sets a default value as input value
      */
     var defaultValue: String?
@@ -58,6 +53,9 @@ external interface TextfieldCProps : Props {
      */
     var isMonospaced: Boolean
 
+    /**
+     * Name of the input element.
+     */
     var name: String
 
     /**
@@ -65,27 +63,13 @@ external interface TextfieldCProps : Props {
      */
     var value: String?
 
+    /**
+     * Placeholder text to display in the text field whenever it is empty.
+     */
     var placeholder: String
 
-    var onChange: (Event) -> Unit
-
-    var onKeyDown: (KeyboardEvent) -> Unit
-
-    var autoFocus: Boolean
-
-    var maxLength: Int
-
-    var id: String
-
-    var type: String
-
-    var list: String
-
     /**
-     * on | off
+     * Handler called when the inputs value changes.
      */
-    var autoComplete: String
-
-    var theme: ((dynamic) -> dynamic, dynamic) -> dynamic
-
+    var onChange: (Event) -> Unit
 }

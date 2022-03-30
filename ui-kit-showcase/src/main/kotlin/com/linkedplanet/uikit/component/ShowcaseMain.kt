@@ -19,6 +19,7 @@ import com.linkedplanet.uikit.atlaskit.table.*
 import com.linkedplanet.uikit.atlaskit.tag.SimpleTag
 import com.linkedplanet.uikit.atlaskit.taggroup.TagGroup
 import com.linkedplanet.uikit.atlaskit.textarea.Textarea
+import com.linkedplanet.uikit.atlaskit.textfield.Textfield
 import com.linkedplanet.uikit.style.ShowcaseStyles
 import kotlinx.browser.window
 import react.*
@@ -542,6 +543,25 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
                         }
                         Textarea {
                             attrs.defaultValue = "Content of text area..."
+                        }
+                    }
+                }
+
+                examples = listOfNotNull(example)
+            }
+
+            ShowcaseItem {
+                name = "Text field"
+                packages =
+                    Package("@atlaskit/textfield", "https://atlassian.design/components/textfield/examples").toList()
+
+                val example = createElement {
+                    styledDiv {
+                        css {
+                            +ShowcaseStyles.showcaseItemExampleMediumSize
+                        }
+                        Textfield {
+                            attrs.defaultValue = "Content of text field..."
                         }
                     }
                 }
