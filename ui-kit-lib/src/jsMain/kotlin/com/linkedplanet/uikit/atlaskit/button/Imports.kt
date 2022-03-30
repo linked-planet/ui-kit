@@ -47,6 +47,11 @@ external interface ButtonProps : Props {
      * Handler to be called on click.
      */
     var onClick: (Event) -> Unit
+
+    /**
+     * Set the button to autofocus on mount
+     */
+    var autoFocus: Boolean
 }
 
 @JsName("ButtonGroup")

@@ -2,48 +2,30 @@
 
 package com.linkedplanet.uikit.atlaskit.modal
 
-import react.ComponentClass
-import react.Props
+import org.w3c.dom.events.Event
+import react.*
 
 @JsName("default")
-external val Modal: ComponentClass<ModalCProps>
+external val Modal: ComponentClass<ModalProps>
 
-external interface ModalCProps : Props {
-    /**
-     * Buttons to render in the footer
-     */
-    var actions: Array<ModalAction>
+external interface ModalProps : Props {
+
 
     /**
-     * Appearance of the primary action. Also adds an icon to the heading, if provided.
-     * One of ["danger", "warning"]
-     */
-    var appearance: String
-
-    /**
-     * Boolean indicating content should be rendered on a transparent background.
-     */
-    var isChromeless: Boolean
-
-    /**
-     * Boolean indicating whether to focus on the first tabbable element inside the focus lock.
+     * Focus is moved to the first interactive element inside the modal dialog when true. Pass an element ref to focus
+     * on a specific element.
      */
     var autoFocus: Boolean
 
     /**
-     * The modal title; rendered in the header.
-     */
-    var heading: String
-
-    /**
-     * Makes heading multiline. If false and heading is longer than one line overflow will be not displayed.
-     */
-    var isHeadingMultiline: Boolean
-
-    /**
      * Function that will be called to initiate the exit transition.
      */
-    var onClose: () -> Unit
+    var onClose: (Event) -> Unit
+
+    /**
+     * Callback function called when the modal dialog has finished opening.
+     */
+    var onOpenComplete: (ReactNode) -> Unit
 
     /**
      * Boolean indicating if clicking the overlay should close the modal.
@@ -56,17 +38,48 @@ external interface ModalCProps : Props {
     var shouldCloseOnEscapePress: Boolean
 
     /**
-     * Object containing header, footer, body and container components.
-     * Components here will be used instead of the defaults.
+     * Height of the modal dialog. When unset the modal dialog will grow to fill the viewport and then start overflowing
+     * its contents.
      */
-    var components: ModalComponents
-
     var height: String
+
+    /**
+     * Width of the modal dialog. The recommended way to specify modal width is using named size options.
+     *
+     * Might be absolute or one of
+     * - "small",
+     * - "medium",
+     * - "large",
+     * - "x-large"
+     */
     var width: String
 }
 
 @JsName("ModalTransition")
 external val ModalTransition: ComponentClass<Props>
+
+@JsName("ModalHeader")
+external val ModalHeader: ComponentClass<ModalHeaderProps>
+
+external interface ModalHeaderProps : Props {
+
+    /**
+     * Appearance of the modal that changes the color of the primary action and adds an icon to the title.
+     * One of
+     * - "danger",
+     * - "warning"
+     */
+    var appearance: String
+
+    /**
+     * When true will allow the title to span multiple lines. Defaults to true.
+     */
+    var isMultiline: Boolean
+}
+
+@JsName("ModalTitle")
+external val ModalTitle: ComponentClass<Props>
+
 
 @JsName("ModalFooter")
 external val ModalFooter: ComponentClass<Props>

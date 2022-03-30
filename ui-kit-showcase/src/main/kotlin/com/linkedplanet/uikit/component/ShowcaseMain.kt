@@ -9,17 +9,16 @@ import com.linkedplanet.uikit.atlaskit.dropdownmenu.*
 import com.linkedplanet.uikit.atlaskit.flag.Flag
 import com.linkedplanet.uikit.atlaskit.icon.*
 import com.linkedplanet.uikit.atlaskit.lozenge.Lozenge
+import com.linkedplanet.uikit.atlaskit.modal.*
 import com.linkedplanet.uikit.atlaskit.pagelayout.Main
 import com.linkedplanet.uikit.atlaskit.select.*
 import com.linkedplanet.uikit.atlaskit.tab.Tab
 import com.linkedplanet.uikit.atlaskit.tab.Tabs
 import com.linkedplanet.uikit.atlaskit.tag.SimpleTag
 import com.linkedplanet.uikit.atlaskit.taggroup.TagGroup
-import com.linkedplanet.uikit.atlaskit.textfield.Textfield
 import com.linkedplanet.uikit.style.ShowcaseStyles
 import kotlinx.browser.window
 import react.*
-import react.dom.a
 import react.dom.html.ReactHTML.span
 import styled.css
 import styled.styledDiv
@@ -30,6 +29,7 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
 
     val (isLoading, setIsLoading) = useState(false)
     val (isCheckboxActive, setIsCheckboxActive) = useState(false)
+    val (isModalActive, setIsModalActive) = useState(false)
 
     Main {
         styledDiv {
@@ -307,6 +307,66 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
                 }
 
                 examples = listOfNotNull(example1, example2, example3, example4)
+            }
+
+            ShowcaseItem {
+                name = "Modal"
+                packages = Package(
+                    "@atlaskit/modal-dialog",
+                    "https://atlassian.design/components/modal-dialog/examples"
+                ).toList()
+
+                val example = createElement {
+                    Button {
+                        +"Show modal"
+
+                        attrs.onClick = {
+                            setIsModalActive(true)
+                        }
+                    }
+
+                    if (isModalActive) {
+                        ModalTransition {
+                            Modal {
+                                attrs.onClose = {
+                                    setIsModalActive(false)
+                                }
+
+                                ModalHeader {
+                                    ModalTitle {
+                                        +"Sample Modal"
+                                    }
+                                    Button {
+                                        attrs.appearance = "link"
+                                        attrs.onClick = {
+                                            setIsModalActive(false)
+                                        }
+
+                                        CrossIcon {
+                                            attrs.label = "Close popup"
+                                            attrs.primaryColor = "#000"
+                                        }
+                                    }
+                                }
+                                ModalFooter {
+                                    ButtonGroup {
+                                        Button {
+                                            // If not autofocused, the other button is focused with a border!
+                                            attrs.autoFocus = true
+                                            attrs.appearance = "primary"
+                                            attrs.onClick = {
+                                                setIsModalActive(false)
+                                            }
+                                            +"Close"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                examples = listOfNotNull(example)
             }
         }
     }
