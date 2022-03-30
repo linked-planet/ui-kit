@@ -9,6 +9,7 @@ external val SimpleTag: ComponentClass<SimpleTagProps>
 
 external interface SimpleTagProps : Props {
     var text: String
+    var color: String
 }
 
 

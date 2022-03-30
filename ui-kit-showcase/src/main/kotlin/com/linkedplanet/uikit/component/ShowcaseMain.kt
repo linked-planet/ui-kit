@@ -7,6 +7,7 @@ import com.linkedplanet.uikit.atlaskit.checkbox.Checkbox
 import com.linkedplanet.uikit.atlaskit.datetimepicker.DateTimePicker
 import com.linkedplanet.uikit.atlaskit.dropdownmenu.*
 import com.linkedplanet.uikit.atlaskit.flag.Flag
+import com.linkedplanet.uikit.atlaskit.icon.WarningIcon
 import com.linkedplanet.uikit.atlaskit.pagelayout.Main
 import com.linkedplanet.uikit.atlaskit.select.*
 import com.linkedplanet.uikit.atlaskit.tab.Tab
@@ -16,9 +17,6 @@ import com.linkedplanet.uikit.atlaskit.taggroup.TagGroup
 import com.linkedplanet.uikit.style.ShowcaseStyles
 import kotlinx.browser.window
 import react.*
-import react.dom.html.ReactHTML.br
-import react.dom.html.ReactHTML.h1
-import react.dom.html.ReactHTML.hr
 import react.dom.html.ReactHTML.span
 import styled.css
 import styled.styledDiv
@@ -39,8 +37,7 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
             // ---------------------
             ShowcaseItem {
                 name = "Avatar"
-                packageName = "@atlaskit/avatar"
-                docUrl = "https://atlassian.design/components/avatar/examples"
+                packages = Package("@atlaskit/avatar", "https://atlassian.design/components/avatar/examples").toList()
 
                 val avatar = createElement {
                     Avatar {
@@ -67,8 +64,7 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
 
             ShowcaseItem {
                 name = "Button & Button-Group"
-                packageName = "@atlaskit/button"
-                docUrl = "https://atlassian.design/components/button/examples"
+                packages = Package("@atlaskit/button", "https://atlassian.design/components/button/examples").toList()
 
                 val example = createElement {
                     ButtonGroup {
@@ -96,8 +92,8 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
 
             ShowcaseItem {
                 name = "Checkbox"
-                packageName = "@atlaskit/checkbox"
-                docUrl = "https://atlassian.design/components/checkbox/code"
+                packages =
+                    Package("@atlaskit/checkbox", "https://atlassian.design/components/checkbox/example").toList()
 
                 val example = createElement {
                     Checkbox {
@@ -114,13 +110,15 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
 
             ShowcaseItem {
                 name = "Date time picker"
-                packageName = "@atlaskit/datetime-picker"
-                docUrl = "https://atlassian.design/components/datetime-picker/examples"
+                packages = Package(
+                    "@atlaskit/datetime-picker",
+                    "https://atlassian.design/components/datetime-picker/examples"
+                ).toList()
 
                 val example = createElement {
                     styledDiv {
                         css {
-                            +ShowcaseStyles.showcaseItemExampleDateTimePicker
+                            +ShowcaseStyles.showcaseItemExampleMediumSize
                         }
                         DateTimePicker {}
                     }
@@ -131,8 +129,10 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
 
             ShowcaseItem {
                 name = "Dropdown menu"
-                packageName = "@atlaskit/dropdown-menu"
-                docUrl = "https://atlassian.design/components/dropdown-menu/examples"
+                packages = Package(
+                    "@atlaskit/dropdown-menu",
+                    "https://atlassian.design/components/dropdown-menu/examples"
+                ).toList()
 
                 val example = createElement {
                     DropdownMenu {
@@ -152,60 +152,99 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
                 examples = listOfNotNull(example)
             }
 
-            // ---------------------
-            hr {}
-            h1 {
-                +"Flag"
-            }
+            ShowcaseItem {
+                name = "Flag"
+                packages = Package("@atlaskit/flag", "https://atlassian.design/components/flag/examples").toList()
 
-            Flag {
-                attrs.title = "Flag"
-                attrs.description = "Description of flag."
-            }
-
-            // ---------------------
-            hr {}
-            h1 {
-                +"Select"
-            }
-
-            Select {
-                attrs.options = arrayOf(
-                    SelectOption("First option", "first"),
-                    SelectOption("Second option", "second")
-                )
-            }
-            br {}
-            SelectGroup {
-                attrs.options = arrayOf(
-                    GroupedSelectOptions("First group", arrayOf(SelectOption("First option", "first"))),
-                    GroupedSelectOptions("Second group", arrayOf(SelectOption("Second option", "second")))
-                )
-            }
-
-            // ---------------------
-            hr {}
-            h1 {
-                +"Tabs"
-            }
-
-            Tabs {
-                attrs.tabs = arrayOf(
-                    Tab("First tab", createElement { span { +"First" } }!!),
-                    Tab("Second tab", createElement { span { +"Second" } }!!),
-                )
-            }
-
-            // ---------------------
-            hr {}
-            h1 {
-                +"Tag & Tag-Group"
-            }
-
-            TagGroup {
-                SimpleTag {
-                    attrs.text = "Simple Tag"
+                val warningIcon = createElement {
+                    WarningIcon {}
                 }
+
+                val example = createElement {
+                    Flag {
+                        attrs.title = "Flag"
+                        attrs.icon = warningIcon
+                        attrs.description = "Description of flag."
+                    }
+                }
+
+                examples = listOfNotNull(example)
+            }
+
+            ShowcaseItem {
+                name = "Select"
+                packages = Package("@atlaskit/select", "https://atlassian.design/components/select/examples").toList()
+
+                val example1 = createElement {
+                    styledDiv {
+                        css {
+                            +ShowcaseStyles.showcaseItemExampleMediumSize
+                        }
+                        Select {
+                            attrs.options = arrayOf(
+                                SelectOption("First option", "first"),
+                                SelectOption("Second option", "second")
+                            )
+                        }
+                    }
+                }
+
+                val example2 = createElement {
+                    styledDiv {
+                        css {
+                            +ShowcaseStyles.showcaseItemExampleMediumSize
+                        }
+                        SelectGroup {
+                            attrs.options = arrayOf(
+                                GroupedSelectOptions("First group", arrayOf(SelectOption("First option", "first"))),
+                                GroupedSelectOptions("Second group", arrayOf(SelectOption("Second option", "second")))
+                            )
+                        }
+                    }
+                }
+
+                examples = listOfNotNull(example1, example2)
+            }
+
+            ShowcaseItem {
+                name = "Tabs"
+                packages = Package("@atlaskit/tabs", "https://atlassian.design/components/tabs/examples").toList()
+
+                val example = createElement {
+                    styledDiv {
+                        css {
+                            +ShowcaseStyles.showcaseItemExampleMediumSize
+                        }
+                        Tabs {
+                            attrs.tabs = arrayOf(
+                                Tab("First tab", createElement { span { +"First" } }!!),
+                                Tab("Second tab", createElement { span { +"Second" } }!!),
+                            )
+                        }
+                    }
+                }
+
+                examples = listOfNotNull(example)
+            }
+
+            ShowcaseItem {
+                name = "Tag & Tag-Group"
+                packages = Package("@atlaskit/tag", "https://atlassian.design/components/tag/examples").toList()
+                    .plus(Package("@atlaskit/tag-group", "https://atlassian.design/components/tag-group/examples"))
+
+                val example = createElement {
+                    TagGroup {
+                        SimpleTag {
+                            attrs.text = "Simple Tag"
+                        }
+                        SimpleTag {
+                            attrs.text = "Colored simple Tag"
+                            attrs.color = "purple"
+                        }
+                    }
+                }
+
+                examples = listOfNotNull(example)
             }
         }
     }

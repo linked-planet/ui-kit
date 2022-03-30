@@ -3,6 +3,7 @@ package com.linkedplanet.uikit.component
 import com.linkedplanet.uikit.style.ShowcaseStyles
 import react.*
 import react.dom.div
+import react.dom.html.AnchorTarget
 import react.dom.html.ReactHTML.a
 import react.dom.html.ReactHTML.h3
 import react.dom.span
@@ -12,10 +13,16 @@ import styled.styledDiv
 
 external interface ShowcaseItemProps : PropsWithChildren {
     var name: String
-    var packageName: String
-    var docUrl: String?
+    var packages: List<Package>
 
     var examples: List<ReactElement>
+}
+
+data class Package(
+    val name: String,
+    val url: String
+) {
+    fun toList(): List<Package> = listOf(this)
 }
 
 val ShowcaseItem = fc<ShowcaseItemProps> { props ->
@@ -30,19 +37,19 @@ val ShowcaseItem = fc<ShowcaseItemProps> { props ->
         }
 
         div {
-            props.docUrl
-                ?.let { docUrl ->
-                    span {
-                        +"Package: "
-                    }
-                    a {
-                        attrs.href = docUrl
-                        +props.packageName
-                    }
+            span {
+                +"Packages: "
+            }
+            props.packages.forEachIndexed { index, pack ->
+                a {
+                    attrs.href = pack.url
+                    attrs.target = AnchorTarget._blank
+                    +pack.name
                 }
-                ?: span {
-                    +"Package: ${props.packageName}"
+                if (index != props.packages.size - 1) {
+                    +", "
                 }
+            }
         }
 
         div {
