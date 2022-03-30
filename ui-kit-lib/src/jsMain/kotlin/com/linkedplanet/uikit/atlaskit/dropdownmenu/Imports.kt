@@ -8,16 +8,12 @@ import react.ComponentClass
 import react.Props
 
 @JsName("default")
-/**
- * This is the root component that you will use for every dropdown menu.
- *
- * It comes with all CState management out of the box.
- *
- * Need to programmatically control the open CState? You'll want to use DropdownMenuCStateless instead.
- */
-external val DropdownMenu: ComponentClass<DropdownMenuCProps>
+external val DropdownMenu: ComponentClass<DropdownMenuProps>
 
-external interface DropdownMenuCProps : Props {
+/**
+ * A dropdown menu displays a list of actions or options to a user.
+ */
+external interface DropdownMenuProps : Props {
 
     /**
      * Called when the menu should be open/closed. Received an object with isOpen CState.
@@ -36,13 +32,6 @@ external interface DropdownMenuCProps : Props {
     var appearance: String
 
     /**
-     * Value passed to the Layer component to determine when to reposition the droplist
-     *
-     * One of <"viewport", "window", "scrollParent">
-     */
-    var boundariesElement: String
-
-    /**
      * If true, a Spinner is rendered instead of the items
      */
     var isLoading: Boolean
@@ -53,23 +42,25 @@ external interface DropdownMenuCProps : Props {
     var isOpen: Boolean
 
     /**
-     * Position of the menu. See the documentation of @atlaskit/layer for more details.
+     * Position of the menu.
+     * One of
+     * - "auto-start",
+     * - "auto",
+     * - "auto-end",
+     * - "top-start",
+     * - "top",
+     * - "top-end",
+     * - "right-start",
+     * - "right",
+     * - "right-end",
+     * - "bottom-end",
+     * - "bottom",
+     * - "bottom-start",
+     * - "left-end",
+     * - "left",
+     * - "left-start"
      */
-    var position: String
-
-    /**
-     * Determines if the dropdown menu should be positioned fixed.
-     *
-     * Useful for breaking out of overflow scroll/hidden containers, however, extra layout
-     * management will be required to control scroll behaviour when this property is
-     * enabled as the menu will not update position with the target on scroll.
-     */
-    var isMenuFixed: Boolean
-
-    /**
-     * Option to fit dropdown menu width to its parent width
-     */
-    var shouldFitContainer: Boolean
+    var placement: String
 
     /**
      * Allows the dropdown menu to be placed on the opposite side of its trigger if it does not fit in the viewport.
@@ -84,44 +75,6 @@ external interface DropdownMenuCProps : Props {
      * One of <react.ReactNode, string>
      */
     var trigger: dynamic
-
-    /**
-     * CProps to pass through to the trigger button.
-     *
-     * See @atlaskit/button for allowed CProps.
-     */
-    var triggerButtonCProps: ButtonProps
-
-    /**
-     * Controls the interface of trigger to be used for the dropdown menu.
-     *
-     * The default trigger allows you to supply your own trigger component.
-     *
-     * Setting this prop to button will render a Button component with an
-     * 'expand' icon, and the trigger prop contents inside the button.
-     *
-     * One of <"default", "button">
-     */
-    var triggerType: String
-
-    /**
-     * Callback to know when the menu is correctly positioned after it is opened
-     */
-    var onPositioned: () -> Unit
-
-    /**
-     * A testId prop is provided for specified elements, which is a unique string
-     * that appears as a data attribute data -testid in the rendered code, serving
-     * as a hook for automated tests.
-     *
-     * As dropdown-menu is composed of different components, we passed down the
-     * testId to the sub component you want to test:
-     *
-     * - testId--trigger to get the menu trigger.
-     * - testId--content to get the dropdown content trigger.
-     */
-    var testId: String
-
 }
 
 /**
@@ -172,7 +125,7 @@ external interface DropdownItemCheckboxProps : Props {
     var isSelected: Boolean
 
     /**
-     * Standard optional onClick handler
+     * Event that is triggered when the checkbox is clicked.
      */
     var onClick: (Event) -> Unit
 

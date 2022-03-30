@@ -3,13 +3,17 @@
 package com.linkedplanet.uikit.atlaskit.checkbox
 
 import org.w3c.dom.events.Event
-import react.ComponentClass
-import react.Props
+import react.*
 
 @JsName("Checkbox")
-external val Checkbox: ComponentClass<CheckboxCProps>
+external val Checkbox: ComponentClass<CheckboxProps>
 
-external interface CheckboxCProps : Props {
+external interface CheckboxProps : Props {
+
+    /**
+     * Id assigned to input.
+     */
+    var id: String
 
     /**
      * Sets whether the checkbox is checked or unchecked.
@@ -20,11 +24,6 @@ external interface CheckboxCProps : Props {
      * Sets whether the checkbox is disabled.
      */
     var isDisabled: Boolean
-
-    /**
-     * Sets whether the checkbox should take up the full width of the parent.
-     */
-    var isFullWidth: Boolean
 
     /**
      * Marks the field as invalid. Changes style of unchecked component.
@@ -38,9 +37,9 @@ external interface CheckboxCProps : Props {
 
     /**
      * The label to be displayed to the right of the checkbox.
-     * The label is part of the clickable element to select the checkbox.
+     * It is part of the clickable element to select the checkbox.
      */
-    var label: String
+    var label: ReactElement
 
     /**
      * The value to be used in the checkbox input. This is the value that will be returned on form submission.

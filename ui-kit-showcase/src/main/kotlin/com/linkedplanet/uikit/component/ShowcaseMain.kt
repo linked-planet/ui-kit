@@ -42,8 +42,9 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
                 val avatar = createElement {
                     Avatar {
                         attrs.size = "large"
+                        attrs.presence = "online"
                     }
-                }
+                }!!
 
                 val example1 = createElement {
                     AvatarItem {
@@ -79,7 +80,7 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
                         LoadingButton {
                             +"Loading button"
                             attrs.isLoading = isLoading
-                            attrs.onClick = { _, _ ->
+                            attrs.onClick = { _ ->
                                 setIsLoading(true)
                                 window.setTimeout({ setIsLoading(false) }, 5000)
                             }

@@ -3,8 +3,7 @@
 package com.linkedplanet.uikit.atlaskit.button
 
 import org.w3c.dom.events.Event
-import react.ComponentClass
-import react.Props
+import react.*
 
 @JsName("default")
 external val Button: ComponentClass<ButtonProps>
@@ -12,41 +11,42 @@ external val Button: ComponentClass<ButtonProps>
 external interface ButtonProps : Props {
 
     /**
-     * Sets whether the checkbox is checked or unchecked.
-     */
-    var isHover: Boolean
-
-    /**
-     * Sets whether the checkbox is checked or unchecked.
-     */
-    var isFocus: Boolean
-
-    /**
-     * Sets whether the checkbox is checked or unchecked.
-     */
-    var isSelected: Boolean
-
-    /**
-     * Sets whether the checkbox is disabled.
-     */
-    var isDisabled: Boolean
-
-    /**
-     * Sets whether the checkbox is disabled.
+     * The base styling to apply to the button.
+     * One of
+     * - "default",
+     * - "danger",
+     * - "link",
+     * - "primary",
+     * - "subtle",
+     * - "subtle-link",
+     * - "warning"
      */
     var appearance: String
 
     /**
-     * The value to be used in the checkbox input. This is the value that will be returned on form submission.
+     * Change the style to indicate the button is selected.
      */
-    var value: String?
+    var isSelected: Boolean
 
-    var iconBefore: dynamic
+    /**
+     * Set if the button is disabled.
+     */
+    var isDisabled: Boolean
 
+    /**
+     * Places an icon within the button, before the button's text.
+     */
+    var iconBefore: ReactElement
+
+    /**
+     * Add a classname to the button.
+     */
     var className: String
 
+    /**
+     * Handler to be called on click.
+     */
     var onClick: (Event) -> Unit
-
 }
 
 @JsName("ButtonGroup")
@@ -57,28 +57,10 @@ external interface ButtonGroupProps : Props
 @JsName("LoadingButton")
 external val LoadingButton: ComponentClass<LoadingButtonProps>
 
-external interface LoadingButtonProps : Props {
-
-    var isDisabled: Boolean
-
-    var title: String
+external interface LoadingButtonProps : ButtonProps {
 
     /**
      * Conditionally show a spinner over the top of a button.
      */
     var isLoading: Boolean
-
-    /**
-     * Sets whether the checkbox is disabled.
-     */
-    var appearance: String
-
-    var iconBefore: dynamic
-
-    var className: String
-
-    /**
-     * Handler to be called on click. The second argument can be used to track analytics data.
-     */
-    var onClick: (Event, dynamic) -> Unit
 }
