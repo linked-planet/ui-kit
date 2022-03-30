@@ -7,7 +7,7 @@ import com.linkedplanet.uikit.atlaskit.checkbox.Checkbox
 import com.linkedplanet.uikit.atlaskit.datetimepicker.DateTimePicker
 import com.linkedplanet.uikit.atlaskit.dropdownmenu.*
 import com.linkedplanet.uikit.atlaskit.flag.Flag
-import com.linkedplanet.uikit.atlaskit.icon.WarningIcon
+import com.linkedplanet.uikit.atlaskit.icon.*
 import com.linkedplanet.uikit.atlaskit.pagelayout.Main
 import com.linkedplanet.uikit.atlaskit.select.*
 import com.linkedplanet.uikit.atlaskit.tab.Tab
@@ -242,6 +242,25 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
                             attrs.text = "Colored simple Tag"
                             attrs.color = "purple"
                         }
+                    }
+                }
+
+                examples = listOfNotNull(example)
+            }
+
+            ShowcaseItem {
+                name = "Icon"
+                packages = Package("@atlaskit/icon", "https://atlassian.design/components/icon/icon-explorer").toList()
+
+                val example = createElement {
+                    ArrowDownIcon {}
+                    BulletListIcon{}
+                    CheckCircleIcon {}
+                    LogIcon {}
+                    RefreshIcon {}
+                    SendIcon {}
+                    TrashIcon {
+                        attrs.primaryColor = "red"
                     }
                 }
 

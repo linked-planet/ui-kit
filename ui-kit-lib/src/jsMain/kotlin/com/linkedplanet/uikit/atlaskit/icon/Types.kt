@@ -5,12 +5,12 @@ import react.Props
 
 interface IconProps : Props {
     /**
-     * For primary colour for icons
+     * Primary color for the icon. Inherits the current font color by default.
      */
     var primaryColor: String
 
     /**
-     * For secondary colour for 2-color icons. Set to inherit to control this via "fill" in CSS
+     * Secondary color for the icon. Defaults to the page background for an icon that supports two colors.
      */
     var secondaryColor: String
 
@@ -19,6 +19,12 @@ interface IconProps : Props {
      * One of ['small', 'medium', 'large', 'xlarge']
      */
     var size: String
+
+    /**
+     * Text used to describe what the icon is in context. A label is needed when there is no pairing visible text next
+     * to the icon. An empty string marks the icon as presentation only.
+     */
+    var label: String
 
     var onClick: (MouseEvent) -> Unit
 }
