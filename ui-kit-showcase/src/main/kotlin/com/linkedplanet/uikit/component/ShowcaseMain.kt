@@ -11,6 +11,7 @@ import com.linkedplanet.uikit.atlaskit.icon.*
 import com.linkedplanet.uikit.atlaskit.lozenge.Lozenge
 import com.linkedplanet.uikit.atlaskit.modal.*
 import com.linkedplanet.uikit.atlaskit.pagelayout.Main
+import com.linkedplanet.uikit.atlaskit.popup.Popup
 import com.linkedplanet.uikit.atlaskit.select.*
 import com.linkedplanet.uikit.atlaskit.tab.Tab
 import com.linkedplanet.uikit.atlaskit.tab.Tabs
@@ -30,6 +31,7 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
     val (isLoading, setIsLoading) = useState(false)
     val (isCheckboxActive, setIsCheckboxActive) = useState(false)
     val (isModalActive, setIsModalActive) = useState(false)
+    val (isPopupActive, setIsPopupActive) = useState(false)
 
     Main {
         styledDiv {
@@ -40,7 +42,8 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
             // ---------------------
             ShowcaseItem {
                 name = "Avatar"
-                packages = Package("@atlaskit/avatar", "https://atlassian.design/components/avatar/examples").toList()
+                packages =
+                    Package("@atlaskit/avatar", "https://atlassian.design/components/avatar/examples").toList()
 
                 val avatar = createElement {
                     Avatar {
@@ -68,7 +71,8 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
 
             ShowcaseItem {
                 name = "Button & Button-Group"
-                packages = Package("@atlaskit/button", "https://atlassian.design/components/button/examples").toList()
+                packages =
+                    Package("@atlaskit/button", "https://atlassian.design/components/button/examples").toList()
 
                 val example = createElement {
                     ButtonGroup {
@@ -177,7 +181,8 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
 
             ShowcaseItem {
                 name = "Select"
-                packages = Package("@atlaskit/select", "https://atlassian.design/components/select/examples").toList()
+                packages =
+                    Package("@atlaskit/select", "https://atlassian.design/components/select/examples").toList()
 
                 val example1 = createElement {
                     styledDiv {
@@ -201,7 +206,10 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
                         SelectGroup {
                             attrs.options = arrayOf(
                                 GroupedSelectOptions("First group", arrayOf(SelectOption("First option", "first"))),
-                                GroupedSelectOptions("Second group", arrayOf(SelectOption("Second option", "second")))
+                                GroupedSelectOptions(
+                                    "Second group",
+                                    arrayOf(SelectOption("Second option", "second"))
+                                )
                             )
                         }
                     }
@@ -253,7 +261,8 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
 
             ShowcaseItem {
                 name = "Icon"
-                packages = Package("@atlaskit/icon", "https://atlassian.design/components/icon/icon-explorer").toList()
+                packages =
+                    Package("@atlaskit/icon", "https://atlassian.design/components/icon/icon-explorer").toList()
 
                 val example = createElement {
                     ArrowDownIcon {}
@@ -362,6 +371,47 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
                                     }
                                 }
                             }
+                        }
+                    }
+                }
+
+                examples = listOfNotNull(example)
+            }
+
+            ShowcaseItem {
+                name = "Popup"
+                packages =
+                    Package("@atlaskit/popup", "https://atlassian.design/components/popup/examples").toList()
+
+                val example = createElement {
+                    Popup {
+                        attrs.isOpen = isPopupActive
+                        attrs.placement = "top"
+                        attrs.onClose = {
+                            setIsPopupActive(false)
+                        }
+                        attrs.content = {
+                            createElement {
+                                styledDiv {
+                                    css {
+                                        +ShowcaseStyles.showcaseItemExamplePopup
+                                    }
+                                    span {
+                                        +"Popup content"
+                                    }
+                                }
+                            }!!
+                        }
+                        attrs.trigger = {
+                            createElement {
+                                Button {
+                                    +"Open popup"
+                                    attrs.onClick = {
+                                        setIsPopupActive(true)
+                                    }
+                                    attrs.isSelected = isPopupActive
+                                }
+                            }!!
                         }
                     }
                 }
