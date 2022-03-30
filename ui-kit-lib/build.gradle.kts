@@ -34,6 +34,7 @@ kotlin {
                 implementation(npm("@atlaskit/flag", "14.5.5"))
                 implementation(npm("@atlaskit/icon", "21.10.5"))
                 implementation(npm("@atlaskit/inline-edit", "12.1.10"))
+                implementation(npm("@atlaskit/lozenge", "11.1.8"))
                 implementation(npm("@atlaskit/menu", "1.3.1"))
                 implementation(npm("@atlaskit/page-layout", "1.2.0"))
                 implementation(npm("@atlaskit/popup", "1.3.4"))

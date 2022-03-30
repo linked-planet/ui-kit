@@ -6,11 +6,12 @@ import react.ComponentClass
 import react.Props
 
 @JsName("default")
-external val Lozenge: ComponentClass<LozengeCProps>
+external val Lozenge: ComponentClass<LozengeProps>
 
-external interface LozengeCProps : Props {
+external interface LozengeProps : Props {
 
     /**
+     * The appearance type.
      * One of "default", "inprogress", "moved", "new", "removed", "success"
      */
     var appearance: String

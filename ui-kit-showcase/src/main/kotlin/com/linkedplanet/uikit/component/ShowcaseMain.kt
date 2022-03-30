@@ -8,15 +8,18 @@ import com.linkedplanet.uikit.atlaskit.datetimepicker.DateTimePicker
 import com.linkedplanet.uikit.atlaskit.dropdownmenu.*
 import com.linkedplanet.uikit.atlaskit.flag.Flag
 import com.linkedplanet.uikit.atlaskit.icon.*
+import com.linkedplanet.uikit.atlaskit.lozenge.Lozenge
 import com.linkedplanet.uikit.atlaskit.pagelayout.Main
 import com.linkedplanet.uikit.atlaskit.select.*
 import com.linkedplanet.uikit.atlaskit.tab.Tab
 import com.linkedplanet.uikit.atlaskit.tab.Tabs
 import com.linkedplanet.uikit.atlaskit.tag.SimpleTag
 import com.linkedplanet.uikit.atlaskit.taggroup.TagGroup
+import com.linkedplanet.uikit.atlaskit.textfield.Textfield
 import com.linkedplanet.uikit.style.ShowcaseStyles
 import kotlinx.browser.window
 import react.*
+import react.dom.a
 import react.dom.html.ReactHTML.span
 import styled.css
 import styled.styledDiv
@@ -254,7 +257,7 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
 
                 val example = createElement {
                     ArrowDownIcon {}
-                    BulletListIcon{}
+                    BulletListIcon {}
                     CheckCircleIcon {}
                     LogIcon {}
                     RefreshIcon {}
@@ -265,6 +268,45 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
                 }
 
                 examples = listOfNotNull(example)
+            }
+
+            ShowcaseItem {
+                name = "Lozenge"
+                packages = Package(
+                    "@atlaskit/lozenge",
+                    "https://atlassian.design/components/lozenge/examples"
+                ).toList()
+
+                val example1 = createElement {
+                    Lozenge {
+                        +"First lozenge"
+                    }
+                }
+
+                val example2 = createElement {
+                    Lozenge {
+                        +"Colored lozenge"
+                        attrs.appearance = "new"
+                    }
+                }
+
+                val example3 = createElement {
+                    Lozenge {
+                        +"Colored bold lozenge"
+                        attrs.appearance = "success"
+                        attrs.isBold = true
+                    }
+                }
+
+                val example4 = createElement {
+                    Lozenge {
+                        +"Colored non-bold lozenge"
+                        attrs.appearance = "success"
+                        attrs.isBold = false
+                    }
+                }
+
+                examples = listOfNotNull(example1, example2, example3, example4)
             }
         }
     }
