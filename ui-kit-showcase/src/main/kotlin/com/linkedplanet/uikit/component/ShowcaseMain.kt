@@ -180,86 +180,6 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
             }
 
             ShowcaseItem {
-                name = "Select"
-                packages =
-                    Package("@atlaskit/select", "https://atlassian.design/components/select/examples").toList()
-
-                val example1 = createElement {
-                    styledDiv {
-                        css {
-                            +ShowcaseStyles.showcaseItemExampleMediumSize
-                        }
-                        Select {
-                            attrs.options = arrayOf(
-                                SelectOption("First option", "first"),
-                                SelectOption("Second option", "second")
-                            )
-                        }
-                    }
-                }
-
-                val example2 = createElement {
-                    styledDiv {
-                        css {
-                            +ShowcaseStyles.showcaseItemExampleMediumSize
-                        }
-                        SelectGroup {
-                            attrs.options = arrayOf(
-                                GroupedSelectOptions("First group", arrayOf(SelectOption("First option", "first"))),
-                                GroupedSelectOptions(
-                                    "Second group",
-                                    arrayOf(SelectOption("Second option", "second"))
-                                )
-                            )
-                        }
-                    }
-                }
-
-                examples = listOfNotNull(example1, example2)
-            }
-
-            ShowcaseItem {
-                name = "Tabs"
-                packages = Package("@atlaskit/tabs", "https://atlassian.design/components/tabs/examples").toList()
-
-                val example = createElement {
-                    styledDiv {
-                        css {
-                            +ShowcaseStyles.showcaseItemExampleMediumSize
-                        }
-                        Tabs {
-                            attrs.tabs = arrayOf(
-                                Tab("First tab", createElement { span { +"First" } }!!),
-                                Tab("Second tab", createElement { span { +"Second" } }!!),
-                            )
-                        }
-                    }
-                }
-
-                examples = listOfNotNull(example)
-            }
-
-            ShowcaseItem {
-                name = "Tag & Tag-Group"
-                packages = Package("@atlaskit/tag", "https://atlassian.design/components/tag/examples").toList()
-                    .plus(Package("@atlaskit/tag-group", "https://atlassian.design/components/tag-group/examples"))
-
-                val example = createElement {
-                    TagGroup {
-                        SimpleTag {
-                            attrs.text = "Simple Tag"
-                        }
-                        SimpleTag {
-                            attrs.text = "Colored simple Tag"
-                            attrs.color = "purple"
-                        }
-                    }
-                }
-
-                examples = listOfNotNull(example)
-            }
-
-            ShowcaseItem {
                 name = "Icon"
                 packages =
                     Package("@atlaskit/icon", "https://atlassian.design/components/icon/icon-explorer").toList()
@@ -412,6 +332,86 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
                                     attrs.isSelected = isPopupActive
                                 }
                             }!!
+                        }
+                    }
+                }
+
+                examples = listOfNotNull(example)
+            }
+
+            ShowcaseItem {
+                name = "Select"
+                packages =
+                    Package("@atlaskit/select", "https://atlassian.design/components/select/examples").toList()
+
+                val example1 = createElement {
+                    styledDiv {
+                        css {
+                            +ShowcaseStyles.showcaseItemExampleMediumSize
+                        }
+                        Select {
+                            attrs.options = arrayOf(
+                                SelectOption("First option", "first"),
+                                SelectOption("Second option", "second")
+                            )
+                        }
+                    }
+                }
+
+                val example2 = createElement {
+                    styledDiv {
+                        css {
+                            +ShowcaseStyles.showcaseItemExampleMediumSize
+                        }
+                        SelectGroup {
+                            attrs.options = arrayOf(
+                                GroupedSelectOptions("First group", arrayOf(SelectOption("First option", "first"))),
+                                GroupedSelectOptions(
+                                    "Second group",
+                                    arrayOf(SelectOption("Second option", "second"))
+                                )
+                            )
+                        }
+                    }
+                }
+
+                examples = listOfNotNull(example1, example2)
+            }
+
+            ShowcaseItem {
+                name = "Tabs"
+                packages = Package("@atlaskit/tabs", "https://atlassian.design/components/tabs/examples").toList()
+
+                val example = createElement {
+                    styledDiv {
+                        css {
+                            +ShowcaseStyles.showcaseItemExampleMediumSize
+                        }
+                        Tabs {
+                            attrs.tabs = arrayOf(
+                                Tab("First tab", createElement { span { +"First" } }!!),
+                                Tab("Second tab", createElement { span { +"Second" } }!!),
+                            )
+                        }
+                    }
+                }
+
+                examples = listOfNotNull(example)
+            }
+
+            ShowcaseItem {
+                name = "Tag & Tag-Group"
+                packages = Package("@atlaskit/tag", "https://atlassian.design/components/tag/examples").toList()
+                    .plus(Package("@atlaskit/tag-group", "https://atlassian.design/components/tag-group/examples"))
+
+                val example = createElement {
+                    TagGroup {
+                        SimpleTag {
+                            attrs.text = "Simple Tag"
+                        }
+                        SimpleTag {
+                            attrs.text = "Colored simple Tag"
+                            attrs.color = "purple"
                         }
                     }
                 }
