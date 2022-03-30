@@ -7,9 +7,9 @@ import react.ComponentClass
 import react.Props
 
 @JsName("default")
-external val Textarea: ComponentClass<TextareaCProps>
+external val Textarea: ComponentClass<TextareaProps>
 
-external interface TextareaCProps : Props {
+external interface TextareaProps : Props {
 
     /**
      * Controls the appearance of the field. subtle shows styling on hover. none hides all field styling.
@@ -33,11 +33,6 @@ external interface TextareaCProps : Props {
     var isDisabled: Boolean
 
     /**
-     * Sets styling to indicate that the input is focused.
-     */
-    var isFocused: Boolean
-
-    /**
      * Sets styling to indicate that the input is invalid
      */
     var isInvalid: Boolean
@@ -58,18 +53,18 @@ external interface TextareaCProps : Props {
     var isRequired: Boolean
 
     /**
-     * Sets maximum width of input
-     * One of <`xsmall`, `small`, `medium`, `large`, `xlarge`, custom width (e.g. `546`), `default` (100%)>
-     */
-    var width: String
-
-    /**
      * The value of the input.
      */
     var value: String?
 
+    /**
+     * The placeholder within the textarea.
+     */
     var placeholder: String
 
+    /**
+     * Handler to be called when the input changes.
+     */
     var onChange: (Event) -> Unit
 
     /**
@@ -91,7 +86,4 @@ external interface TextareaCProps : Props {
      * - none: explicitly disallow resizing on the textarea.
      */
     var resize: String
-
-    var theme: ((dynamic) -> dynamic, dynamic) -> dynamic
-
 }

@@ -18,6 +18,7 @@ import com.linkedplanet.uikit.atlaskit.tab.Tabs
 import com.linkedplanet.uikit.atlaskit.table.*
 import com.linkedplanet.uikit.atlaskit.tag.SimpleTag
 import com.linkedplanet.uikit.atlaskit.taggroup.TagGroup
+import com.linkedplanet.uikit.atlaskit.textarea.Textarea
 import com.linkedplanet.uikit.style.ShowcaseStyles
 import kotlinx.browser.window
 import react.*
@@ -428,96 +429,120 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
                 ).toList()
 
                 val example = createElement {
-                    DynamicTable {
-                        attrs.caption = createElement { +"" }!!
-                        attrs.head = DynamicTableHead(
-                            arrayOf(
-                                HeaderCell("first", "First col", isSortable = true),
-                                HeaderCell("second", "Second col", isSortable = true),
-                                HeaderCell("third", "Action col")
-                            )
-                        )
-                        attrs.rowsPerPage = 3
-                        attrs.rows = arrayOf(
-                            DynamicTableRow(
-                                "1stRow",
+                    styledDiv {
+                        css {
+                            +ShowcaseStyles.showcaseItemExampleMediumSize
+                        }
+                        DynamicTable {
+                            attrs.caption = createElement { +"" }!!
+                            attrs.head = DynamicTableHead(
                                 arrayOf(
-                                    StringRowCell("1-1"),
-                                    StringRowCell("1-2"),
-                                    ElementRowCell(createElement {
-                                        Button {
-                                            +"Delete"
-                                            attrs.appearance = "primary"
-                                        }
-                                    }!!)
-                                )
-                            ),
-                            DynamicTableRow(
-                                "2ndRow",
-                                arrayOf(
-                                    StringRowCell("2-1"),
-                                    StringRowCell("2-2"),
-                                    ElementRowCell(createElement {
-                                        Button {
-                                            +"Delete"
-                                            attrs.appearance = "primary"
-                                        }
-                                    }!!)
-                                )
-                            ),
-                            DynamicTableRow(
-                                "3rdRow",
-                                arrayOf(
-                                    StringRowCell("3-1"),
-                                    StringRowCell("3-2"),
-                                    ElementRowCell(createElement {
-                                        Button {
-                                            +"Delete"
-                                            attrs.appearance = "primary"
-                                        }
-                                    }!!)
-                                )
-                            ),
-                            DynamicTableRow(
-                                "4thRow",
-                                arrayOf(
-                                    StringRowCell("4-1"),
-                                    StringRowCell("4-2"),
-                                    ElementRowCell(createElement {
-                                        Button {
-                                            +"Delete"
-                                            attrs.appearance = "primary"
-                                        }
-                                    }!!)
-                                )
-                            ),
-                            DynamicTableRow(
-                                "5thRow",
-                                arrayOf(
-                                    StringRowCell("5-1"),
-                                    StringRowCell("5-2"),
-                                    ElementRowCell(createElement {
-                                        Button {
-                                            +"Delete"
-                                            attrs.appearance = "primary"
-                                        }
-                                    }!!)
-                                )
-                            ),
-                            DynamicTableRow(
-                                "6thRow",
-                                arrayOf(
-                                    StringRowCell("6-1"),
-                                    StringRowCell("6-2"),
-                                    ElementRowCell(createElement {
-                                        Button {
-                                            +"Delete"
-                                            attrs.appearance = "primary"
-                                        }
-                                    }!!)
+                                    HeaderCell("first", "First col", isSortable = true),
+                                    HeaderCell("second", "Second col", isSortable = true),
+                                    HeaderCell("third", "Action col")
                                 )
                             )
-                        )
+                            attrs.rowsPerPage = 3
+                            attrs.rows = arrayOf(
+                                DynamicTableRow(
+                                    "1stRow",
+                                    arrayOf(
+                                        StringRowCell("1-1"),
+                                        StringRowCell("1-2"),
+                                        ElementRowCell(createElement {
+                                            Button {
+                                                +"Delete"
+                                                attrs.appearance = "primary"
+                                            }
+                                        }!!)
+                                    )
+                                ),
+                                DynamicTableRow(
+                                    "2ndRow",
+                                    arrayOf(
+                                        StringRowCell("2-1"),
+                                        StringRowCell("2-2"),
+                                        ElementRowCell(createElement {
+                                            Button {
+                                                +"Delete"
+                                                attrs.appearance = "primary"
+                                            }
+                                        }!!)
+                                    )
+                                ),
+                                DynamicTableRow(
+                                    "3rdRow",
+                                    arrayOf(
+                                        StringRowCell("3-1"),
+                                        StringRowCell("3-2"),
+                                        ElementRowCell(createElement {
+                                            Button {
+                                                +"Delete"
+                                                attrs.appearance = "primary"
+                                            }
+                                        }!!)
+                                    )
+                                ),
+                                DynamicTableRow(
+                                    "4thRow",
+                                    arrayOf(
+                                        StringRowCell("4-1"),
+                                        StringRowCell("4-2"),
+                                        ElementRowCell(createElement {
+                                            Button {
+                                                +"Delete"
+                                                attrs.appearance = "primary"
+                                            }
+                                        }!!)
+                                    )
+                                ),
+                                DynamicTableRow(
+                                    "5thRow",
+                                    arrayOf(
+                                        StringRowCell("5-1"),
+                                        StringRowCell("5-2"),
+                                        ElementRowCell(createElement {
+                                            Button {
+                                                +"Delete"
+                                                attrs.appearance = "primary"
+                                            }
+                                        }!!)
+                                    )
+                                ),
+                                DynamicTableRow(
+                                    "6thRow",
+                                    arrayOf(
+                                        StringRowCell("6-1"),
+                                        StringRowCell("6-2"),
+                                        ElementRowCell(createElement {
+                                            Button {
+                                                +"Delete"
+                                                attrs.appearance = "primary"
+                                            }
+                                        }!!)
+                                    )
+                                )
+                            )
+                        }
+                    }
+                }
+
+                examples = listOfNotNull(example)
+            }
+
+            ShowcaseItem {
+                name = "Text area"
+                packages =
+                    Package("@atlaskit/textarea", "https://atlassian.design/components/textarea/examples").toList()
+
+                val example = createElement {
+                    styledDiv {
+                        css {
+                            +ShowcaseStyles.showcaseItemExampleMediumSize
+                        }
+                        Textarea {
+                            attrs.defaultValue = "Content of text area..."
+                        }
                     }
                 }
 

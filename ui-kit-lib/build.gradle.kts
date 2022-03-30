@@ -43,6 +43,7 @@ kotlin {
                 implementation(npm("@atlaskit/tabs", "12.1.3")) // TODO: update!
                 implementation(npm("@atlaskit/tag", "11.3.0"))
                 implementation(npm("@atlaskit/tag-group", "10.0.11"))
+                implementation(npm("@atlaskit/textarea", "4.3.2"))
                 implementation(npm("@atlaskit/textfield", "5.1.8"))
 
                 // Atlaskit dependencies
