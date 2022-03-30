@@ -31,6 +31,7 @@ kotlin {
                 implementation(npm("@atlaskit/css-reset", "6.2.0"))
                 implementation(npm("@atlaskit/datetime-picker", "6.2.0"))
                 implementation(npm("@atlaskit/dropdown-menu", "11.1.2"))
+                implementation(npm("@atlaskit/dynamic-table", "14.5.2"))
                 implementation(npm("@atlaskit/flag", "14.5.5"))
                 implementation(npm("@atlaskit/icon", "21.10.5"))
                 implementation(npm("@atlaskit/lozenge", "11.1.8"))

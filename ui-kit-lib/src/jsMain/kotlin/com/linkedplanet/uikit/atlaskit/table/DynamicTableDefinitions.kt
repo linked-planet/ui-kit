@@ -9,21 +9,24 @@ data class DynamicTableHead(
 
 data class HeaderCell(
     val key: String,
-    val isSortable: Boolean,
-    val content: String
-)
-
-data class RowCell(
-    val content: String
-)
-
-data class RowCellNode(
-    val content: ReactElement
+    val content: String,
+    val isSortable: Boolean = false
 )
 
 data class DynamicTableRow(
     val key: String,
-    val cells: Array<dynamic>,
-    val onClick: (MouseEvent) -> Unit
+    val cells: Array<RowCell>,
+    val onClick: (MouseEvent) -> Unit = {},
+    val isHighlighted: Boolean = false
 )
+
+abstract class RowCell
+
+data class StringRowCell(
+    val content: String
+): RowCell()
+
+data class ElementRowCell(
+    val content: ReactElement
+): RowCell()
 
