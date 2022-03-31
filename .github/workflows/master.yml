@@ -1,20 +1,20 @@
-name: Publish Library
+name: UI-Kit master
 on:
   push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
-  release:
-    types: [ created ]
+    branches: [ master ]
+
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Build and Test library
+      - name: Check license
+        run: ./gradlew license
+
+      - name: Build and test library
         run: ./gradlew test build --info
+
       - uses: actions/checkout@v2
+
         # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
         # the publishing section of your build.gradle
       - name: Publish to GitHub Packages

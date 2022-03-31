@@ -1,0 +1,15 @@
+name: UI-Kit default
+on:
+  push:
+    branches-ignore:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check license
+        run: ./gradlew license
+
+      - name: Build and test library
+        run: ./gradlew test build --info
