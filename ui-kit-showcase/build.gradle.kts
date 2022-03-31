@@ -16,8 +16,8 @@ dependencies {
 
     // Kotlin
     implementation(kotlin("stdlib-js", "1.5.31"))
-    implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core-js", "1.5.2")
-    implementation("org.jetbrains.kotlinx", "kotlinx-html-js", "0.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.5.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-html-js:0.7.3")
 
     // React
     implementation("org.jetbrains.kotlin-wrappers:kotlin-react:17.0.2-pre.257-kotlin-1.5.31")

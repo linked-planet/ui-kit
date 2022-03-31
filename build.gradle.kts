@@ -1,6 +1,5 @@
 plugins {
     kotlin("js") version "1.5.31" apply false
-    kotlin("multiplatform") version "1.5.31" apply false
     id("com.github.hierynomus.license") version "0.16.1"
 }
 
