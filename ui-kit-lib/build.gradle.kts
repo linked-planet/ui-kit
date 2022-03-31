@@ -23,6 +23,9 @@ kotlin {
                 implementation("org.jetbrains.kotlin-wrappers:kotlin-react:17.0.2-pre.257-kotlin-1.5.31")
                 implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:17.0.2-pre.257-kotlin-1.5.31")
 
+                // Moment
+                implementation("io.github.samgarasx:kotlin-moment:2.27.0-pre.12-kotlin-1.5.21")
+
                 // Atlaskit
                 implementation(npm("@atlaskit/atlassian-navigation", "2.1.3"))
                 implementation(npm("@atlaskit/avatar", "20.5.7"))
@@ -49,12 +52,6 @@ kotlin {
                 implementation(npm("@atlaskit/textarea", "4.3.2"))
                 implementation(npm("@atlaskit/textfield", "5.1.8"))
                 implementation(npm("@atlaskit/toggle", "12.4.5"))
-
-                // Atlaskit dependencies
-                implementation(npm("exenv", "1.2.2"))
-                implementation(npm("memoize-one", "6.0.0"))
-                implementation(npm("styled-components", "3.2.6"))
-                implementation(npm("tiny-invariant", "1.2.0"))
             }
         }
         val jsTest by getting {
