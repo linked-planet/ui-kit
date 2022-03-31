@@ -52,6 +52,9 @@ kotlin {
                 implementation(npm("@atlaskit/textarea", "4.3.2"))
                 implementation(npm("@atlaskit/textfield", "5.1.8"))
                 implementation(npm("@atlaskit/toggle", "12.4.5"))
+
+                // Guided tour
+                implementation(npm("react-joyride", "2.4.0"))
             }
         }
         val jsTest by getting {

@@ -24,7 +24,10 @@ import com.linkedplanet.uikit.atlaskit.taggroup.TagGroup
 import com.linkedplanet.uikit.atlaskit.textarea.Textarea
 import com.linkedplanet.uikit.atlaskit.textfield.Textfield
 import com.linkedplanet.uikit.atlaskit.toggle.Toggle
+import com.linkedplanet.uikit.joyride.Joyride
+import com.linkedplanet.uikit.joyride.JoyrideLocale
 import com.linkedplanet.uikit.style.ShowcaseStyles
+import kotlinext.js.jsObject
 import kotlinx.browser.window
 import react.*
 import react.dom.span
@@ -40,6 +43,7 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
     val (isModalActive, setIsModalActive) = useState(false)
     val (isPopupActive, setIsPopupActive) = useState(false)
     val (isPanelActive, setIsPanelActive) = useState(false)
+    val (isJoyrideActive, setIsJoyrideActive) = useState(false)
 
     Main {
         styledDiv {
@@ -271,6 +275,100 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
                     SendIcon {}
                     TrashIcon {
                         attrs.primaryColor = "red"
+                    }
+                }
+
+                examples = listOfNotNull(example)
+            }
+
+            ShowcaseItem {
+                name = "Joyride"
+                packages =
+                    Package("react-joyride", "https://docs.react-joyride.com/").toList()
+
+                val example = createElement {
+                    ButtonGroup {
+                        Button {
+                            attrs.isSelected = isJoyrideActive
+                            attrs.onClick = {
+                                setIsJoyrideActive(true)
+                            }
+                            +"Start Tour"
+                        }
+
+                        Button {
+                            attrs.className = "joyride-first"
+                            +"First step"
+                        }
+
+                        Button {
+                            attrs.className = "joyride-second"
+                            +"Second step"
+                        }
+
+                        Button {
+                            attrs.className = "joyride-third"
+                            +"Third step"
+                        }
+                    }
+
+                    Joyride {
+                        attrs.run = isJoyrideActive
+                        attrs.continuous = true
+                        attrs.showProgress = true
+                        attrs.disableScrolling = true
+                        attrs.scrollToFirstStep = false
+                        attrs.scrollOffset = 220
+                        attrs.locale = JoyrideLocale(
+                            "Zurück",
+                            "Schließen",
+                            "Fertig",
+                            "Weiter",
+                            "Öffnen",
+                            "Überspringen"
+                        )
+                        attrs.callback = { joyrideState ->
+                            when (joyrideState.action) {
+                                "close", "reset" -> {
+                                    setIsJoyrideActive(false)
+                                }
+                            }
+                        }
+                        attrs.steps = arrayOf(
+                            jsObject {
+                                title = "First step title"
+                                target = ".joyride-first"
+                                disableBeacon = true
+                                showSkipButton = true
+                                content = createElement {
+                                    span {
+                                        +"First step content..."
+                                    }
+                                }!!
+                            },
+                            jsObject {
+                                title = "Second step title"
+                                target = ".joyride-second"
+                                disableBeacon = true
+                                showSkipButton = true
+                                content = createElement {
+                                    span {
+                                        +"Second step content..."
+                                    }
+                                }!!
+                            },
+                            jsObject {
+                                title = "Third step title"
+                                target = ".joyride-third"
+                                disableBeacon = true
+                                showSkipButton = true
+                                content = createElement {
+                                    span {
+                                        +"Third step content..."
+                                    }
+                                }!!
+                            }
+                        )
                     }
                 }
 
