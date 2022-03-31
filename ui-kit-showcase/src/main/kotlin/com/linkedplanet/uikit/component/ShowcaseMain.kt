@@ -32,10 +32,10 @@ import com.linkedplanet.uikit.tooltip.ReactTooltipOffset
 import kotlinext.js.jsObject
 import kotlinx.browser.window
 import react.*
-import react.dom.*
+import react.dom.div
+import react.dom.span
 import styled.css
 import styled.styledDiv
-import kotlin.js.json
 
 external interface ShowcaseMainProps : Props
 
