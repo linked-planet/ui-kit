@@ -7,13 +7,28 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-ktorbase-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-ktorbase-
+
+      - name: Set up JDK 8
+        uses: actions/setup-java@v2
+        with:
+          java-version: '8'
+          distribution: 'adopt'
+
       - name: Check license
         run: ./gradlew license
 
       - name: Build and test library
         run: ./gradlew test build --info
-
-      - uses: actions/checkout@v2
 
         # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
         # the publishing section of your build.gradle
