@@ -23,6 +23,9 @@ kotlin {
                 implementation("org.jetbrains.kotlin-wrappers:kotlin-react:17.0.2-pre.257-kotlin-1.5.31")
                 implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:17.0.2-pre.257-kotlin-1.5.31")
 
+                // Kotlin
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-styled:5.3.1-pre.257-kotlin-1.5.31")
+
                 // Moment
                 implementation("io.github.samgarasx:kotlin-moment:2.27.0-pre.12-kotlin-1.5.21")
 
