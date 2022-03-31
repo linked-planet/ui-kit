@@ -27,12 +27,15 @@ import com.linkedplanet.uikit.atlaskit.toggle.Toggle
 import com.linkedplanet.uikit.joyride.Joyride
 import com.linkedplanet.uikit.joyride.JoyrideLocale
 import com.linkedplanet.uikit.style.ShowcaseStyles
+import com.linkedplanet.uikit.tooltip.ReactTooltip
+import com.linkedplanet.uikit.tooltip.ReactTooltipOffset
 import kotlinext.js.jsObject
 import kotlinx.browser.window
 import react.*
-import react.dom.span
+import react.dom.*
 import styled.css
 import styled.styledDiv
+import kotlin.js.json
 
 external interface ShowcaseMainProps : Props
 
@@ -788,6 +791,39 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
                         attrs.isChecked = isCheckboxActive
                         attrs.onChange = {
                             setIsCheckboxActive(!isCheckboxActive)
+                        }
+                    }
+                }
+
+                examples = listOfNotNull(example)
+            }
+
+            ShowcaseItem {
+                name = "Tooltip"
+                packages =
+                    Package("react-tooltip", "https://github.com/wwayne/react-tooltip").toList()
+
+                val key = "tooltip-1"
+
+                val example = createElement {
+                    div {
+                        attrs["data-tip"] = "true"
+                        attrs["data-for"] = key
+                        SearchIcon {}
+                    }
+
+                    ReactTooltip {
+                        attrs.id = key
+                        attrs.className = "tooltip"
+                        attrs.place = "right"
+                        attrs.effect = "solid"
+                        attrs.type = "light"
+                        attrs.border = true
+                        attrs.borderColor = "rgb(222, 225, 231)"
+                        attrs.offset = ReactTooltipOffset(0, 0, -5, 0)
+
+                        span {
+                            +"I'm a tooltip..."
                         }
                     }
                 }

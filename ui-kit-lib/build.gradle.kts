@@ -55,6 +55,9 @@ kotlin {
 
                 // Guided tour
                 implementation(npm("react-joyride", "2.4.0"))
+
+                // Tooltips
+                implementation(npm("react-tooltip", "4.2.21"))
             }
         }
         val jsTest by getting {
