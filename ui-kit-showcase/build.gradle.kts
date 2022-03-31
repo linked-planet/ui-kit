@@ -14,11 +14,16 @@ repositories {
 dependencies {
     implementation(project(":ui-kit-lib"))
 
+    // Kotlin
     implementation(kotlin("stdlib-js", "1.5.31"))
     implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core-js", "1.5.2")
     implementation("org.jetbrains.kotlinx", "kotlinx-html-js", "0.7.3")
+
+    // React
     implementation("org.jetbrains.kotlin-wrappers:kotlin-react:17.0.2-pre.257-kotlin-1.5.31")
     implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:17.0.2-pre.257-kotlin-1.5.31")
+
+    // Styled
     implementation("org.jetbrains.kotlin-wrappers:kotlin-styled:5.3.1-pre.257-kotlin-1.5.31")
 
     implementation(devNpm("style-loader", "3.3.1"))
