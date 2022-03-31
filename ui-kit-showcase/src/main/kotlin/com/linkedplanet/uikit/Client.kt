@@ -1,9 +1,9 @@
 package com.linkedplanet.uikit
 
 import com.linkedplanet.uikit.component.Showcase
-import react.dom.render
 import kotlinx.browser.document
 import kotlinx.browser.window
+import react.dom.render
 
 @ExperimentalJsExport
 fun main() {

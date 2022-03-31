@@ -1,8 +1,9 @@
 package com.linkedplanet.uikit.component
 
-import com.linkedplanet.uikit.atlaskit.icon.*
-import com.linkedplanet.uikit.atlaskit.pagelayout.LeftSidebar
-import com.linkedplanet.uikit.atlaskit.sidenavigation.*
+import com.linkedplanet.uikit.wrapper.atlaskit.icon.EmojiTravelIcon
+import com.linkedplanet.uikit.wrapper.atlaskit.icon.FileIcon
+import com.linkedplanet.uikit.wrapper.atlaskit.pagelayout.LeftSidebar
+import com.linkedplanet.uikit.wrapper.atlaskit.sidenavigation.*
 import kotlinext.js.jsObject
 import kotlinx.browser.document
 import react.*
@@ -10,7 +11,7 @@ import react.dom.a
 
 external interface ShowcaseLeftSidebarProps : Props
 
-val ShowcaseLeftSidebar = fc<ShowcaseLeftSidebarProps> { props ->
+val ShowcaseLeftSidebar = fc<ShowcaseLeftSidebarProps> { _ ->
 
     LeftSidebar {
 

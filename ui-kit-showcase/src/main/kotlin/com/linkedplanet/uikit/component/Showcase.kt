@@ -1,8 +1,8 @@
 package com.linkedplanet.uikit.component
 
-import com.linkedplanet.uikit.atlaskit.cssreset.CssReset
-import com.linkedplanet.uikit.atlaskit.pagelayout.Content
-import com.linkedplanet.uikit.atlaskit.pagelayout.PageLayout
+import com.linkedplanet.uikit.wrapper.atlaskit.cssreset.CssReset
+import com.linkedplanet.uikit.wrapper.atlaskit.pagelayout.Content
+import com.linkedplanet.uikit.wrapper.atlaskit.pagelayout.PageLayout
 import react.*
 
 external interface ShowcaseProps : Props {

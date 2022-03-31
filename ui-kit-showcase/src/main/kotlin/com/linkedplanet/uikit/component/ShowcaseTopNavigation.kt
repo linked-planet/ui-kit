@@ -1,14 +1,14 @@
 package com.linkedplanet.uikit.component
 
-import com.linkedplanet.uikit.atlaskit.navigation.*
-import com.linkedplanet.uikit.atlaskit.pagelayout.TopNavigation
+import com.linkedplanet.uikit.wrapper.atlaskit.navigation.*
+import com.linkedplanet.uikit.wrapper.atlaskit.pagelayout.TopNavigation
 import kotlinext.js.jsObject
 import react.*
 import react.dom.*
 
 external interface ShowcaseTopNavigationProps : Props
 
-val ShowcaseTopNavigation = fc<ShowcaseTopNavigationProps> { props ->
+val ShowcaseTopNavigation = fc<ShowcaseTopNavigationProps> { _ ->
 
     TopNavigation {
         attrs.isFixed = true

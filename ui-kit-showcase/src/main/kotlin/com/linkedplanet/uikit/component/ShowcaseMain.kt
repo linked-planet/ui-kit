@@ -1,34 +1,34 @@
 package com.linkedplanet.uikit.component
 
-import com.linkedplanet.uikit.atlaskit.avatar.Avatar
-import com.linkedplanet.uikit.atlaskit.avatar.AvatarItem
-import com.linkedplanet.uikit.atlaskit.banner.Banner
-import com.linkedplanet.uikit.atlaskit.button.*
-import com.linkedplanet.uikit.atlaskit.calendar.Calendar
-import com.linkedplanet.uikit.atlaskit.checkbox.Checkbox
-import com.linkedplanet.uikit.atlaskit.datetimepicker.DateTimePicker
-import com.linkedplanet.uikit.atlaskit.dropdownmenu.*
-import com.linkedplanet.uikit.atlaskit.flag.Flag
-import com.linkedplanet.uikit.atlaskit.icon.*
-import com.linkedplanet.uikit.atlaskit.lozenge.Lozenge
-import com.linkedplanet.uikit.atlaskit.modal.*
-import com.linkedplanet.uikit.atlaskit.pagelayout.Main
-import com.linkedplanet.uikit.atlaskit.panel.PanelStateless
-import com.linkedplanet.uikit.atlaskit.popup.Popup
-import com.linkedplanet.uikit.atlaskit.select.*
-import com.linkedplanet.uikit.atlaskit.tab.Tab
-import com.linkedplanet.uikit.atlaskit.tab.Tabs
-import com.linkedplanet.uikit.atlaskit.table.*
-import com.linkedplanet.uikit.atlaskit.tag.SimpleTag
-import com.linkedplanet.uikit.atlaskit.taggroup.TagGroup
-import com.linkedplanet.uikit.atlaskit.textarea.Textarea
-import com.linkedplanet.uikit.atlaskit.textfield.Textfield
-import com.linkedplanet.uikit.atlaskit.toggle.Toggle
-import com.linkedplanet.uikit.joyride.Joyride
-import com.linkedplanet.uikit.joyride.JoyrideLocale
 import com.linkedplanet.uikit.style.ShowcaseStyles
-import com.linkedplanet.uikit.tooltip.ReactTooltip
-import com.linkedplanet.uikit.tooltip.ReactTooltipOffset
+import com.linkedplanet.uikit.wrapper.atlaskit.avatar.Avatar
+import com.linkedplanet.uikit.wrapper.atlaskit.avatar.AvatarItem
+import com.linkedplanet.uikit.wrapper.atlaskit.banner.Banner
+import com.linkedplanet.uikit.wrapper.atlaskit.button.*
+import com.linkedplanet.uikit.wrapper.atlaskit.calendar.Calendar
+import com.linkedplanet.uikit.wrapper.atlaskit.checkbox.Checkbox
+import com.linkedplanet.uikit.wrapper.atlaskit.datetimepicker.DateTimePicker
+import com.linkedplanet.uikit.wrapper.atlaskit.dropdownmenu.*
+import com.linkedplanet.uikit.wrapper.atlaskit.flag.Flag
+import com.linkedplanet.uikit.wrapper.atlaskit.icon.*
+import com.linkedplanet.uikit.wrapper.atlaskit.lozenge.Lozenge
+import com.linkedplanet.uikit.wrapper.atlaskit.modal.*
+import com.linkedplanet.uikit.wrapper.atlaskit.pagelayout.Main
+import com.linkedplanet.uikit.wrapper.atlaskit.panel.PanelStateless
+import com.linkedplanet.uikit.wrapper.atlaskit.popup.Popup
+import com.linkedplanet.uikit.wrapper.atlaskit.select.*
+import com.linkedplanet.uikit.wrapper.atlaskit.tab.Tab
+import com.linkedplanet.uikit.wrapper.atlaskit.tab.Tabs
+import com.linkedplanet.uikit.wrapper.atlaskit.table.*
+import com.linkedplanet.uikit.wrapper.atlaskit.tag.SimpleTag
+import com.linkedplanet.uikit.wrapper.atlaskit.taggroup.TagGroup
+import com.linkedplanet.uikit.wrapper.atlaskit.textarea.Textarea
+import com.linkedplanet.uikit.wrapper.atlaskit.textfield.Textfield
+import com.linkedplanet.uikit.wrapper.atlaskit.toggle.Toggle
+import com.linkedplanet.uikit.wrapper.joyride.Joyride
+import com.linkedplanet.uikit.wrapper.joyride.JoyrideLocale
+import com.linkedplanet.uikit.wrapper.tooltip.ReactTooltip
+import com.linkedplanet.uikit.wrapper.tooltip.ReactTooltipOffset
 import kotlinext.js.jsObject
 import kotlinx.browser.window
 import react.*
@@ -39,7 +39,7 @@ import styled.styledDiv
 
 external interface ShowcaseMainProps : Props
 
-val ShowcaseMain = fc<ShowcaseMainProps> { props ->
+val ShowcaseMain = fc<ShowcaseMainProps> { _ ->
 
     val (isLoading, setIsLoading) = useState(false)
     val (isCheckboxActive, setIsCheckboxActive) = useState(false)
