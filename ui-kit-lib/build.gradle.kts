@@ -39,6 +39,7 @@ kotlin {
                 implementation(npm("@atlaskit/lozenge", "11.1.8"))
                 implementation(npm("@atlaskit/modal-dialog", "12.2.5"))
                 implementation(npm("@atlaskit/page-layout", "1.2.0"))
+                implementation(npm("@atlaskit/panel", "0.4.7"))
                 implementation(npm("@atlaskit/popup", "1.3.4"))
                 implementation(npm("@atlaskit/select", "15.2.10"))
                 implementation(npm("@atlaskit/side-navigation", "1.2.6"))

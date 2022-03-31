@@ -13,6 +13,7 @@ import com.linkedplanet.uikit.atlaskit.icon.*
 import com.linkedplanet.uikit.atlaskit.lozenge.Lozenge
 import com.linkedplanet.uikit.atlaskit.modal.*
 import com.linkedplanet.uikit.atlaskit.pagelayout.Main
+import com.linkedplanet.uikit.atlaskit.panel.PanelStateless
 import com.linkedplanet.uikit.atlaskit.popup.Popup
 import com.linkedplanet.uikit.atlaskit.select.*
 import com.linkedplanet.uikit.atlaskit.tab.Tab
@@ -26,7 +27,7 @@ import com.linkedplanet.uikit.atlaskit.toggle.Toggle
 import com.linkedplanet.uikit.style.ShowcaseStyles
 import kotlinx.browser.window
 import react.*
-import react.dom.html.ReactHTML.span
+import react.dom.span
 import styled.css
 import styled.styledDiv
 
@@ -38,6 +39,7 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
     val (isCheckboxActive, setIsCheckboxActive) = useState(false)
     val (isModalActive, setIsModalActive) = useState(false)
     val (isPopupActive, setIsPopupActive) = useState(false)
+    val (isPanelActive, setIsPanelActive) = useState(false)
 
     Main {
         styledDiv {
@@ -375,6 +377,42 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
             }
 
             ShowcaseItem {
+                name = "Panel"
+                packages = Package(
+                    "@atlaskit/panel",
+                    "https://atlaskit.atlassian.com/packages/bitbucket/panel"
+                ).toList()
+
+                val example = createElement {
+                    styledDiv {
+                        css {
+                            +ShowcaseStyles.showcaseItemExampleMediumSize
+
+                            // Attention: Additional style!
+                            +ShowcaseStyles.showcaseItemExamplePanel
+                        }
+                        PanelStateless {
+                            attrs.isExpanded = isPanelActive
+                            attrs.onChange = {
+                                setIsPanelActive(!isPanelActive)
+                            }
+                            attrs.header = createElement {
+                                span {
+                                    +"Panel"
+                                }
+                            }!!
+
+                            span {
+                                +"Panel content..."
+                            }
+                        }
+                    }
+                }
+
+                examples = listOfNotNull(example)
+            }
+
+            ShowcaseItem {
                 name = "Popup"
                 packages =
                     Package("@atlaskit/popup", "https://atlassian.design/components/popup/examples").toList()
@@ -648,15 +686,10 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
                     Package("@atlaskit/toggle", "https://atlassian.design/components/toggle/examples").toList()
 
                 val example = createElement {
-                    styledDiv {
-                        css {
-                            +ShowcaseStyles.showcaseItemExampleMediumSize
-                        }
-                        Toggle {
-                            attrs.isChecked = isCheckboxActive
-                            attrs.onChange = {
-                                setIsCheckboxActive(!isCheckboxActive)
-                            }
+                    Toggle {
+                        attrs.isChecked = isCheckboxActive
+                        attrs.onChange = {
+                            setIsCheckboxActive(!isCheckboxActive)
                         }
                     }
                 }
