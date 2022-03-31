@@ -27,6 +27,7 @@ kotlin {
                 implementation(npm("@atlaskit/atlassian-navigation", "2.1.3"))
                 implementation(npm("@atlaskit/avatar", "20.5.7"))
                 implementation(npm("@atlaskit/button", "16.2.1"))
+                implementation(npm("@atlaskit/calendar", "12.1.10"))
                 implementation(npm("@atlaskit/checkbox", "12.3.10"))
                 implementation(npm("@atlaskit/css-reset", "6.2.0"))
                 implementation(npm("@atlaskit/datetime-picker", "6.2.0"))
@@ -45,6 +46,7 @@ kotlin {
                 implementation(npm("@atlaskit/tag-group", "10.0.11"))
                 implementation(npm("@atlaskit/textarea", "4.3.2"))
                 implementation(npm("@atlaskit/textfield", "5.1.8"))
+                implementation(npm("@atlaskit/toggle", "12.4.5"))
 
                 // Atlaskit dependencies
                 implementation(npm("exenv", "1.2.2"))

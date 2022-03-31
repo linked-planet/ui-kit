@@ -3,6 +3,7 @@ package com.linkedplanet.uikit.component
 import com.linkedplanet.uikit.atlaskit.avatar.Avatar
 import com.linkedplanet.uikit.atlaskit.avatar.AvatarItem
 import com.linkedplanet.uikit.atlaskit.button.*
+import com.linkedplanet.uikit.atlaskit.calendar.Calendar
 import com.linkedplanet.uikit.atlaskit.checkbox.Checkbox
 import com.linkedplanet.uikit.atlaskit.datetimepicker.DateTimePicker
 import com.linkedplanet.uikit.atlaskit.dropdownmenu.*
@@ -20,6 +21,7 @@ import com.linkedplanet.uikit.atlaskit.tag.SimpleTag
 import com.linkedplanet.uikit.atlaskit.taggroup.TagGroup
 import com.linkedplanet.uikit.atlaskit.textarea.Textarea
 import com.linkedplanet.uikit.atlaskit.textfield.Textfield
+import com.linkedplanet.uikit.atlaskit.toggle.Toggle
 import com.linkedplanet.uikit.style.ShowcaseStyles
 import kotlinx.browser.window
 import react.*
@@ -94,6 +96,26 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
                                 setIsLoading(true)
                                 window.setTimeout({ setIsLoading(false) }, 5000)
                             }
+                        }
+                    }
+                }
+
+                examples = listOfNotNull(example)
+            }
+
+            ShowcaseItem {
+                name = "Calendar"
+                packages =
+                    Package("@atlaskit/calendar", "https://atlassian.design/components/calendar/examples").toList()
+
+                val example = createElement {
+                    styledDiv {
+                        css {
+                            +ShowcaseStyles.showcaseItemExampleMediumSize
+                        }
+                        Calendar {
+                            attrs.locale = "de-DE"
+                            attrs.weekStartDay = 1
                         }
                     }
                 }
@@ -562,6 +584,27 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
                         }
                         Textfield {
                             attrs.defaultValue = "Content of text field..."
+                        }
+                    }
+                }
+
+                examples = listOfNotNull(example)
+            }
+
+            ShowcaseItem {
+                name = "Toggle"
+                packages =
+                    Package("@atlaskit/toggle", "https://atlassian.design/components/toggle/examples").toList()
+
+                val example = createElement {
+                    styledDiv {
+                        css {
+                            +ShowcaseStyles.showcaseItemExampleMediumSize
+                        }
+                        Toggle {
+                            span {
+                                +"Content of the toggle..."
+                            }
                         }
                     }
                 }
