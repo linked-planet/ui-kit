@@ -2,6 +2,7 @@ package com.linkedplanet.uikit.component
 
 import com.linkedplanet.uikit.atlaskit.avatar.Avatar
 import com.linkedplanet.uikit.atlaskit.avatar.AvatarItem
+import com.linkedplanet.uikit.atlaskit.banner.Banner
 import com.linkedplanet.uikit.atlaskit.button.*
 import com.linkedplanet.uikit.atlaskit.calendar.Calendar
 import com.linkedplanet.uikit.atlaskit.checkbox.Checkbox
@@ -44,7 +45,6 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
                 +ShowcaseStyles.showcaseItemsContainer
             }
 
-            // ---------------------
             ShowcaseItem {
                 name = "Avatar"
                 packages =
@@ -72,6 +72,57 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
                 }
 
                 examples = listOfNotNull(example1, example2)
+            }
+
+            ShowcaseItem {
+                name = "Banner"
+                packages =
+                    Package("@atlaskit/banner", "https://atlassian.design/components/banner/examples").toList()
+
+                val example1 = createElement {
+                    Banner {
+                        attrs.appearance = "announcement"
+                        attrs.isOpen = true
+
+                        span {
+                            +"Content of the banner..."
+                        }
+                    }
+                }
+
+                val example2 = createElement {
+                    Banner {
+                        attrs.appearance = "warning"
+                        attrs.icon = createElement {
+                            WarningIcon {
+                                attrs.secondaryColor = "var(--ds-background-warning-bold, #FFAB00)"
+                            }
+                        }
+                        attrs.isOpen = true
+
+                        span {
+                            +"Content of the banner..."
+                        }
+                    }
+                }
+
+                val example3 = createElement {
+                    Banner {
+                        attrs.appearance = "error"
+                        attrs.icon = createElement {
+                            ErrorIcon {
+                                attrs.secondaryColor = "var(--ds-background-danger-bold, #DE350B)"
+                            }
+                        }
+                        attrs.isOpen = true
+
+                        span {
+                            +"Content of the banner..."
+                        }
+                    }
+                }
+
+                examples = listOfNotNull(example1, example2, example3)
             }
 
             ShowcaseItem {
@@ -602,8 +653,9 @@ val ShowcaseMain = fc<ShowcaseMainProps> { props ->
                             +ShowcaseStyles.showcaseItemExampleMediumSize
                         }
                         Toggle {
-                            span {
-                                +"Content of the toggle..."
+                            attrs.isChecked = isCheckboxActive
+                            attrs.onChange = {
+                                setIsCheckboxActive(!isCheckboxActive)
                             }
                         }
                     }
