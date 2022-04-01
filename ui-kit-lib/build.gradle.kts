@@ -2,6 +2,7 @@ plugins {
     kotlin("js")
     id("maven-publish")
     id("pl.allegro.tech.build.axion-release") version "1.13.6"
+    id("org.jetbrains.dokka") version "1.6.10"
 }
 
 group = "com.linked-planet"
@@ -62,10 +63,24 @@ kotlin {
     }
 }
 
+tasks {
+    register("javadocJar", Jar::class) {
+        dependsOn("dokkaHtml")
+        archiveClassifier.set("javadoc")
+        from("$buildDir/javadoc")
+    }
+    register("sourcesJar", Jar::class) {
+        archiveClassifier.set("sources")
+        from("src/main/kotlin")
+    }
+}
+
 publishing {
     publications {
         create<MavenPublication>("maven") {
             from(components["kotlin"])
+            artifact(tasks.getByName<Zip>("javadocJar"))
+            artifact(tasks.getByName<Zip>("sourcesJar"))
         }
     }
 }
