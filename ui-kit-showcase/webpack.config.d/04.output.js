@@ -1,3 +1,3 @@
 ;(function (config) {
-    config.output.publicPath = "/frontend/";
+    config.output.publicPath = "/";
 })(config);

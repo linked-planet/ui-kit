@@ -32,7 +32,7 @@ jobs:
         run: ./gradlew test build --info
 
       - name: Create showcase distribution
-        run: ./gradlew browserProductionWebpack
+        run: ./gradlew browserDistribution
 
       - name: Update showcase
         uses: JamesIves/github-pages-deploy-action@v4.2.5
