@@ -1,6 +1,8 @@
-# ui-kit
+# UI-Kit
 
-ui-kit provides several ui components and functionality used throughout our projects. 
+UI-Kit provides several ui components and functionality used throughout our projects.
+
+Checkout the online demo of the [showcase](https://linked-planet.github.io/ui-kit/).
 
 ## Structure
 - `ui-kit-lib`: library containing all components and functionality

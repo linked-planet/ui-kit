@@ -35,7 +35,7 @@ val ShowcaseTopNavigation = fc<ShowcaseTopNavigationProps> { _ ->
                 createElement(CustomProductHome, jsObject {
                     iconUrl = "images/logo.png"
                     logoUrl = "images/logo.png"
-                    siteTitle = "UI-KIT"
+                    siteTitle = "UI-Kit"
                 })
             }
 
