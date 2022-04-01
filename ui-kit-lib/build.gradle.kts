@@ -81,6 +81,34 @@ publishing {
             from(components["kotlin"])
             artifact(tasks.getByName<Zip>("javadocJar"))
             artifact(tasks.getByName<Zip>("sourcesJar"))
+
+            pom {
+                name.set("UI-Kit")
+                description.set("Provides several ui components and functionality used throughout our projects.")
+                url.set("https://linked-planet.github.io/ui-kit/")
+                inceptionYear.set("2022")
+                licenses {
+                    license {
+                        name.set("The Apache License, Version 2.0")
+                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                    }
+                }
+                developers {
+                    developer {
+                        name.set("Alexander Weickmann")
+                        email.set("alexander.weickmann@linked-planet.com")
+                    }
+                    developer {
+                        name.set("Simon Jahreiss")
+                        email.set("simon.jahreiss@linked-planet.com")
+                    }
+                }
+                scm {
+                    connection.set("scm:git:git://github.com/linked-planet/ui-kit.git")
+                    developerConnection.set("scm:git:ssh://github.com/linked-planet/ui-kit.git")
+                    url.set("https://github.com/linked-planet/ui-kit")
+                }
+            }
         }
     }
 }
