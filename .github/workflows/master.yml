@@ -30,6 +30,16 @@ jobs:
       - name: Build and test library
         run: ./gradlew test build --info
 
+      - name: Create showcase distribution
+        run: ./gradlew browserDistribution
+
+      - name: Update showcase
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
+        with:
+          branch: docs
+          folder: ui-kit-showcase/build/distributions
+          single-commit: true
+
         # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
         # the publishing section of your build.gradle
       - name: Publish to GitHub Packages

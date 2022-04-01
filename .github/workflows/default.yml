@@ -31,6 +31,7 @@ jobs:
       - name: Build and test library
         run: ./gradlew test build --info
 
+      # TODO: remove showcase stuff in default pipeline
       - name: Create showcase distribution
         run: ./gradlew browserDistribution
 
