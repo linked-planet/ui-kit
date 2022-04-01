@@ -2,6 +2,8 @@ name: UI-Kit master
 on:
   push:
     branches: [ master ]
+  release:
+    types: [ created ]
 
 jobs:
   master:
@@ -18,33 +20,27 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-ui-kit-
 
-      - name: Set up JDK 8
+      - name: Set up JDK 11
         uses: actions/setup-java@v2
         with:
-          java-version: '8'
+          java-version: '11'
           distribution: 'adopt'
 
       - name: Check license
         run: ./gradlew license
 
       - name: Build and test library
-        run: ./gradlew test build --info
+        run: ./gradlew build --info
+
+      - name: Publish to Maven Central
+        run: ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository
 
       - name: Create showcase distribution
         run: ./gradlew browserDistribution
 
-      - name: Update showcase
+      - name: Deploy showcase to Github Pages
         uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
           branch: docs
           folder: ui-kit-showcase/build/distributions
           single-commit: true
-
-        # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
-        # the publishing section of your build.gradle
-      - name: Publish to GitHub Packages
-        run: |
-          echo "Github username: ${GITHUB_ACTOR}"
-          ./gradlew publish
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_API_TOKEN }}

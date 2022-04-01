@@ -1,7 +1,6 @@
 plugins {
     kotlin("js")
     id("maven-publish")
-    id("pl.allegro.tech.build.axion-release") version "1.13.6"
     id("org.jetbrains.dokka") version "1.6.10"
 }
 

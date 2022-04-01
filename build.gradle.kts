@@ -1,12 +1,14 @@
 plugins {
     kotlin("js") version "1.5.31" apply false
+    id("pl.allegro.tech.build.axion-release") version "1.13.6"
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
     id("com.github.hierynomus.license") version "0.16.1"
 }
 
+val uiKitVersion = scmVersion.version
 allprojects {
     group = "com.linked-planet.ui"
-    version = "1.0-SNAPSHOT"
+    version = uiKitVersion
 }
 
 subprojects {
@@ -35,6 +37,9 @@ subprojects {
 
 nexusPublishing {
     repositories {
-        sonatype()
+        sonatype {
+            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+        }
     }
 }
