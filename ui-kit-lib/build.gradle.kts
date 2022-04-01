@@ -5,9 +5,6 @@ plugins {
     id("org.jetbrains.dokka") version "1.6.10"
 }
 
-group = "com.linked-planet"
-version = "1.0-SNAPSHOT"
-
 repositories {
     mavenCentral()
 }

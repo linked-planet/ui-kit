@@ -1,6 +1,12 @@
 plugins {
     kotlin("js") version "1.5.31" apply false
+    id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
     id("com.github.hierynomus.license") version "0.16.1"
+}
+
+allprojects {
+    group = "com.linked-planet.ui"
+    version = "1.0-SNAPSHOT"
 }
 
 subprojects {
@@ -27,5 +33,8 @@ subprojects {
     tasks["licenseFormat"].dependsOn("licenseFormatInSrc")
 }
 
-group = "com.linked-planet"
-version = "1.0-SNAPSHOT"
+nexusPublishing {
+    repositories {
+        sonatype()
+    }
+}
