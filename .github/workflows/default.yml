@@ -30,3 +30,13 @@ jobs:
 
       - name: Build and test library
         run: ./gradlew test build --info
+
+      - name: Create showcase distribution
+        run: ./gradlew browserProductionWebpack
+
+      - name: Update showcase
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
+        with:
+          branch: docs
+          folder: ui-kit-showcase/build/distributions
+          single-commit: true
