@@ -32,8 +32,8 @@ jobs:
       - name: Build and test library
         run: ./gradlew build --info
 
-      - name: Publish to Maven Central
-        run: ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository
+      - name: Publish lib to Maven Central
+        run: ./gradlew -p ui-kit-lib publishToSonatype closeAndReleaseSonatypeStagingRepository
         env:
           ORG_GRADLE_PROJECT_sonatypeUsername: ${{ secrets.SONATYPE_USERNAME }}
           ORG_GRADLE_PROJECT_sonatypePassword: ${{ secrets.SONATYPE_PASSWORD }}
