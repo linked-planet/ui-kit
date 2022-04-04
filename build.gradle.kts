@@ -3,9 +3,11 @@ plugins {
     id("pl.allegro.tech.build.axion-release") version "1.13.6"
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
     id("com.github.hierynomus.license") version "0.16.1"
+    id("signing")
+    id("maven-publish")
 }
 
-val uiKitVersion = scmVersion.version
+val uiKitVersion: String = scmVersion.version
 allprojects {
     group = "com.linked-planet.ui"
     version = uiKitVersion
@@ -42,4 +44,22 @@ nexusPublishing {
             snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
         }
     }
+}
+
+signing {
+    isRequired = !project.version.toString().endsWith("-SNAPSHOT") && !project.hasProperty("skipSigning")
+    if (project.findProperty("signingKey") != null) {
+        useInMemoryPgpKeys(
+            findProperty("signingKey").toString(),
+            findProperty("signingPassword").toString()
+        )
+    } else {
+        useGpgCmd()
+    }
+    sign(publishing.publications["mavenJava"])
+}
+
+//do not generate extra load on Nexus with new staging repository if signing fails
+tasks.withType(io.github.gradlenexus.publishplugin.InitializeNexusStagingRepository::class).configureEach {
+    shouldRunAfter(tasks.withType(Sign::class))
 }
