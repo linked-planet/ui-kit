@@ -31,6 +31,7 @@ dependencies {
     implementation(npm("@atlaskit/datetime-picker", "6.2.0"))
     implementation(npm("@atlaskit/dropdown-menu", "11.1.2"))
     implementation(npm("@atlaskit/dynamic-table", "14.5.2"))
+    implementation(npm("@atlaskit/empty-state", "7.3.8"))
     implementation(npm("@atlaskit/flag", "14.5.5"))
     implementation(npm("@atlaskit/icon", "21.10.5"))
     implementation(npm("@atlaskit/lozenge", "11.1.8"))
@@ -52,6 +53,9 @@ dependencies {
 
     // Tooltips
     implementation(npm("react-tooltip", "4.2.21"))
+
+    // Mime
+    implementation(npm("mime-types", "2.1.34"))
 }
 
 kotlin {
