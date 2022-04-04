@@ -27,6 +27,7 @@ dependencies {
     implementation(npm("@atlaskit/button", "16.2.1"))
     implementation(npm("@atlaskit/calendar", "12.1.10"))
     implementation(npm("@atlaskit/checkbox", "12.3.10"))
+    implementation(npm("@atlaskit/code", "14.3.4"))
     implementation(npm("@atlaskit/css-reset", "6.2.0"))
     implementation(npm("@atlaskit/datetime-picker", "6.2.0"))
     implementation(npm("@atlaskit/dropdown-menu", "11.1.2"))
