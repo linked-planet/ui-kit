@@ -94,14 +94,23 @@ publishing {
                     developer {
                         name.set("Simon Jahreiss")
                         email.set("simon.jahreiss@linked-planet.com")
+                        url.set("https://github.com/sjahreis")
+                        organization.set("linked-planet GmbH")
+                        organizationUrl.set("https://linked-planet.com")
                     }
                     developer {
                         name.set("Philipp Karlsson")
                         email.set("philipp.karlsson@linked-planet.com")
+                        url.set("https://github.com/betacore")
+                        organization.set("linked-planet GmbH")
+                        organizationUrl.set("https://linked-planet.com")
                     }
                     developer {
                         name.set("Alexander Weickmann")
                         email.set("alexander.weickmann@linked-planet.com")
+                        url.set("https://github.com/weickmanna")
+                        organization.set("linked-planet GmbH")
+                        organizationUrl.set("https://linked-planet.com")
                     }
                 }
                 scm {
