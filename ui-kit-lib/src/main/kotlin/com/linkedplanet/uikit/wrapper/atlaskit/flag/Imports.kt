@@ -21,9 +21,9 @@ import react.ComponentClass
 import react.Props
 
 @JsName("default")
-external val Flag: ComponentClass<FlagCProps>
+external val Flag: ComponentClass<FlagProps>
 
-external interface FlagCProps : Props {
+external interface FlagProps : Props {
     /**
      * Array of clickable actions to be shown at the bottom of the flag.
      * For flags where appearance is 'normal', actions will be shown as links.
@@ -62,7 +62,7 @@ external interface FlagCProps : Props {
 }
 
 @JsName("AutoDismissFlag")
-external val AutoDismissFlag: ComponentClass<FlagCProps>
+external val AutoDismissFlag: ComponentClass<FlagProps>
 
 @JsName("FlagGroup")
 external val FlagGroup: ComponentClass<FlagGroupCProps>
