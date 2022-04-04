@@ -19,7 +19,7 @@ import kotlinx.css.*
 import styled.StyleSheet
 
 object ShowcaseStyles : StyleSheet("ShowcaseStyles") {
-    val showcaseItemsContainer by css {
+    val showcaseContainer by css {
         margin(50.px)
 
         children {

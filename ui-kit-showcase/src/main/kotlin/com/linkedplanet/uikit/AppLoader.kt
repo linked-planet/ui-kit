@@ -15,7 +15,6 @@
  */
 package com.linkedplanet.uikit
 
-import com.linkedplanet.uikit.component.Showcase
 import kotlinx.browser.document
 import kotlinx.browser.window
 import react.dom.render
@@ -24,7 +23,7 @@ import react.dom.render
 fun main() {
     window.onload = {
         render(document.getElementById("root")) {
-            child(Showcase::class) {
+            child(ShowcaseApp::class) {
                 attrs {
                     name = "Kotlin/JS"
                 }
