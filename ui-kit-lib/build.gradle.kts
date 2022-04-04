@@ -1,7 +1,8 @@
 plugins {
     kotlin("js")
-    id("maven-publish")
     id("org.jetbrains.dokka") version "1.6.10"
+    id("maven-publish")
+    id("signing")
 }
 
 repositories {
@@ -86,7 +87,7 @@ publishing {
                 licenses {
                     license {
                         name.set("The Apache License, Version 2.0")
-                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                        url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
                     }
                 }
                 developers {
@@ -108,3 +109,22 @@ publishing {
         }
     }
 }
+
+signing {
+    isRequired = !project.version.toString().endsWith("-SNAPSHOT") && !project.hasProperty("skipSigning")
+    if (project.findProperty("signingKey") != null) {
+        useInMemoryPgpKeys(
+            findProperty("signingKey").toString(),
+            findProperty("signingPassword").toString()
+        )
+    } else {
+        useGpgCmd()
+    }
+    sign(publishing.publications["maven"])
+}
+
+//do not generate extra load on Nexus with new staging repository if signing fails
+tasks.withType(io.github.gradlenexus.publishplugin.InitializeNexusStagingRepository::class).configureEach {
+    shouldRunAfter(tasks.withType(Sign::class))
+}
+
