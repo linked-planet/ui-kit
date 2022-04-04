@@ -26,13 +26,13 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
 
-      - name: Check license
+      - name: Check License
         run: ./gradlew license
 
-      - name: Build and test library
+      - name: Build and test Library
         run: ./gradlew build --info
 
-      - name: Publish lib to Maven Central
+      - name: Publish Library to Maven Central
         run: ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository
         env:
           ORG_GRADLE_PROJECT_sonatypeUsername: ${{ secrets.SONATYPE_USERNAME }}
@@ -40,10 +40,10 @@ jobs:
           ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNING_KEY }}
           ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
 
-      - name: Create showcase distribution
+      - name: Create Showcase distribution
         run: ./gradlew browserDistribution
 
-      - name: Deploy showcase to Github Pages
+      - name: Deploy Showcase to Github Pages
         uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
           branch: docs
