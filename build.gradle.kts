@@ -56,7 +56,7 @@ signing {
     } else {
         useGpgCmd()
     }
-    sign(publishing.publications["mavenJava"])
+    sign(publishing.publications["maven"])
 }
 
 //do not generate extra load on Nexus with new staging repository if signing fails
