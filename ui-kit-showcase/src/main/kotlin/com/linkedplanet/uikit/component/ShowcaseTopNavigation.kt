@@ -45,17 +45,17 @@ val ShowcaseTopNavigation = fc<ShowcaseTopNavigationProps> { _ ->
             attrs.primaryItems = arrayOf(
                 createElement(
                     PrimaryButton,
-                    jsObject { onClick = { window.location.href = "/#/intro" } },
+                    jsObject { onClick = { window.location.href = "./#/intro" } },
                     createElement { span { +"Intro" } }
                 ),
                 createElement(
                     PrimaryButton,
-                    jsObject { onClick = { window.location.href = "/#/wrappers" } },
+                    jsObject { onClick = { window.location.href = "./#/wrappers" } },
                     createElement { span { +"Wrappers" } }
                 ),
                 createElement(
                     PrimaryButton,
-                    jsObject { onClick = { window.location.href = "/#/utils" } },
+                    jsObject { onClick = { window.location.href = "./#/utils" } },
                     createElement { span { +"Utils" } }
                 )
             )

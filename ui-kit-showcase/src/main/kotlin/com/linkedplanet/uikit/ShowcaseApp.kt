@@ -53,6 +53,12 @@ class ShowcaseApp(props: ShowcaseProps) : RComponent<ShowcaseProps, ShowcaseAppS
                         }
                         HashRouter {
                             Switch { // use switch to render only the first matching result
+                                Redirect {
+                                    attrs.from = "/"
+                                    attrs.to = "/intro"
+                                    attrs.exact = true
+                                }
+
                                 Route {
                                     attrs.path = arrayOf("/intro")
                                     attrs.exact = true
