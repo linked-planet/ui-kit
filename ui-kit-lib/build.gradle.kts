@@ -10,15 +10,21 @@ repositories {
 }
 
 dependencies {
+    // Kotlin
+    api(kotlin("stdlib-js", "1.5.31"))
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.5.2")
+    api("org.jetbrains.kotlinx:kotlinx-html-js:0.7.3")
+
     // React
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react:17.0.2-pre.257-kotlin-1.5.31")
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:17.0.2-pre.257-kotlin-1.5.31")
+    api("org.jetbrains.kotlin-wrappers:kotlin-react:17.0.2-pre.257-kotlin-1.5.31")
+    api("org.jetbrains.kotlin-wrappers:kotlin-react-dom:17.0.2-pre.257-kotlin-1.5.31")
+    api("org.jetbrains.kotlin-wrappers:kotlin-react-router-dom:5.3.0-pre.257-kotlin-1.5.31")
 
     // Styled
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-styled:5.3.1-pre.257-kotlin-1.5.31")
+    api("org.jetbrains.kotlin-wrappers:kotlin-styled:5.3.1-pre.257-kotlin-1.5.31")
 
     // Moment
-    implementation("io.github.samgarasx:kotlin-moment:2.27.0-pre.12-kotlin-1.5.21")
+    api("io.github.samgarasx:kotlin-moment:2.27.0-pre.12-kotlin-1.5.21")
 
     // Atlaskit
     implementation(npm("@atlaskit/atlassian-navigation", "2.1.3"))
