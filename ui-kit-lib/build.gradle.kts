@@ -20,6 +20,10 @@ dependencies {
     api("org.jetbrains.kotlin-wrappers:kotlin-react-dom:17.0.2-pre.257-kotlin-1.5.31")
     api("org.jetbrains.kotlin-wrappers:kotlin-react-router-dom:5.3.0-pre.257-kotlin-1.5.31")
 
+    // Redux
+    api("org.jetbrains.kotlin-wrappers:kotlin-redux:4.1.1-pre.257-kotlin-1.5.31")
+    api("org.jetbrains.kotlin-wrappers:kotlin-react-redux:7.2.4-pre.257-kotlin-1.5.31")
+
     // Styled
     api("org.jetbrains.kotlin-wrappers:kotlin-styled:5.3.1-pre.257-kotlin-1.5.31")
 
