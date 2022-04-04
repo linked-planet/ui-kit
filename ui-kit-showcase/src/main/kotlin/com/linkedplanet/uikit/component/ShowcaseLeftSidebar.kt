@@ -23,6 +23,7 @@ import kotlinext.js.jsObject
 import kotlinx.browser.document
 import react.*
 import react.dom.a
+import kotlin.js.Date
 
 external interface ShowcaseLeftSidebarProps : Props
 
@@ -73,6 +74,18 @@ val ShowcaseLeftSidebar = fc<ShowcaseLeftSidebarProps> { _ ->
                     +"Made with ❤ by "
                     a(href = "https://www.linked-planet.com/") {
                         +"linked-planet"
+                    }
+                }
+                Footer {
+                    +"Licensed under "
+                    a(href = "http://www.apache.org/licenses/LICENSE-2.0") {
+                        +"Apache License, Version 2.0"
+                    }
+                }
+                Footer {
+                    +"Copyright ${Date().getFullYear()} "
+                    a(href = "https://www.linked-planet.com/") {
+                        +"linked-planet GmbH"
                     }
                 }
             }

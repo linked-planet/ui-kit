@@ -10,15 +10,25 @@ repositories {
 }
 
 dependencies {
+    // Kotlin
+    api(kotlin("stdlib-js", "1.5.31"))
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.5.2")
+    api("org.jetbrains.kotlinx:kotlinx-html-js:0.7.3")
+
     // React
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react:17.0.2-pre.257-kotlin-1.5.31")
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:17.0.2-pre.257-kotlin-1.5.31")
+    api("org.jetbrains.kotlin-wrappers:kotlin-react:17.0.2-pre.257-kotlin-1.5.31")
+    api("org.jetbrains.kotlin-wrappers:kotlin-react-dom:17.0.2-pre.257-kotlin-1.5.31")
+    api("org.jetbrains.kotlin-wrappers:kotlin-react-router-dom:5.3.0-pre.257-kotlin-1.5.31")
+
+    // Redux
+    api("org.jetbrains.kotlin-wrappers:kotlin-redux:4.1.1-pre.257-kotlin-1.5.31")
+    api("org.jetbrains.kotlin-wrappers:kotlin-react-redux:7.2.4-pre.257-kotlin-1.5.31")
 
     // Styled
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-styled:5.3.1-pre.257-kotlin-1.5.31")
+    api("org.jetbrains.kotlin-wrappers:kotlin-styled:5.3.1-pre.257-kotlin-1.5.31")
 
     // Moment
-    implementation("io.github.samgarasx:kotlin-moment:2.27.0-pre.12-kotlin-1.5.21")
+    api("io.github.samgarasx:kotlin-moment:2.27.0-pre.12-kotlin-1.5.21")
 
     // Atlaskit
     implementation(npm("@atlaskit/atlassian-navigation", "2.1.3"))
@@ -27,10 +37,12 @@ dependencies {
     implementation(npm("@atlaskit/button", "16.2.1"))
     implementation(npm("@atlaskit/calendar", "12.1.10"))
     implementation(npm("@atlaskit/checkbox", "12.3.10"))
+    implementation(npm("@atlaskit/code", "14.3.4"))
     implementation(npm("@atlaskit/css-reset", "6.2.0"))
     implementation(npm("@atlaskit/datetime-picker", "6.2.0"))
     implementation(npm("@atlaskit/dropdown-menu", "11.1.2"))
     implementation(npm("@atlaskit/dynamic-table", "14.5.2"))
+    implementation(npm("@atlaskit/empty-state", "7.3.8"))
     implementation(npm("@atlaskit/flag", "14.5.5"))
     implementation(npm("@atlaskit/icon", "21.10.5"))
     implementation(npm("@atlaskit/lozenge", "11.1.8"))
@@ -52,6 +64,9 @@ dependencies {
 
     // Tooltips
     implementation(npm("react-tooltip", "4.2.21"))
+
+    // Mime
+    implementation(npm("mime-types", "2.1.34"))
 }
 
 kotlin {

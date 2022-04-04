@@ -18,6 +18,7 @@ package com.linkedplanet.uikit.component
 import com.linkedplanet.uikit.wrapper.atlaskit.navigation.*
 import com.linkedplanet.uikit.wrapper.atlaskit.pagelayout.TopNavigation
 import kotlinext.js.jsObject
+import kotlinx.browser.window
 import react.*
 import react.dom.*
 
@@ -33,6 +34,7 @@ val ShowcaseTopNavigation = fc<ShowcaseTopNavigationProps> { _ ->
             // Product Home
             attrs.renderProductHome = {
                 createElement(CustomProductHome, jsObject {
+                    onClick = { window.location.href = "/#/intro" }
                     iconUrl = "images/logo.png"
                     logoUrl = "images/logo.png"
                     siteTitle = "UI-Kit"
@@ -41,8 +43,21 @@ val ShowcaseTopNavigation = fc<ShowcaseTopNavigationProps> { _ ->
 
             // Menu items
             attrs.primaryItems = arrayOf(
-                createElement(PrimaryButton, jsObject { }, createElement { span { +"First menu item" } }),
-                createElement(PrimaryButton, jsObject { }, createElement { span { +"Second menu item" } })
+                createElement(
+                    PrimaryButton,
+                    jsObject { onClick = { window.location.href = "/#/intro" } },
+                    createElement { span { +"Intro" } }
+                ),
+                createElement(
+                    PrimaryButton,
+                    jsObject { onClick = { window.location.href = "/#/wrappers" } },
+                    createElement { span { +"Wrappers" } }
+                ),
+                createElement(
+                    PrimaryButton,
+                    jsObject { onClick = { window.location.href = "/#/utils" } },
+                    createElement { span { +"Utils" } }
+                )
             )
 
             // Profile

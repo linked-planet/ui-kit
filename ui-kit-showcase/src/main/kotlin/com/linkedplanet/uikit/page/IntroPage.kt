@@ -13,22 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.linkedplanet.uikit
+package com.linkedplanet.uikit.page
 
-import com.linkedplanet.uikit.component.Showcase
-import kotlinx.browser.document
-import kotlinx.browser.window
-import react.dom.render
+import react.Props
+import react.dom.div
+import react.dom.html.ReactHTML.h1
+import react.dom.html.ReactHTML.h3
+import react.dom.span
+import react.fc
 
-@ExperimentalJsExport
-fun main() {
-    window.onload = {
-        render(document.getElementById("root")) {
-            child(Showcase::class) {
-                attrs {
-                    name = "Kotlin/JS"
-                }
-            }
+external interface IntroPageProps : Props
+
+val IntroPage = fc<IntroPageProps> { props ->
+
+    div {
+        h1 {
+            +"Welcome to UI-Kit"
+        }
+
+        h3 {
+            +"Usage"
+        }
+
+        span {
+            +"There will be more content soon..."
         }
     }
 }
