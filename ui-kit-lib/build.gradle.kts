@@ -92,12 +92,16 @@ publishing {
                 }
                 developers {
                     developer {
-                        name.set("Alexander Weickmann")
-                        email.set("alexander.weickmann@linked-planet.com")
-                    }
-                    developer {
                         name.set("Simon Jahreiss")
                         email.set("simon.jahreiss@linked-planet.com")
+                    }
+                    developer {
+                        name.set("Philipp Karlsson")
+                        email.set("philipp.karlsson@linked-planet.com")
+                    }
+                    developer {
+                        name.set("Alexander Weickmann")
+                        email.set("alexander.weickmann@linked-planet.com")
                     }
                 }
                 scm {
