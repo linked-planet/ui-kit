@@ -122,9 +122,3 @@ signing {
     }
     sign(publishing.publications["maven"])
 }
-
-//do not generate extra load on Nexus with new staging repository if signing fails
-tasks.withType(io.github.gradlenexus.publishplugin.InitializeNexusStagingRepository::class).configureEach {
-    shouldRunAfter(tasks.withType(Sign::class))
-}
-
