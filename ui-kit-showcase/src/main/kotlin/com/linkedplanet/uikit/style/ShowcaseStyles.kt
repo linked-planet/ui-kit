@@ -35,6 +35,11 @@ object ShowcaseStyles : StyleSheet("ShowcaseStyles") {
         padding(20.px)
     }
 
+    val showcaseItemPackages by css {
+        fontWeight = FontWeight("300")
+        fontSize = 13.px
+    }
+
     val showcaseItemExamplesContainer by css {
         display = Display.flex
     }

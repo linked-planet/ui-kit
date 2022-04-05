@@ -50,3 +50,18 @@ rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlu
         resolution("@webpack-cli/serve", "1.5.2")
     }
 }
+
+tasks {
+    register("gatherShowcaseSources") {
+        doLast {
+            val files = fileTree(layout.projectDirectory.dir("src/main/kotlin/com/linkedplanet/uikit")).files
+            val showcaseSourcesFileName = "showcase-sources.txt"
+            val showcaseSourcesFile = File("${buildDir}/processedResources/js/main/$showcaseSourcesFileName")
+            files.forEach { file ->
+                val fileContent = file.readText()
+                showcaseSourcesFile.appendText(fileContent)
+            }
+        }
+    }
+}
+tasks["processResources"].dependsOn("gatherShowcaseSources")

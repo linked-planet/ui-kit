@@ -16,8 +16,10 @@
 package com.linkedplanet.uikit.page
 
 import com.linkedplanet.uikit.component.Package
-import com.linkedplanet.uikit.component.ShowcaseItem
+import com.linkedplanet.uikit.component.ShowcaseWrapperItem
 import com.linkedplanet.uikit.style.ShowcaseStyles
+import com.linkedplanet.uikit.util.Async
+import com.linkedplanet.uikit.util.RequestUtil
 import com.linkedplanet.uikit.wrapper.atlaskit.avatar.Avatar
 import com.linkedplanet.uikit.wrapper.atlaskit.avatar.AvatarItem
 import com.linkedplanet.uikit.wrapper.atlaskit.banner.Banner
@@ -49,6 +51,7 @@ import com.linkedplanet.uikit.wrapper.tooltip.ReactTooltip
 import com.linkedplanet.uikit.wrapper.tooltip.ReactTooltipOffset
 import kotlinext.js.jsObject
 import kotlinx.browser.window
+import kotlinx.coroutines.await
 import react.*
 import react.dom.*
 import styled.css
@@ -58,6 +61,8 @@ external interface WrappersPageProps : Props
 
 val WrappersPage = fc<WrappersPageProps> { props ->
 
+    val (overallSourceCode, setOverallSourceCode) = useState("")
+
     val (isLoading, setIsLoading) = useState(false)
     val (isCheckboxActive, setIsCheckboxActive) = useState(false)
     val (isModalActive, setIsModalActive) = useState(false)
@@ -65,16 +70,39 @@ val WrappersPage = fc<WrappersPageProps> { props ->
     val (isPanelActive, setIsPanelActive) = useState(false)
     val (isJoyrideActive, setIsJoyrideActive) = useState(false)
 
+    // Retrieve source code
+    Async.complete(
+        taskName = "fetch-showcase-code-${this.hashCode()}",
+        taskFun = {
+            RequestUtil.requestAndHandle(
+                url = "./showcase-sources.txt",
+                handler = {
+                    it.text().await()
+                }
+            )
+        },
+        completeFun = { sourceCode ->
+            setOverallSourceCode(sourceCode)
+        },
+        catchFun = {
+            console.error("Couldn't load source code...", it)
+        }
+    )
+
     div {
         h1 {
             +"Wrappers"
         }
 
-        ShowcaseItem {
+        ShowcaseWrapperItem {
             name = "Avatar"
             packages =
                 Package("@atlaskit/avatar", "https://atlassian.design/components/avatar/examples").toList()
 
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "avatar"
+
+            // START_EXAMPLE:avatar
             val avatar = createElement {
                 Avatar {
                     attrs.size = "large"
@@ -95,15 +123,55 @@ val WrappersPage = fc<WrappersPageProps> { props ->
                     attrs.secondaryText = "Software Engineer"
                 }
             }
+            // END_EXAMPLE:avatar
 
             examples = listOfNotNull(example1, example2)
         }
 
-        ShowcaseItem {
+        ShowcaseWrapperItem {
+            name = "Button & Button-Group"
+            packages =
+                Package("@atlaskit/button", "https://atlassian.design/components/button/examples").toList()
+
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "button"
+
+            val example = createElement {
+                // START_EXAMPLE:button
+                ButtonGroup {
+                    Button {
+                        +"Normal button"
+                        attrs.appearance = "primary"
+                        attrs.onClick = {
+                            console.log("Button pressed")
+                        }
+                    }
+
+                    LoadingButton {
+                        +"Loading button"
+                        attrs.isLoading = isLoading
+                        attrs.onClick = { _ ->
+                            setIsLoading(true)
+                            window.setTimeout({ setIsLoading(false) }, 5000)
+                        }
+                    }
+                }
+                // END_EXAMPLE:button
+            }
+
+            examples = listOfNotNull(example)
+        }
+
+        ShowcaseWrapperItem {
             name = "Banner"
             packages =
                 Package("@atlaskit/banner", "https://atlassian.design/components/banner/examples").toList()
 
+
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "banner"
+
+            // START_EXAMPLE:banner
             val example1 = createElement {
                 Banner {
                     attrs.appearance = "announcement"
@@ -146,82 +214,68 @@ val WrappersPage = fc<WrappersPageProps> { props ->
                     }
                 }
             }
+            // END_EXAMPLE:banner
 
             examples = listOfNotNull(example1, example2, example3)
         }
 
-        ShowcaseItem {
-            name = "Button & Button-Group"
-            packages =
-                Package("@atlaskit/button", "https://atlassian.design/components/button/examples").toList()
-
-            val example = createElement {
-                ButtonGroup {
-                    Button {
-                        +"Normal button"
-                        attrs.appearance = "primary"
-                        attrs.onClick = {
-                            window.postMessage("TEST", "")
-                        }
-                    }
-
-                    LoadingButton {
-                        +"Loading button"
-                        attrs.isLoading = isLoading
-                        attrs.onClick = { _ ->
-                            setIsLoading(true)
-                            window.setTimeout({ setIsLoading(false) }, 5000)
-                        }
-                    }
-                }
-            }
-
-            examples = listOfNotNull(example)
-        }
-
-        ShowcaseItem {
+        ShowcaseWrapperItem {
             name = "Calendar"
             packages =
                 Package("@atlaskit/calendar", "https://atlassian.design/components/calendar/examples").toList()
+
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "calendar"
 
             val example = createElement {
                 styledDiv {
                     css {
                         +ShowcaseStyles.showcaseItemExampleMediumSize
                     }
+                    // START_EXAMPLE:calendar
                     Calendar {
                         attrs.locale = "de-DE"
                         attrs.weekStartDay = 1
                     }
+                    // END_EXAMPLE:calendar
                 }
             }
 
             examples = listOfNotNull(example)
         }
 
-        ShowcaseItem {
+        ShowcaseWrapperItem {
             name = "Checkbox"
             packages =
                 Package("@atlaskit/checkbox", "https://atlassian.design/components/checkbox/example").toList()
 
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "checkbox"
+
             val example = createElement {
+                // START_EXAMPLE:checkbox
                 Checkbox {
                     attrs.isChecked = isCheckboxActive
                     attrs.onChange = {
                         setIsCheckboxActive(!isCheckboxActive)
                     }
                 }
+                // END_EXAMPLE:checkbox
             }
 
             examples = listOfNotNull(example)
         }
 
-        ShowcaseItem {
+        ShowcaseWrapperItem {
             name = "Code block"
             packages =
                 Package("@atlaskit/code", "https://atlassian.design/components/code/code-block/examples").toList()
 
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "code-block"
+
             val example = createElement {
+                // START_EXAMPLE:code-block
                 CodeBlock {
                     attrs.language = "java"
                     attrs.text = """
@@ -232,38 +286,48 @@ val WrappersPage = fc<WrappersPageProps> { props ->
                         }
                         """.trimIndent()
                 }
+                // END_EXAMPLE:code-block
             }
 
             examples = listOfNotNull(example)
         }
 
-        ShowcaseItem {
+        ShowcaseWrapperItem {
             name = "Date time picker"
             packages = Package(
                 "@atlaskit/datetime-picker",
                 "https://atlassian.design/components/datetime-picker/examples"
             ).toList()
 
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "datetime-picker"
+
             val example = createElement {
                 styledDiv {
                     css {
                         +ShowcaseStyles.showcaseItemExampleMediumSize
                     }
+                    // START_EXAMPLE:datetime-picker
                     DateTimePicker {}
+                    // END_EXAMPLE:datetime-picker
                 }
             }
 
             examples = listOfNotNull(example)
         }
 
-        ShowcaseItem {
+        ShowcaseWrapperItem {
             name = "Dropdown menu"
             packages = Package(
                 "@atlaskit/dropdown-menu",
                 "https://atlassian.design/components/dropdown-menu/examples"
             ).toList()
 
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "dropdown-menu"
+
             val example = createElement {
+                // START_EXAMPLE:dropdown-menu
                 DropdownMenu {
                     attrs.trigger = "Dropdown"
 
@@ -274,25 +338,29 @@ val WrappersPage = fc<WrappersPageProps> { props ->
                         DropdownItem { +"First dropdown Item" }
                         DropdownItem { +"First dropdown Item" }
                     }
-
                 }
+                // END_EXAMPLE:dropdown-menu
             }
 
             examples = listOfNotNull(example)
         }
 
-        ShowcaseItem {
+        ShowcaseWrapperItem {
             name = "Empty state"
             packages = Package(
                 "@atlaskit/empty-state",
                 "https://atlassian.design/components/empty-state/examples"
             ).toList()
 
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "empty-state"
+
             val example = createElement {
                 styledDiv {
                     css {
                         +ShowcaseStyles.showcaseItemExampleMediumSize
                     }
+                    // START_EXAMPLE:empty-state
                     EmptyState {
                         attrs.header = "Empty state"
                         attrs.description = createElement {
@@ -306,37 +374,45 @@ val WrappersPage = fc<WrappersPageProps> { props ->
                             }
                         }!!
                     }
+                    // END_EXAMPLE:empty-state
                 }
             }
 
             examples = listOfNotNull(example)
         }
 
-        ShowcaseItem {
+        ShowcaseWrapperItem {
             name = "Flag"
             packages = Package("@atlaskit/flag", "https://atlassian.design/components/flag/examples").toList()
 
-            val warningIcon = createElement {
-                WarningIcon {}
-            }
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "flag"
 
             val example = createElement {
+                // START_EXAMPLE:flag
                 Flag {
                     attrs.title = "Flag"
-                    attrs.icon = warningIcon
+                    attrs.icon = createElement {
+                        WarningIcon {}
+                    }
                     attrs.description = "Description of flag."
                 }
+                // END_EXAMPLE:flag
             }
 
             examples = listOfNotNull(example)
         }
 
-        ShowcaseItem {
+        ShowcaseWrapperItem {
             name = "Icon"
             packages =
                 Package("@atlaskit/icon", "https://atlassian.design/components/icon/icon-explorer").toList()
 
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "icon"
+
             val example = createElement {
+                // START_EXAMPLE:icon
                 ArrowDownIcon {}
                 BulletListIcon {}
                 CheckCircleIcon {}
@@ -346,17 +422,22 @@ val WrappersPage = fc<WrappersPageProps> { props ->
                 TrashIcon {
                     attrs.primaryColor = "red"
                 }
+                // END_EXAMPLE:icon
             }
 
             examples = listOfNotNull(example)
         }
 
-        ShowcaseItem {
+        ShowcaseWrapperItem {
             name = "Joyride"
             packages =
                 Package("react-joyride", "https://docs.react-joyride.com/").toList()
 
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "joyride"
+
             val example = createElement {
+                // START_EXAMPLE:joyride
                 ButtonGroup {
                     Button {
                         attrs.isSelected = isJoyrideActive
@@ -440,18 +521,23 @@ val WrappersPage = fc<WrappersPageProps> { props ->
                         }
                     )
                 }
+                // END_EXAMPLE:joyride
             }
 
             examples = listOfNotNull(example)
         }
 
-        ShowcaseItem {
+        ShowcaseWrapperItem {
             name = "Lozenge"
             packages = Package(
                 "@atlaskit/lozenge",
                 "https://atlassian.design/components/lozenge/examples"
             ).toList()
 
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "lozenge"
+
+            // START_EXAMPLE:lozenge
             val example1 = createElement {
                 Lozenge {
                     +"First lozenge"
@@ -480,18 +566,23 @@ val WrappersPage = fc<WrappersPageProps> { props ->
                     attrs.isBold = false
                 }
             }
+            // END_EXAMPLE:lozenge
 
             examples = listOfNotNull(example1, example2, example3, example4)
         }
 
-        ShowcaseItem {
+        ShowcaseWrapperItem {
             name = "Modal"
             packages = Package(
                 "@atlaskit/modal-dialog",
                 "https://atlassian.design/components/modal-dialog/examples"
             ).toList()
 
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "modal"
+
             val example = createElement {
+                // START_EXAMPLE:modal
                 Button {
                     +"Show modal"
 
@@ -539,17 +630,21 @@ val WrappersPage = fc<WrappersPageProps> { props ->
                         }
                     }
                 }
+                // END_EXAMPLE:modal
             }
 
             examples = listOfNotNull(example)
         }
 
-        ShowcaseItem {
+        ShowcaseWrapperItem {
             name = "Panel"
             packages = Package(
                 "@atlaskit/panel",
                 "https://atlaskit.atlassian.com/packages/bitbucket/panel"
             ).toList()
+
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "panel"
 
             val example = createElement {
                 styledDiv {
@@ -559,6 +654,7 @@ val WrappersPage = fc<WrappersPageProps> { props ->
                         // Attention: Additional style!
                         +ShowcaseStyles.showcaseItemExamplePanel
                     }
+                    // START_EXAMPLE:panel
                     PanelStateless {
                         attrs.isExpanded = isPanelActive
                         attrs.onChange = {
@@ -574,18 +670,23 @@ val WrappersPage = fc<WrappersPageProps> { props ->
                             +"Panel content..."
                         }
                     }
+                    // END_EXAMPLE:panel
                 }
             }
 
             examples = listOfNotNull(example)
         }
 
-        ShowcaseItem {
+        ShowcaseWrapperItem {
             name = "Popup"
             packages =
                 Package("@atlaskit/popup", "https://atlassian.design/components/popup/examples").toList()
 
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "popup"
+
             val example = createElement {
+                // START_EXAMPLE:popup
                 Popup {
                     attrs.isOpen = isPopupActive
                     attrs.placement = "top"
@@ -616,16 +717,21 @@ val WrappersPage = fc<WrappersPageProps> { props ->
                         }!!
                     }
                 }
+                // END_EXAMPLE:popup
             }
 
             examples = listOfNotNull(example)
         }
 
-        ShowcaseItem {
+        ShowcaseWrapperItem {
             name = "Select"
             packages =
                 Package("@atlaskit/select", "https://atlassian.design/components/select/examples").toList()
 
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "select"
+
+            // START_EXAMPLE:select
             val example1 = createElement {
                 styledDiv {
                     css {
@@ -656,37 +762,47 @@ val WrappersPage = fc<WrappersPageProps> { props ->
                     }
                 }
             }
+            // END_EXAMPLE:select
 
             examples = listOfNotNull(example1, example2)
         }
 
-        ShowcaseItem {
+        ShowcaseWrapperItem {
             name = "Tabs"
             packages = Package("@atlaskit/tabs", "https://atlassian.design/components/tabs/examples").toList()
+
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "tabs"
 
             val example = createElement {
                 styledDiv {
                     css {
                         +ShowcaseStyles.showcaseItemExampleMediumSize
                     }
+                    // START_EXAMPLE:tabs
                     Tabs {
                         attrs.tabs = arrayOf(
                             Tab("First tab", createElement { span { +"First" } }!!),
                             Tab("Second tab", createElement { span { +"Second" } }!!),
                         )
                     }
+                    // END_EXAMPLE:tabs
                 }
             }
 
             examples = listOfNotNull(example)
         }
 
-        ShowcaseItem {
+        ShowcaseWrapperItem {
             name = "Tag & Tag-Group"
             packages = Package("@atlaskit/tag", "https://atlassian.design/components/tag/examples").toList()
                 .plus(Package("@atlaskit/tag-group", "https://atlassian.design/components/tag-group/examples"))
 
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "tags"
+
             val example = createElement {
+                // START_EXAMPLE:tags
                 TagGroup {
                     SimpleTag {
                         attrs.text = "Simple Tag"
@@ -696,23 +812,28 @@ val WrappersPage = fc<WrappersPageProps> { props ->
                         attrs.color = "purple"
                     }
                 }
+                // END_EXAMPLE:tags
             }
 
             examples = listOfNotNull(example)
         }
 
-        ShowcaseItem {
+        ShowcaseWrapperItem {
             name = "Dynamic table"
             packages = Package(
                 "@atlaskit/dynamic-table",
                 "https://atlassian.design/components/dynamic-table/examples"
             ).toList()
 
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "table"
+
             val example = createElement {
                 styledDiv {
                     css {
                         +ShowcaseStyles.showcaseItemExampleMediumSize
                     }
+                    // START_EXAMPLE:table
                     DynamicTable {
                         attrs.caption = createElement { +"" }!!
                         attrs.head = DynamicTableHead(
@@ -804,74 +925,94 @@ val WrappersPage = fc<WrappersPageProps> { props ->
                             )
                         )
                     }
+                    // END_EXAMPLE:table
                 }
             }
 
             examples = listOfNotNull(example)
         }
 
-        ShowcaseItem {
+        ShowcaseWrapperItem {
             name = "Text area"
             packages =
                 Package("@atlaskit/textarea", "https://atlassian.design/components/textarea/examples").toList()
 
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "textarea"
+
             val example = createElement {
                 styledDiv {
                     css {
                         +ShowcaseStyles.showcaseItemExampleMediumSize
                     }
+                    // START_EXAMPLE:textarea
                     Textarea {
                         attrs.defaultValue = "Content of text area..."
                     }
+                    // END_EXAMPLE:textarea
                 }
             }
 
             examples = listOfNotNull(example)
         }
 
-        ShowcaseItem {
+        ShowcaseWrapperItem {
             name = "Text field"
             packages =
                 Package("@atlaskit/textfield", "https://atlassian.design/components/textfield/examples").toList()
 
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "textfield"
+
             val example = createElement {
                 styledDiv {
                     css {
                         +ShowcaseStyles.showcaseItemExampleMediumSize
                     }
+                    // START_EXAMPLE:textfield
                     Textfield {
                         attrs.defaultValue = "Content of text field..."
                     }
+                    // END_EXAMPLE:textfield
                 }
             }
 
             examples = listOfNotNull(example)
         }
 
-        ShowcaseItem {
+        ShowcaseWrapperItem {
             name = "Toggle"
             packages =
                 Package("@atlaskit/toggle", "https://atlassian.design/components/toggle/examples").toList()
 
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "toggle"
+
             val example = createElement {
+                // START_EXAMPLE:toggle
                 Toggle {
                     attrs.isChecked = isCheckboxActive
                     attrs.onChange = {
                         setIsCheckboxActive(!isCheckboxActive)
                     }
                 }
+                // END_EXAMPLE:toggle
             }
 
             examples = listOfNotNull(example)
         }
 
-        ShowcaseItem {
+        ShowcaseWrapperItem {
             name = "Tooltip"
             packages =
                 Package("react-tooltip", "https://github.com/wwayne/react-tooltip").toList()
 
-            val key = "tooltip-1"
 
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "tooltip"
+
+            // START_EXAMPLE:tooltip
+            val key = "tooltip-1"
             val example = createElement {
                 div {
                     attrs["data-tip"] = "true"
@@ -894,6 +1035,8 @@ val WrappersPage = fc<WrappersPageProps> { props ->
                     }
                 }
             }
+
+            // END_EXAMPLE:tooltip
 
             examples = listOfNotNull(example)
         }

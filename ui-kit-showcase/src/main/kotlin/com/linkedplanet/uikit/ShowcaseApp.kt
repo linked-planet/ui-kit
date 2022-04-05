@@ -45,7 +45,6 @@ class ShowcaseApp(props: ShowcaseProps) : RComponent<ShowcaseProps, ShowcaseAppS
 
                 ShowcaseLeftSidebar {}
 
-
                 Main {
                     styledDiv {
                         css {
