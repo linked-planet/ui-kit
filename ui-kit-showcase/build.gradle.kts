@@ -64,4 +64,4 @@ tasks {
         }
     }
 }
-tasks["processResources"].dependsOn("gatherShowcaseSources")
+tasks["jsJar"].dependsOn("gatherShowcaseSources")
