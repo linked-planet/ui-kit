@@ -57,6 +57,12 @@ tasks {
             val files = fileTree(layout.projectDirectory.dir("src/main/kotlin/com/linkedplanet/uikit")).files
             val showcaseSourcesFileName = "showcase-sources.txt"
             val showcaseSourcesFile = File("${buildDir}/processedResources/js/main/$showcaseSourcesFileName")
+
+            if (!showcaseSourcesFile.exists()) {
+                showcaseSourcesFile.parentFile.mkdirs()
+                showcaseSourcesFile.createNewFile()
+            }
+
             files.forEach { file ->
                 val fileContent = file.readText()
                 showcaseSourcesFile.appendText(fileContent)
@@ -64,4 +70,4 @@ tasks {
         }
     }
 }
-tasks["jsJar"].dependsOn("gatherShowcaseSources")
+tasks["browserDistributeResources"].dependsOn("gatherShowcaseSources")
