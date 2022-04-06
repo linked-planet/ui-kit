@@ -42,8 +42,8 @@ import com.linkedplanet.uikit.wrapper.atlaskit.tab.Tabs
 import com.linkedplanet.uikit.wrapper.atlaskit.table.*
 import com.linkedplanet.uikit.wrapper.atlaskit.tag.SimpleTag
 import com.linkedplanet.uikit.wrapper.atlaskit.taggroup.TagGroup
-import com.linkedplanet.uikit.wrapper.atlaskit.textarea.Textarea
-import com.linkedplanet.uikit.wrapper.atlaskit.textfield.Textfield
+import com.linkedplanet.uikit.wrapper.atlaskit.textarea.TextArea
+import com.linkedplanet.uikit.wrapper.atlaskit.textfield.TextField
 import com.linkedplanet.uikit.wrapper.atlaskit.toggle.Toggle
 import com.linkedplanet.uikit.wrapper.joyride.Joyride
 import com.linkedplanet.uikit.wrapper.joyride.JoyrideLocale
@@ -946,7 +946,7 @@ val WrappersPage = fc<WrappersPageProps> { props ->
                         +ShowcaseStyles.showcaseItemExampleMediumSize
                     }
                     // START_EXAMPLE:textarea
-                    Textarea {
+                    TextArea {
                         attrs.defaultValue = "Content of text area..."
                     }
                     // END_EXAMPLE:textarea
@@ -970,7 +970,7 @@ val WrappersPage = fc<WrappersPageProps> { props ->
                         +ShowcaseStyles.showcaseItemExampleMediumSize
                     }
                     // START_EXAMPLE:textfield
-                    Textfield {
+                    TextField {
                         attrs.defaultValue = "Content of text field..."
                     }
                     // END_EXAMPLE:textfield

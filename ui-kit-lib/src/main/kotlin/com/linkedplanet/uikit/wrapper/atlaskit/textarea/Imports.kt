@@ -22,9 +22,9 @@ import react.ComponentClass
 import react.Props
 
 @JsName("default")
-external val Textarea: ComponentClass<TextareaProps>
+external val TextArea: ComponentClass<TextAreaProps>
 
-external interface TextareaProps : Props {
+external interface TextAreaProps : Props {
 
     /**
      * Controls the appearance of the field. subtle shows styling on hover. none hides all field styling.

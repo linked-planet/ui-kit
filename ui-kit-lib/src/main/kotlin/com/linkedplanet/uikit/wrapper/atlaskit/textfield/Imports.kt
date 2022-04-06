@@ -18,14 +18,13 @@
 package com.linkedplanet.uikit.wrapper.atlaskit.textfield
 
 import org.w3c.dom.events.Event
-import org.w3c.dom.events.KeyboardEvent
 import react.ComponentClass
 import react.Props
 
 @JsName("default")
-external val Textfield: ComponentClass<TextfieldCProps>
+external val TextField: ComponentClass<TextFieldProps>
 
-external interface TextfieldCProps : Props {
+external interface TextFieldProps : Props {
 
     /**
      * Controls the appearance of the field. subtle shows styling on hover. none hides all field styling.
