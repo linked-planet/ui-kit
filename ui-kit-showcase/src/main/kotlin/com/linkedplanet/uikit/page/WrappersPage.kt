@@ -59,7 +59,7 @@ import styled.styledDiv
 
 external interface WrappersPageProps : Props
 
-val WrappersPage = fc<WrappersPageProps> { props ->
+val WrappersPage = fc<WrappersPageProps> { _ ->
 
     val (overallSourceCode, setOverallSourceCode) = useState("")
 

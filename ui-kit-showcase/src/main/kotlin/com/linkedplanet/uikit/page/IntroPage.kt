@@ -24,7 +24,7 @@ import react.fc
 
 external interface IntroPageProps : Props
 
-val IntroPage = fc<IntroPageProps> { props ->
+val IntroPage = fc<IntroPageProps> { _ ->
 
     div {
         h1 {

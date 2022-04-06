@@ -23,7 +23,7 @@ import react.dom.span
 
 external interface NotFoundPageProps : Props
 
-val NotFoundPage = fc<NotFoundPageProps> { props ->
+val NotFoundPage = fc<NotFoundPageProps> { _ ->
 
     EmptyState {
         attrs.header = "404 - Not Found"
