@@ -5,7 +5,6 @@ plugins {
 repositories {
     mavenLocal()
     mavenCentral()
-    maven { url = uri("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-js-wrappers") }
 }
 
 dependencies {
@@ -18,6 +17,7 @@ dependencies {
     implementation(devNpm("file-loader", "6.2.0"))
     implementation(devNpm("@babel/core", "7.15.8"))
     implementation(devNpm("path-browserify", "1.0.1"))
+    implementation(devNpm("process", "0.11.10"))
 }
 
 kotlin {
@@ -25,7 +25,6 @@ kotlin {
         languageSettings.optIn("kotlin.RequiresOptIn")
     }
     js {
-        useCommonJs()
         browser {
             runTask {
                 devServer = devServer?.copy(
@@ -41,6 +40,7 @@ kotlin {
             dceTask {}
         }
         binaries.executable()
+        useCommonJs()
     }
 }
 
@@ -70,4 +70,4 @@ tasks {
         }
     }
 }
-tasks["browserDistributeResources"].dependsOn("gatherShowcaseSources")
+tasks["processResources"].dependsOn("gatherShowcaseSources")

@@ -17,9 +17,9 @@ package com.linkedplanet.uikit.page
 
 import com.linkedplanet.uikit.component.Package
 import com.linkedplanet.uikit.component.ShowcaseWrapperItem
+import com.linkedplanet.uikit.extension.form.*
 import com.linkedplanet.uikit.style.ShowcaseStyles
-import com.linkedplanet.uikit.util.Async
-import com.linkedplanet.uikit.util.RequestUtil
+import com.linkedplanet.uikit.util.*
 import com.linkedplanet.uikit.wrapper.atlaskit.avatar.Avatar
 import com.linkedplanet.uikit.wrapper.atlaskit.avatar.AvatarItem
 import com.linkedplanet.uikit.wrapper.atlaskit.banner.Banner
@@ -42,8 +42,8 @@ import com.linkedplanet.uikit.wrapper.atlaskit.tab.Tabs
 import com.linkedplanet.uikit.wrapper.atlaskit.table.*
 import com.linkedplanet.uikit.wrapper.atlaskit.tag.SimpleTag
 import com.linkedplanet.uikit.wrapper.atlaskit.taggroup.TagGroup
-import com.linkedplanet.uikit.wrapper.atlaskit.textarea.Textarea
-import com.linkedplanet.uikit.wrapper.atlaskit.textfield.Textfield
+import com.linkedplanet.uikit.wrapper.atlaskit.textarea.TextArea
+import com.linkedplanet.uikit.wrapper.atlaskit.textfield.TextField
 import com.linkedplanet.uikit.wrapper.atlaskit.toggle.Toggle
 import com.linkedplanet.uikit.wrapper.joyride.Joyride
 import com.linkedplanet.uikit.wrapper.joyride.JoyrideLocale
@@ -59,7 +59,7 @@ import styled.styledDiv
 
 external interface WrappersPageProps : Props
 
-val WrappersPage = fc<WrappersPageProps> { props ->
+val WrappersPage = fc<WrappersPageProps> { _ ->
 
     val (overallSourceCode, setOverallSourceCode) = useState("")
 
@@ -69,6 +69,7 @@ val WrappersPage = fc<WrappersPageProps> { props ->
     val (isPopupActive, setIsPopupActive) = useState(false)
     val (isPanelActive, setIsPanelActive) = useState(false)
     val (isJoyrideActive, setIsJoyrideActive) = useState(false)
+    val (formData, setFormData) = useState("")
 
     // Retrieve source code
     Async.complete(
@@ -398,6 +399,112 @@ val WrappersPage = fc<WrappersPageProps> { props ->
                     attrs.description = "Description of flag."
                 }
                 // END_EXAMPLE:flag
+            }
+
+            examples = listOfNotNull(example)
+        }
+
+        ShowcaseWrapperItem {
+            name = "Form"
+            packages = Package("@atlaskit/form", "https://atlassian.design/components/form/examples").toList()
+
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "form"
+
+            val example = createElement {
+                // START_EXAMPLE:form
+                ExtendedForm(
+                    onSubmit = { values, _, _ ->
+                        setFormData(JSON.stringify(values))
+                    }
+                ) {
+                    ExtendedFormHeader("Give me your input", "I describe this form.")
+
+                    ExtendedFormSection("Your data", "I'm curious.") {
+                        fun validateString(value: dynamic, form: dynamic, fieldState: dynamic): String? {
+                            val strValue = value as String
+                            return if (strValue.isEmpty()) {
+                                "empty"
+                            } else if (strValue.length > 10) {
+                                "tooLong"
+                            } else {
+                                null
+                            }
+                        }
+
+                        val stringValidationMapping = ValidationMapping(
+                            "Help!",
+                            "Valid - good job!",
+                            listOf(
+                                ValidationMappingEntry("tooLong", "Too long!"),
+                                ValidationMappingEntry("empty", "Fill me!")
+                            )
+                        )
+
+                        ExtendedFormTextField(
+                            name = "name",
+                            label = "Name",
+                            defaultValue = "Carl",
+                            validationMapping = stringValidationMapping,
+                            validate = ::validateString
+                        )
+
+                        ExtendedFormTextField(
+                            name = "surname",
+                            label = "Surname",
+                            defaultValue = "Coderrrr",
+                            isRequired = true,
+                            validationMapping = stringValidationMapping,
+                            validate = ::validateString
+                        )
+
+                        ExtendedFieldset("Some more info") {
+                            ExtendedFormCheckboxField(
+                                name = "coder",
+                                label = "Coder",
+                                defaultIsChecked = true
+                            )
+
+                            ExtendedFormCheckboxField(
+                                name = "reactFan",
+                                label = "React fan"
+                            )
+                        }
+                    }
+
+                    ExtendedFormSection("More data", "Tell me even more.") {
+                        val selectOptions =
+                            arrayOf(
+                                SelectOption("Red", "red"),
+                                SelectOption("Blue", "blue")
+                            )
+                        ExtendedFormSelectField(
+                            name = "color",
+                            label = "Favorite Color",
+                            options = selectOptions,
+                            defaultValue = selectOptions[1]
+                        )
+                    }
+
+                    ExtendedFormFooter {
+                        ButtonGroup {
+                            LoadingButton {
+                                attrs.type = "submit"
+                                attrs.appearance = "primary"
+                                +"Speichern"
+                            }
+                        }
+                    }
+                }
+
+                if (formData.isNotEmpty()) {
+                    span { +"Transmitted form data:" }
+                    CodeBlock {
+                        attrs.language = "json"
+                        attrs.text = formData
+                    }
+                }
+                // END_EXAMPLE:form
             }
 
             examples = listOfNotNull(example)
@@ -782,8 +889,8 @@ val WrappersPage = fc<WrappersPageProps> { props ->
                     // START_EXAMPLE:tabs
                     Tabs {
                         attrs.tabs = arrayOf(
-                            Tab("First tab", createElement { span { +"First" } }!!),
-                            Tab("Second tab", createElement { span { +"Second" } }!!),
+                            Tab("First tab", createSpan("First")),
+                            Tab("Second tab", createSpan("Second")),
                         )
                     }
                     // END_EXAMPLE:tabs
@@ -946,7 +1053,7 @@ val WrappersPage = fc<WrappersPageProps> { props ->
                         +ShowcaseStyles.showcaseItemExampleMediumSize
                     }
                     // START_EXAMPLE:textarea
-                    Textarea {
+                    TextArea {
                         attrs.defaultValue = "Content of text area..."
                     }
                     // END_EXAMPLE:textarea
@@ -970,8 +1077,12 @@ val WrappersPage = fc<WrappersPageProps> { props ->
                         +ShowcaseStyles.showcaseItemExampleMediumSize
                     }
                     // START_EXAMPLE:textfield
-                    Textfield {
+                    TextField {
                         attrs.defaultValue = "Content of text field..."
+                    }
+                    TextField {
+                        attrs.defaultValue = "Password"
+                        attrs.type = "password"
                     }
                     // END_EXAMPLE:textfield
                 }

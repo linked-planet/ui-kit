@@ -55,7 +55,7 @@ external interface ShowcaseWrapperItemProps : PropsWithChildren {
 
 val ShowcaseWrapperItem = fc<ShowcaseWrapperItemProps> { props ->
 
-    // Load code
+    // Extract code
     val code = props.overallSourceCode
         ?.takeIf { it.isNotEmpty() }
         ?.takeIf { props.sourceCodeExampleId != null }

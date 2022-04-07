@@ -67,6 +67,11 @@ external interface ButtonProps : Props {
      * Set the button to autofocus on mount
      */
     var autoFocus: Boolean
+
+    /**
+     * Type of the button (e.g. "submit").
+     */
+    var type: String
 }
 
 @JsName("ButtonGroup")

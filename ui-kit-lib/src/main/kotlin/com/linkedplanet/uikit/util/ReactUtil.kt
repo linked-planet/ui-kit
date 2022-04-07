@@ -13,30 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.linkedplanet.uikit.page
+package com.linkedplanet.uikit.util
 
-import react.Props
-import react.dom.div
-import react.dom.html.ReactHTML.h1
-import react.dom.html.ReactHTML.h3
+import react.*
 import react.dom.span
-import react.fc
 
-external interface IntroPageProps : Props
+fun createSpan(text: String): ReactElement = createElementNullSafe { span { +text } }
 
-val IntroPage = fc<IntroPageProps> { _ ->
+fun createElementNullSafe(block: Render): ReactElement =
+    createElement(block) ?: throw ReactRenderingError("Couldn't render element, got null.")
 
-    div {
-        h1 {
-            +"Welcome to UI-Kit"
-        }
-
-        h3 {
-            +"Usage"
-        }
-
-        span {
-            +"There will be more content soon..."
-        }
-    }
-}
+class ReactRenderingError(message: String?) : Error(message)

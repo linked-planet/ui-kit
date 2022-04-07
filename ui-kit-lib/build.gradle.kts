@@ -44,6 +44,7 @@ dependencies {
     implementation(npm("@atlaskit/dynamic-table", "14.5.2"))
     implementation(npm("@atlaskit/empty-state", "7.3.8"))
     implementation(npm("@atlaskit/flag", "14.5.5"))
+    implementation(npm("@atlaskit/form", "8.5.2"))
     implementation(npm("@atlaskit/icon", "21.10.5"))
     implementation(npm("@atlaskit/lozenge", "11.1.8"))
     implementation(npm("@atlaskit/modal-dialog", "12.2.5"))
@@ -72,6 +73,7 @@ dependencies {
 kotlin {
     js {
         browser {}
+        useCommonJs()
     }
 }
 

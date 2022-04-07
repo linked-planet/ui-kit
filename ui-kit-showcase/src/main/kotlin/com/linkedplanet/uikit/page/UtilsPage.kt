@@ -22,7 +22,7 @@ import react.fc
 
 external interface UtilsPageProps : Props
 
-val UtilsPage = fc<UtilsPageProps> { props ->
+val UtilsPage = fc<UtilsPageProps> { _ ->
 
     div {
         h1 {

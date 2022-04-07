@@ -37,7 +37,7 @@ object ShowcaseStyles : StyleSheet("ShowcaseStyles") {
 
     val showcaseItemPackages by css {
         fontWeight = FontWeight("300")
-        fontSize = 13.px
+        fontSize = 0.8.rem
     }
 
     val showcaseItemExamplesContainer by css {
