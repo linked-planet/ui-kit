@@ -26,11 +26,13 @@ import com.linkedplanet.uikit.wrapper.atlaskit.banner.Banner
 import com.linkedplanet.uikit.wrapper.atlaskit.button.*
 import com.linkedplanet.uikit.wrapper.atlaskit.calendar.Calendar
 import com.linkedplanet.uikit.wrapper.atlaskit.checkbox.Checkbox
+import com.linkedplanet.uikit.wrapper.atlaskit.checkbox.CheckboxProps
 import com.linkedplanet.uikit.wrapper.atlaskit.code.CodeBlock
 import com.linkedplanet.uikit.wrapper.atlaskit.datetimepicker.DateTimePicker
 import com.linkedplanet.uikit.wrapper.atlaskit.dropdownmenu.*
 import com.linkedplanet.uikit.wrapper.atlaskit.emptystate.EmptyState
 import com.linkedplanet.uikit.wrapper.atlaskit.flag.Flag
+import com.linkedplanet.uikit.wrapper.atlaskit.form.*
 import com.linkedplanet.uikit.wrapper.atlaskit.icon.*
 import com.linkedplanet.uikit.wrapper.atlaskit.lozenge.Lozenge
 import com.linkedplanet.uikit.wrapper.atlaskit.modal.*
@@ -69,6 +71,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
     val (isPopupActive, setIsPopupActive) = useState(false)
     val (isPanelActive, setIsPanelActive) = useState(false)
     val (isJoyrideActive, setIsJoyrideActive) = useState(false)
+    val (formData, setFormData) = useState("")
 
     // Retrieve source code
     Async.complete(
@@ -398,6 +401,158 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                     attrs.description = "Description of flag."
                 }
                 // END_EXAMPLE:flag
+            }
+
+            examples = listOfNotNull(example)
+        }
+
+        ShowcaseWrapperItem {
+            name = "Form"
+            packages = Package("@atlaskit/form", "https://atlassian.design/components/form/examples").toList()
+
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "form"
+
+            val example = createElement {
+                // START_EXAMPLE:form
+                Form {
+                    attrs.onSubmit = { values, _, _ ->
+                        setFormData(JSON.stringify(values))
+                    }
+                    attrs.children = {
+                        createElement {
+                            form {
+                                attrs.onSubmit = it.formProps.onSubmit
+
+                                FormHeader {
+                                    attrs.title = createElement { span { +"Give me your input" } }!!
+                                    attrs.description = createElement { span { +"I describe this form." } }!!
+                                }
+
+                                FormSection {
+                                    attrs.title = createElement { span { +"Your data" } }!!
+                                    attrs.description = createElement { span { +"I'm curious." } }!!
+                                    attrs.children = createElement {
+                                        Field {
+                                            attrs.name = "name"
+                                            attrs.label = createElement { span { +"Name" } }!!
+                                            attrs.defaultValue = "Carl"
+                                            attrs.children = { props ->
+                                                createElement(TextField, props.fieldProps)
+                                            }
+                                        }
+
+                                        Field {
+                                            attrs.id = "surname"
+                                            attrs.name = "surname"
+                                            attrs.label = createElement { span { +"Surname" } }!!
+                                            attrs.isRequired = true
+                                            attrs.defaultValue = "Coder"
+                                            attrs.children = { props ->
+                                                createElement {
+                                                    this.child(createElement(TextField, props.fieldProps))
+                                                    if (props.meta.dirty) {
+                                                        when (props.error) {
+                                                            null -> ValidMessage { +"Good job" }
+                                                            "tooLong" -> ErrorMessage { +"Value too long" }
+                                                            else -> ErrorMessage { +"Enter a value" }
+                                                        }
+                                                    } else {
+                                                        HelperMessage { +"Change this value" }
+                                                    }
+                                                }!!
+                                            }
+                                            attrs.validate = { value, _, _ ->
+                                                val strValue = value as String
+                                                if (strValue.isEmpty()) {
+                                                    "empty"
+                                                } else if (strValue.length > 10) {
+                                                    "tooLong"
+                                                } else {
+                                                    null
+                                                }
+                                            }
+                                        }
+
+                                        Fieldset {
+                                            attrs.legend = createElement { span { +"Some more info" } }!!
+                                            attrs.children = createElement {
+                                                CheckboxField {
+                                                    attrs.name = "coder"
+                                                    attrs.defaultIsChecked = true
+                                                    attrs.children = { props ->
+                                                        val checkboxHumanProps: CheckboxProps = props.fieldProps
+                                                        checkboxHumanProps.label = createElement { span { +"Coder" } }!!
+                                                        createElement(Checkbox, checkboxHumanProps)
+                                                    }
+                                                }
+
+                                                CheckboxField {
+                                                    attrs.name = "reactFan"
+                                                    attrs.defaultIsChecked = false
+                                                    attrs.children = { props ->
+                                                        val checkboxAlienProps: CheckboxProps = props.fieldProps
+                                                        checkboxAlienProps.label =
+                                                            createElement { span { +"React fan" } }!!
+                                                        createElement(Checkbox, checkboxAlienProps)
+                                                    }
+                                                }
+                                            }!!
+                                        }
+                                    }!!
+                                }
+
+                                FormSection {
+                                    attrs.title = createElement { span { +"More data" } }!!
+                                    attrs.description = createElement { span { +"Tell me even more." } }!!
+                                    attrs.children = createElement {
+                                        Field {
+                                            attrs.id = "color"
+                                            attrs.name = "color"
+                                            attrs.label = createElement { span { +"Favorite Color" } }!!
+
+                                            val selectOptions =
+                                                arrayOf(
+                                                    SelectOption("Red", "red"),
+                                                    SelectOption("Blue", "blue")
+                                                )
+
+                                            attrs.defaultValue = selectOptions[1]
+
+                                            attrs.children = { props ->
+                                                val selectProps: SelectProps = props.fieldProps
+                                                selectProps.options = selectOptions
+                                                createElement(Select, selectProps)
+                                            }
+                                        }
+                                    }!!
+                                }
+
+                                FormFooter {
+                                    attrs.children = createElement {
+                                        ButtonGroup {
+                                            LoadingButton {
+                                                attrs.type = "submit"
+                                                attrs.appearance = "primary"
+                                                +"Speichern"
+                                            }
+                                        }
+                                    }!!
+                                }
+                            }
+                        }!!
+
+                    }
+                }
+
+                if (formData.isNotEmpty()) {
+                    span { +"Transmitted form data:" }
+                    CodeBlock {
+                        attrs.language = "json"
+                        attrs.text = formData
+                    }
+                }
+                // END_EXAMPLE:form
             }
 
             examples = listOfNotNull(example)

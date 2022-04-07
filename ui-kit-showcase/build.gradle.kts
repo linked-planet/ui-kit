@@ -18,6 +18,7 @@ dependencies {
     implementation(devNpm("file-loader", "6.2.0"))
     implementation(devNpm("@babel/core", "7.15.8"))
     implementation(devNpm("path-browserify", "1.0.1"))
+    implementation(devNpm("process", "0.11.10"))
 }
 
 kotlin {
