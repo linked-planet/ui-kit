@@ -18,8 +18,7 @@ package com.linkedplanet.uikit.page
 import com.linkedplanet.uikit.component.Package
 import com.linkedplanet.uikit.component.ShowcaseWrapperItem
 import com.linkedplanet.uikit.style.ShowcaseStyles
-import com.linkedplanet.uikit.util.Async
-import com.linkedplanet.uikit.util.RequestUtil
+import com.linkedplanet.uikit.util.*
 import com.linkedplanet.uikit.wrapper.atlaskit.avatar.Avatar
 import com.linkedplanet.uikit.wrapper.atlaskit.avatar.AvatarItem
 import com.linkedplanet.uikit.wrapper.atlaskit.banner.Banner
@@ -425,17 +424,17 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                                 attrs.onSubmit = it.formProps.onSubmit
 
                                 FormHeader {
-                                    attrs.title = createElement { span { +"Give me your input" } }!!
-                                    attrs.description = createElement { span { +"I describe this form." } }!!
+                                    attrs.title = createSpan("Give me your input")
+                                    attrs.description = createSpan("I describe this form.")
                                 }
 
                                 FormSection {
-                                    attrs.title = createElement { span { +"Your data" } }!!
-                                    attrs.description = createElement { span { +"I'm curious." } }!!
+                                    attrs.title = createSpan("Your data")
+                                    attrs.description = createSpan("I'm curious.")
                                     attrs.children = createElement {
                                         Field {
                                             attrs.name = "name"
-                                            attrs.label = createElement { span { +"Name" } }!!
+                                            attrs.label = createSpan("Name")
                                             attrs.defaultValue = "Carl"
                                             attrs.children = { props ->
                                                 createElement(TextField, props.fieldProps)
@@ -445,7 +444,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                                         Field {
                                             attrs.id = "surname"
                                             attrs.name = "surname"
-                                            attrs.label = createElement { span { +"Surname" } }!!
+                                            attrs.label = createSpan("Surname")
                                             attrs.isRequired = true
                                             attrs.defaultValue = "Coder"
                                             attrs.children = { props ->
@@ -475,14 +474,14 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                                         }
 
                                         Fieldset {
-                                            attrs.legend = createElement { span { +"Some more info" } }!!
+                                            attrs.legend = createSpan("Some more info")
                                             attrs.children = createElement {
                                                 CheckboxField {
                                                     attrs.name = "coder"
                                                     attrs.defaultIsChecked = true
                                                     attrs.children = { props ->
                                                         val checkboxHumanProps: CheckboxProps = props.fieldProps
-                                                        checkboxHumanProps.label = createElement { span { +"Coder" } }!!
+                                                        checkboxHumanProps.label = createSpan("Coder")
                                                         createElement(Checkbox, checkboxHumanProps)
                                                     }
                                                 }
@@ -493,7 +492,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                                                     attrs.children = { props ->
                                                         val checkboxAlienProps: CheckboxProps = props.fieldProps
                                                         checkboxAlienProps.label =
-                                                            createElement { span { +"React fan" } }!!
+                                                            createSpan("React fan")
                                                         createElement(Checkbox, checkboxAlienProps)
                                                     }
                                                 }
@@ -503,13 +502,13 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                                 }
 
                                 FormSection {
-                                    attrs.title = createElement { span { +"More data" } }!!
-                                    attrs.description = createElement { span { +"Tell me even more." } }!!
+                                    attrs.title = createSpan("More data")
+                                    attrs.description = createSpan("Tell me even more.")
                                     attrs.children = createElement {
                                         Field {
                                             attrs.id = "color"
                                             attrs.name = "color"
-                                            attrs.label = createElement { span { +"Favorite Color" } }!!
+                                            attrs.label = createSpan("Favorite Color")
 
                                             val selectOptions =
                                                 arrayOf(
@@ -937,8 +936,8 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                     // START_EXAMPLE:tabs
                     Tabs {
                         attrs.tabs = arrayOf(
-                            Tab("First tab", createElement { span { +"First" } }!!),
-                            Tab("Second tab", createElement { span { +"Second" } }!!),
+                            Tab("First tab", createSpan("First")),
+                            Tab("Second tab", createSpan("Second")),
                         )
                     }
                     // END_EXAMPLE:tabs
