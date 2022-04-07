@@ -973,6 +973,10 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                     TextField {
                         attrs.defaultValue = "Content of text field..."
                     }
+                    TextField {
+                        attrs.defaultValue = "Password"
+                        attrs.type = "password"
+                    }
                     // END_EXAMPLE:textfield
                 }
             }

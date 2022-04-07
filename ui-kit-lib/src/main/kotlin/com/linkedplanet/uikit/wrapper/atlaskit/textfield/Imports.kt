@@ -83,6 +83,11 @@ external interface TextFieldProps : Props {
     var placeholder: String
 
     /**
+     * Type of the textfield (e.g. "password").
+     */
+    var type: String
+
+    /**
      * Handler called when the inputs value changes.
      */
     var onChange: (Event) -> Unit
