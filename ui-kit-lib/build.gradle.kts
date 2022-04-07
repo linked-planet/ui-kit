@@ -73,6 +73,7 @@ dependencies {
 kotlin {
     js {
         browser {}
+        useCommonJs()
     }
 }
 

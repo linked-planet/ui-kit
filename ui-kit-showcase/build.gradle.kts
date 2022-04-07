@@ -5,7 +5,6 @@ plugins {
 repositories {
     mavenLocal()
     mavenCentral()
-    maven { url = uri("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-js-wrappers") }
 }
 
 dependencies {
@@ -26,7 +25,6 @@ kotlin {
         languageSettings.optIn("kotlin.RequiresOptIn")
     }
     js {
-        useCommonJs()
         browser {
             runTask {
                 devServer = devServer?.copy(
@@ -42,6 +40,7 @@ kotlin {
             dceTask {}
         }
         binaries.executable()
+        useCommonJs()
     }
 }
 

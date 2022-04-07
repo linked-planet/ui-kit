@@ -17,6 +17,7 @@ package com.linkedplanet.uikit.page
 
 import com.linkedplanet.uikit.component.Package
 import com.linkedplanet.uikit.component.ShowcaseWrapperItem
+import com.linkedplanet.uikit.extension.form.*
 import com.linkedplanet.uikit.style.ShowcaseStyles
 import com.linkedplanet.uikit.util.*
 import com.linkedplanet.uikit.wrapper.atlaskit.avatar.Avatar
@@ -25,13 +26,11 @@ import com.linkedplanet.uikit.wrapper.atlaskit.banner.Banner
 import com.linkedplanet.uikit.wrapper.atlaskit.button.*
 import com.linkedplanet.uikit.wrapper.atlaskit.calendar.Calendar
 import com.linkedplanet.uikit.wrapper.atlaskit.checkbox.Checkbox
-import com.linkedplanet.uikit.wrapper.atlaskit.checkbox.CheckboxProps
 import com.linkedplanet.uikit.wrapper.atlaskit.code.CodeBlock
 import com.linkedplanet.uikit.wrapper.atlaskit.datetimepicker.DateTimePicker
 import com.linkedplanet.uikit.wrapper.atlaskit.dropdownmenu.*
 import com.linkedplanet.uikit.wrapper.atlaskit.emptystate.EmptyState
 import com.linkedplanet.uikit.wrapper.atlaskit.flag.Flag
-import com.linkedplanet.uikit.wrapper.atlaskit.form.*
 import com.linkedplanet.uikit.wrapper.atlaskit.icon.*
 import com.linkedplanet.uikit.wrapper.atlaskit.lozenge.Lozenge
 import com.linkedplanet.uikit.wrapper.atlaskit.modal.*
@@ -414,133 +413,87 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
 
             val example = createElement {
                 // START_EXAMPLE:form
-                Form {
-                    attrs.onSubmit = { values, _, _ ->
+                ExtendedForm(
+                    onSubmit = { values, _, _ ->
                         setFormData(JSON.stringify(values))
                     }
-                    attrs.children = {
-                        createElement {
-                            form {
-                                attrs.onSubmit = it.formProps.onSubmit
+                ) {
+                    ExtendedFormHeader("Give me your input", "I describe this form.")
 
-                                FormHeader {
-                                    attrs.title = createSpan("Give me your input")
-                                    attrs.description = createSpan("I describe this form.")
-                                }
-
-                                FormSection {
-                                    attrs.title = createSpan("Your data")
-                                    attrs.description = createSpan("I'm curious.")
-                                    attrs.children = createElement {
-                                        Field {
-                                            attrs.name = "name"
-                                            attrs.label = createSpan("Name")
-                                            attrs.defaultValue = "Carl"
-                                            attrs.children = { props ->
-                                                createElement(TextField, props.fieldProps)
-                                            }
-                                        }
-
-                                        Field {
-                                            attrs.id = "surname"
-                                            attrs.name = "surname"
-                                            attrs.label = createSpan("Surname")
-                                            attrs.isRequired = true
-                                            attrs.defaultValue = "Coder"
-                                            attrs.children = { props ->
-                                                createElement {
-                                                    this.child(createElement(TextField, props.fieldProps))
-                                                    if (props.meta.dirty) {
-                                                        when (props.error) {
-                                                            null -> ValidMessage { +"Good job" }
-                                                            "tooLong" -> ErrorMessage { +"Value too long" }
-                                                            else -> ErrorMessage { +"Enter a value" }
-                                                        }
-                                                    } else {
-                                                        HelperMessage { +"Change this value" }
-                                                    }
-                                                }!!
-                                            }
-                                            attrs.validate = { value, _, _ ->
-                                                val strValue = value as String
-                                                if (strValue.isEmpty()) {
-                                                    "empty"
-                                                } else if (strValue.length > 10) {
-                                                    "tooLong"
-                                                } else {
-                                                    null
-                                                }
-                                            }
-                                        }
-
-                                        Fieldset {
-                                            attrs.legend = createSpan("Some more info")
-                                            attrs.children = createElement {
-                                                CheckboxField {
-                                                    attrs.name = "coder"
-                                                    attrs.defaultIsChecked = true
-                                                    attrs.children = { props ->
-                                                        val checkboxHumanProps: CheckboxProps = props.fieldProps
-                                                        checkboxHumanProps.label = createSpan("Coder")
-                                                        createElement(Checkbox, checkboxHumanProps)
-                                                    }
-                                                }
-
-                                                CheckboxField {
-                                                    attrs.name = "reactFan"
-                                                    attrs.defaultIsChecked = false
-                                                    attrs.children = { props ->
-                                                        val checkboxAlienProps: CheckboxProps = props.fieldProps
-                                                        checkboxAlienProps.label =
-                                                            createSpan("React fan")
-                                                        createElement(Checkbox, checkboxAlienProps)
-                                                    }
-                                                }
-                                            }!!
-                                        }
-                                    }!!
-                                }
-
-                                FormSection {
-                                    attrs.title = createSpan("More data")
-                                    attrs.description = createSpan("Tell me even more.")
-                                    attrs.children = createElement {
-                                        Field {
-                                            attrs.id = "color"
-                                            attrs.name = "color"
-                                            attrs.label = createSpan("Favorite Color")
-
-                                            val selectOptions =
-                                                arrayOf(
-                                                    SelectOption("Red", "red"),
-                                                    SelectOption("Blue", "blue")
-                                                )
-
-                                            attrs.defaultValue = selectOptions[1]
-
-                                            attrs.children = { props ->
-                                                val selectProps: SelectProps = props.fieldProps
-                                                selectProps.options = selectOptions
-                                                createElement(Select, selectProps)
-                                            }
-                                        }
-                                    }!!
-                                }
-
-                                FormFooter {
-                                    attrs.children = createElement {
-                                        ButtonGroup {
-                                            LoadingButton {
-                                                attrs.type = "submit"
-                                                attrs.appearance = "primary"
-                                                +"Speichern"
-                                            }
-                                        }
-                                    }!!
-                                }
+                    ExtendedFormSection("Your data", "I'm curious.") {
+                        fun validateString(value: dynamic, form: dynamic, fieldState: dynamic): String? {
+                            val strValue = value as String
+                            return if (strValue.isEmpty()) {
+                                "empty"
+                            } else if (strValue.length > 10) {
+                                "tooLong"
+                            } else {
+                                null
                             }
-                        }!!
+                        }
 
+                        val stringValidationMapping = ValidationMapping(
+                            "Help!",
+                            "Valid - good job!",
+                            listOf(
+                                ValidationMappingEntry("tooLong", "Too long!"),
+                                ValidationMappingEntry("empty", "Fill me!")
+                            )
+                        )
+
+                        ExtendedFormTextField(
+                            name = "name",
+                            label = "Name",
+                            defaultValue = "Carl",
+                            validationMapping = stringValidationMapping,
+                            validate = ::validateString
+                        )
+
+                        ExtendedFormTextField(
+                            name = "surname",
+                            label = "Surname",
+                            defaultValue = "Coderrrr",
+                            isRequired = true,
+                            validationMapping = stringValidationMapping,
+                            validate = ::validateString
+                        )
+
+                        ExtendedFieldset("Some more info") {
+                            ExtendedFormCheckboxField(
+                                name = "coder",
+                                label = "Coder",
+                                defaultIsChecked = true
+                            )
+
+                            ExtendedFormCheckboxField(
+                                name = "reactFan",
+                                label = "React fan"
+                            )
+                        }
+                    }
+
+                    ExtendedFormSection("More data", "Tell me even more.") {
+                        val selectOptions =
+                            arrayOf(
+                                SelectOption("Red", "red"),
+                                SelectOption("Blue", "blue")
+                            )
+                        ExtendedFormSelectField(
+                            name = "color",
+                            label = "Favorite Color",
+                            options = selectOptions,
+                            defaultValue = selectOptions[1]
+                        )
+                    }
+
+                    ExtendedFormFooter {
+                        ButtonGroup {
+                            LoadingButton {
+                                attrs.type = "submit"
+                                attrs.appearance = "primary"
+                                +"Speichern"
+                            }
+                        }
                     }
                 }
 
