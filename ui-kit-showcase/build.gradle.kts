@@ -71,4 +71,4 @@ tasks {
         }
     }
 }
-tasks["browserDistributeResources"].dependsOn("gatherShowcaseSources")
+tasks["processResources"].dependsOn("gatherShowcaseSources")
