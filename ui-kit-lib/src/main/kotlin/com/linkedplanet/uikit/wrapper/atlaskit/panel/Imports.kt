@@ -24,9 +24,18 @@ external val PanelStateless: ComponentClass<PanelStatelessProps>
 
 external interface PanelStatelessProps : Props {
 
-    var header: ReactElement
+    /**
+     * Header to render on the panel. Clicking the header expands and collapses the panel.
+     */
+    var header: ReactNode
 
+    /**
+     * Defines whether the panel is expanded by default (default: false).
+     */
     var isExpanded: Boolean
 
+    /**
+     * This callback is called when panel is expanded/collapsed
+     */
     var onChange: (Boolean) -> Unit
 }

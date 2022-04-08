@@ -17,7 +17,8 @@
 
 package com.linkedplanet.uikit.wrapper.atlaskit.taggroup
 
-import react.*
+import react.ComponentClass
+import react.Props
 
 @JsName("default")
 external val TagGroup: ComponentClass<TagGroupProps>

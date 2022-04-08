@@ -20,14 +20,14 @@ package com.linkedplanet.uikit.wrapper.atlaskit.table
 import react.*
 
 @JsName("default")
-external val DynamicTable: ComponentClass<DynamicTableCProps>
+external val DynamicTable: ComponentClass<DynamicTableProps>
 
-external interface DynamicTableCProps : Props {
+external interface DynamicTableProps : Props {
 
     /**
      * Caption for the table styled as a heading.
      */
-    var caption: ReactElement
+    var caption: ReactNode
 
     /**
      * Cells to be placed in the head of the table. Each element in the head creates a new column.

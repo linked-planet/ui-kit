@@ -15,7 +15,7 @@ dependencies {
     implementation(devNpm("sass-loader", "12.6.0"))
     implementation(devNpm("node-sass", "7.0.1"))
     implementation(devNpm("file-loader", "6.2.0"))
-    implementation(devNpm("@babel/core", "7.15.8"))
+    implementation(devNpm("@babel/core", "7.17.9"))
     implementation(devNpm("path-browserify", "1.0.1"))
     implementation(devNpm("process", "0.11.10"))
 }
@@ -41,13 +41,6 @@ kotlin {
         }
         binaries.executable()
         useCommonJs()
-    }
-}
-
-// See https://github.com/webpack/webpack-cli/issues/2990
-rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin> {
-    rootProject.the<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension>().apply {
-        resolution("@webpack-cli/serve", "1.5.2")
     }
 }
 

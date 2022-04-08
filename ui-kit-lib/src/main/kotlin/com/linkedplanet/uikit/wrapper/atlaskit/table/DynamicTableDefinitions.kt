@@ -16,7 +16,7 @@
 package com.linkedplanet.uikit.wrapper.atlaskit.table
 
 import org.w3c.dom.events.MouseEvent
-import react.ReactElement
+import react.ReactNode
 
 data class DynamicTableHead(
     val cells: Array<HeaderCell>
@@ -39,9 +39,9 @@ abstract class RowCell
 
 data class StringRowCell(
     val content: String
-): RowCell()
+) : RowCell()
 
 data class ElementRowCell(
-    val content: ReactElement
-): RowCell()
+    val content: ReactNode
+) : RowCell()
 

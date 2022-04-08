@@ -65,8 +65,12 @@ external interface FlagProps : Props {
 external val AutoDismissFlag: ComponentClass<FlagProps>
 
 @JsName("FlagGroup")
-external val FlagGroup: ComponentClass<FlagGroupCProps>
+external val FlagGroup: ComponentClass<FlagGroupProps>
 
-external interface FlagGroupCProps : Props {
+external interface FlagGroupProps : Props {
+
+    /**
+     * Handler which will be called when a Flag's dismiss button is clicked. Receives the id of the dismissed Flag as a parameter.
+     */
     var onDismissed: (String) -> Unit
 }

@@ -35,12 +35,12 @@ external interface AtlassianNavigationProps : Props {
      * Slot for the product home logo, this will render your product brand. Refer to
      * [product home](atlassian-navigation/docs/product home) docs for more information.
      */
-    var renderProductHome: () -> ReactElement
+    var renderProductHome: () -> ReactNode
 
     /**
      * Slot for the profile button. Refer to secondary actions docs for more information.
      */
-    var renderProfile: () -> ReactElement
+    var renderProfile: () -> ReactNode
 }
 
 @JsName("CustomProductHome")
@@ -89,7 +89,7 @@ external interface PrimaryButtonProps : Props {
     /**
      * Optional text to show when the button is focused or hovered.
      */
-    var tooltip: ReactElement
+    var tooltip: ReactNode
 
     /**
      * On click handler. See @atlaskit/analytics-next for analyticsEvent type information.

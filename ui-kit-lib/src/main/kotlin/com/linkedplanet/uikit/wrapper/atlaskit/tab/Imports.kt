@@ -17,7 +17,8 @@
 
 package com.linkedplanet.uikit.wrapper.atlaskit.tab
 
-import react.*
+import react.ComponentClass
+import react.Props
 
 @JsName("default")
 external val Tabs: ComponentClass<TabsProps>

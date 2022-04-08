@@ -156,6 +156,7 @@ fun RBuilder.ExtendedFormSelectField(
         validate
     ) { props ->
         val selectProps: SelectProps = props.fieldProps
+        selectProps.inputId = name
         selectProps.options = options
         createElement(Select, selectProps)
     }

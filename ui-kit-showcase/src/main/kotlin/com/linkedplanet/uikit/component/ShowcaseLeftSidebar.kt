@@ -19,8 +19,8 @@ import com.linkedplanet.uikit.wrapper.atlaskit.icon.EmojiTravelIcon
 import com.linkedplanet.uikit.wrapper.atlaskit.icon.FileIcon
 import com.linkedplanet.uikit.wrapper.atlaskit.pagelayout.LeftSidebar
 import com.linkedplanet.uikit.wrapper.atlaskit.sidenavigation.*
-import kotlinext.js.jsObject
 import kotlinx.browser.document
+import kotlinx.js.jso
 import react.*
 import react.dom.a
 import kotlin.js.Date
@@ -44,7 +44,7 @@ val ShowcaseLeftSidebar = fc<ShowcaseLeftSidebarProps> { _ ->
                 Section {
                     ButtonItem {
                         +"Menu item"
-                        attrs.iconBefore = createElement(EmojiTravelIcon, jsObject {})
+                        attrs.iconBefore = createElement(EmojiTravelIcon, jso {})
                         attrs.onClick = {
                             console.log("My Flights clicked")
                         }
@@ -52,7 +52,7 @@ val ShowcaseLeftSidebar = fc<ShowcaseLeftSidebarProps> { _ ->
                     NestingItem {
                         attrs.id = "nesting-item-id"
                         attrs.title = "Nested menu item"
-                        attrs.iconBefore = createElement(FileIcon, jsObject {})
+                        attrs.iconBefore = createElement(FileIcon, jso {})
                         Section {
                             attrs.title = "Section 1"
                             ButtonItem {
