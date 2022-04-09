@@ -18,6 +18,7 @@
 package com.linkedplanet.uikit.wrapper.atlaskit.navigation
 
 import com.linkedplanet.uikit.wrapper.atlaskit.button.ButtonProps
+import org.w3c.dom.events.Event
 import org.w3c.dom.events.MouseEvent
 import react.*
 
@@ -106,4 +107,14 @@ external interface ProfileProps : ButtonProps {
      * Icon for the button.
      */
     var icon: dynamic
+
+    /**
+     * If wanting to link to another page you can define the href.
+     */
+    var href: String
+
+    /**
+     * If defining href you may want to define target as well.
+     */
+    var target: String
 }

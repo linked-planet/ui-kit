@@ -66,8 +66,7 @@ val ShowcaseTopNavigation = fc<ShowcaseTopNavigationProps> { _ ->
             // Profile
             val profileIcon = createElementNullSafe {
                 img {
-                    attrs.src =
-                        "https://w7.pngwing.com/pngs/7/618/png-transparent-man-illustration-avatar-icon-fashion-men-avatar-face-fashion-girl-heroes.png"
+                    attrs.src = "images/github-logo.png"
                     attrs.jsStyle {
                         borderRadius = "50%"
                         width = 32
@@ -78,6 +77,8 @@ val ShowcaseTopNavigation = fc<ShowcaseTopNavigationProps> { _ ->
 
             attrs.renderProfile = {
                 createElement(Profile, jso {
+                    href = "https://github.com/linked-planet/ui-kit"
+                    target = "_blank"
                     icon = profileIcon
                 })
             }
