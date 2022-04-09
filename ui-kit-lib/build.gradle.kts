@@ -63,6 +63,14 @@ dependencies {
     implementation(npm("react-joyride", "2.4.0"))
     implementation(npm("react-tooltip", "4.2.21"))
     implementation(npm("mime-types", "2.1.34"))
+
+    // Dev
+    implementation(devNpm("style-loader", "3.3.1"))
+    implementation(devNpm("css-loader", "6.7.1"))
+    implementation(devNpm("sass-loader", "12.6.0"))
+    implementation(devNpm("node-sass", "7.0.1"))
+    implementation(devNpm("path-browserify", "1.0.1"))
+    implementation(devNpm("process", "0.11.10"))
 }
 
 kotlin {
