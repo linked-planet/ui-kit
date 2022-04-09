@@ -16,6 +16,7 @@
 package com.linkedplanet.uikit.component
 
 import com.linkedplanet.uikit.style.ShowcaseStyles
+import com.linkedplanet.uikit.util.createElementNullSafe
 import com.linkedplanet.uikit.wrapper.atlaskit.code.CodeBlock
 import com.linkedplanet.uikit.wrapper.atlaskit.tab.Tab
 import com.linkedplanet.uikit.wrapper.atlaskit.tab.Tabs
@@ -50,7 +51,7 @@ external interface ShowcaseWrapperItemProps : PropsWithChildren {
     var sourceCodeExampleId: String?
     var overallSourceCode: String?
 
-    var examples: List<ReactElement>
+    var examples: List<ReactNode>
 }
 
 val ShowcaseWrapperItem = fc<ShowcaseWrapperItemProps> { props ->
@@ -99,7 +100,7 @@ val ShowcaseWrapperItem = fc<ShowcaseWrapperItemProps> { props ->
             }
             Tabs {
                 attrs.tabs = arrayOf(
-                    Tab("Example", createElement {
+                    Tab("Example", createElementNullSafe {
                         styledDiv {
                             css {
                                 +ShowcaseStyles.showcaseItemExamplesContainer
@@ -113,9 +114,9 @@ val ShowcaseWrapperItem = fc<ShowcaseWrapperItemProps> { props ->
                                 }
                             }
                         }
-                    }!!),
+                    }),
 
-                    Tab("Example source", createElement {
+                    Tab("Example source", createElementNullSafe {
                         if (code.isNotEmpty()) {
                             styledDiv {
                                 css {
@@ -129,7 +130,7 @@ val ShowcaseWrapperItem = fc<ShowcaseWrapperItemProps> { props ->
                         } else {
                             span { +"No sources found..." }
                         }
-                    }!!),
+                    }),
                 )
             }
         }

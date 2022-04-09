@@ -18,6 +18,7 @@
 package com.linkedplanet.uikit.wrapper.atlaskit.navigation
 
 import com.linkedplanet.uikit.wrapper.atlaskit.button.ButtonProps
+import org.w3c.dom.events.Event
 import org.w3c.dom.events.MouseEvent
 import react.*
 
@@ -35,12 +36,12 @@ external interface AtlassianNavigationProps : Props {
      * Slot for the product home logo, this will render your product brand. Refer to
      * [product home](atlassian-navigation/docs/product home) docs for more information.
      */
-    var renderProductHome: () -> ReactElement
+    var renderProductHome: () -> ReactNode
 
     /**
      * Slot for the profile button. Refer to secondary actions docs for more information.
      */
-    var renderProfile: () -> ReactElement
+    var renderProfile: () -> ReactNode
 }
 
 @JsName("CustomProductHome")
@@ -89,7 +90,7 @@ external interface PrimaryButtonProps : Props {
     /**
      * Optional text to show when the button is focused or hovered.
      */
-    var tooltip: ReactElement
+    var tooltip: ReactNode
 
     /**
      * On click handler. See @atlaskit/analytics-next for analyticsEvent type information.
@@ -106,4 +107,14 @@ external interface ProfileProps : ButtonProps {
      * Icon for the button.
      */
     var icon: dynamic
+
+    /**
+     * If wanting to link to another page you can define the href.
+     */
+    var href: String
+
+    /**
+     * If defining href you may want to define target as well.
+     */
+    var target: String
 }

@@ -68,7 +68,7 @@ external interface AvatarItemProps : Props {
     /**
      * Slot to place an avatar element. Use @atlaskit/avatar.
      */
-    var avatar: ReactElement
+    var avatar: ReactNode
 
     /**
      * Primary text.

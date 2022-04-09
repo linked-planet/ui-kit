@@ -17,8 +17,6 @@
 
 package com.linkedplanet.uikit.wrapper.atlaskit.popup
 
-import org.w3c.dom.Element
-import org.w3c.dom.HTMLElement
 import react.*
 
 @JsName("Popup")
@@ -35,12 +33,12 @@ external interface PopupProps : Props {
      * Render props used to anchor the popup to your content. Make this an interactive element, such as an
      * @atlaskit/button component.
      */
-    var trigger: (Props) -> ReactElement
+    var trigger: (Props) -> ReactNode
 
     /**
      * Render props for content that is displayed inside the popup.
      */
-    var content: (Props) -> ReactElement
+    var content: (Props) -> ReactNode
 
     /**
      * Id that is assigned to the popup container element.
@@ -75,7 +73,7 @@ external interface PopupProps : Props {
      * The element that is shown when isOpen prop is true. The result of the content prop will be placed as children
      * here. Defaults to an element with an elevation of e200 with no padding.
      */
-    var popupComponent: () -> ReactElement
+    var popupComponent: () -> ReactNode
 
     /**
      * Z-index that the popup should be displayed in. This is passed to the portal component. Defaults to layers.layer()

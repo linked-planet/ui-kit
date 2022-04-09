@@ -17,17 +17,19 @@ package com.linkedplanet.uikit
 
 import kotlinx.browser.document
 import kotlinx.browser.window
-import react.dom.render
+import react.createElement
+import react.dom.client.createRoot
+import react.react
 
 @ExperimentalJsExport
 fun main() {
     window.onload = {
-        render(document.getElementById("root")) {
-            child(ShowcaseApp::class) {
-                attrs {
-                    name = "Kotlin/JS"
-                }
+        document.getElementById("root")
+            ?.let { doc ->
+                val root = createRoot(doc)
+                val app = createElement(ShowcaseApp::class.react)
+                root.render(app)
             }
-        }
+            ?: console.error("No element with id 'root' found")
     }
 }

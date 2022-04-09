@@ -15,9 +15,9 @@
  */
 package com.linkedplanet.uikit.wrapper.atlaskit.tab
 
-import react.ReactElement
+import react.ReactNode
 
 data class Tab(
     val label: String,
-    val content: ReactElement
+    val content: ReactNode
 )

@@ -17,7 +17,8 @@
 
 package com.linkedplanet.uikit.wrapper.atlaskit.tag
 
-import react.*
+import react.ComponentClass
+import react.Props
 
 @JsName("SimpleTag")
 external val SimpleTag: ComponentClass<SimpleTagProps>

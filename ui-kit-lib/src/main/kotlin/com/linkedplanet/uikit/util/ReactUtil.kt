@@ -18,9 +18,9 @@ package com.linkedplanet.uikit.util
 import react.*
 import react.dom.span
 
-fun createSpan(text: String): ReactElement = createElementNullSafe { span { +text } }
+fun createSpan(text: String): ReactNode = createElementNullSafe { span { +text } }
 
-fun createElementNullSafe(block: Render): ReactElement =
-    createElement(block) ?: throw ReactRenderingError("Couldn't render element, got null.")
+fun createElementNullSafe(block: Render): ReactNode =
+    createElement<Props>(block) ?: throw ReactRenderingError("Couldn't render element, got null. $block")
 
 class ReactRenderingError(message: String?) : Error(message)

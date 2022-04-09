@@ -19,22 +19,26 @@ import com.linkedplanet.uikit.component.ShowcaseLeftSidebar
 import com.linkedplanet.uikit.component.ShowcaseTopNavigation
 import com.linkedplanet.uikit.page.*
 import com.linkedplanet.uikit.style.ShowcaseStyles
+import com.linkedplanet.uikit.util.createElementNullSafe
 import com.linkedplanet.uikit.wrapper.atlaskit.cssreset.CssReset
 import com.linkedplanet.uikit.wrapper.atlaskit.pagelayout.*
 import react.*
-import react.router.dom.*
+import react.router.*
+import react.router.dom.HashRouter
 import styled.css
 import styled.styledDiv
 
-external interface ShowcaseProps : Props {
+external interface ShowcaseAppProps : Props {
     var name: String
 }
 
-interface ShowcaseAppState : State
+external interface ShowcaseAppState : State
 
-class ShowcaseApp(props: ShowcaseProps) : RComponent<ShowcaseProps, ShowcaseAppState>(props) {
+class ShowcaseApp(props: ShowcaseAppProps) : RComponent<ShowcaseAppProps, ShowcaseAppState>(props) {
 
     override fun RBuilder.render() {
+        kotlinext.js.require("./style/custom.scss")
+
         CssReset
 
         PageLayout {
@@ -51,33 +55,33 @@ class ShowcaseApp(props: ShowcaseProps) : RComponent<ShowcaseProps, ShowcaseAppS
                             +ShowcaseStyles.showcaseContainer
                         }
                         HashRouter {
-                            Switch { // use switch to render only the first matching result
-                                Redirect {
-                                    attrs.from = "/"
-                                    attrs.to = "/intro"
-                                    attrs.exact = true
+                            Routes { // use switch to render only the first matching result
+                                Route {
+                                    attrs.path = "/"
+                                    attrs.element = createElementNullSafe {
+                                        Navigate {
+                                            attrs.to = "/intro"
+                                        }
+                                    }
                                 }
 
                                 Route {
-                                    attrs.path = arrayOf("/intro")
-                                    attrs.exact = true
-                                    attrs.component = IntroPage
+                                    attrs.path = "/intro"
+                                    attrs.element = createElement(IntroPage)
                                 }
 
                                 Route {
-                                    attrs.path = arrayOf("/wrappers")
-                                    attrs.exact = true
-                                    attrs.component = WrappersPage
+                                    attrs.path = "/wrappers"
+                                    attrs.element = createElement(WrappersPage)
                                 }
 
                                 Route {
-                                    attrs.path = arrayOf("/utils")
-                                    attrs.exact = true
-                                    attrs.component = UtilsPage
+                                    attrs.path = "/utils"
+                                    attrs.element = createElement(UtilsPage)
                                 }
 
                                 Route {
-                                    attrs.component = NotFoundPage
+                                    attrs.element = createElement(NotFoundPage)
                                 }
                             }
                         }

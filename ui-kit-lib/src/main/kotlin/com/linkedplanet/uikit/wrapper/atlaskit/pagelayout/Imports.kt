@@ -14,72 +14,117 @@
  * limitations under the License.
  */
 @file:JsModule("@atlaskit/page-layout")
+
 package com.linkedplanet.uikit.wrapper.atlaskit.pagelayout
 
-import react.ComponentClass
-import react.Props
-import react.ReactElement
+import react.*
 
 @JsName("PageLayout")
-external val PageLayout: ComponentClass<PageLayoutCProps>
+external val PageLayout: ComponentClass<PageLayoutProps>
 
-external interface PageLayoutCProps : Props {
+external interface PageLayoutProps : Props {
 
+    /**
+     * The id of the dom element.
+     */
     var id: String
 
-    var children: ReactElement
+    /**
+     * React children.
+     */
+    var children: ReactNode
 }
 
 @JsName("Banner")
-external val Banner: ComponentClass<BanneProps>
+external val Banner: ComponentClass<BannerProps>
 
-external interface BanneProps : Props {
+external interface BannerProps : Props {
 
+    /**
+     * HTML id attribute. It also used as a target for skip links to land on. If missing, skip link for that Slot will
+     * not be generated.
+     */
     var id: String
 
-    var children: ReactElement
+    /**
+     * React Children.
+     */
+    var children: ReactNode
 
+    /**
+     * Height of the element.
+     */
     var height: Int
 }
 
 @JsName("Main")
-external val Main: ComponentClass<MainCProps>
+external val Main: ComponentClass<MainProps>
 
-external interface MainCProps : Props {
+external interface MainProps : Props {
 
+    /**
+     * HTML id attribute. It also used as a target for skip links to land on. If missing, skip link for that Slot will
+     * not be generated
+     */
     var id: String
 
-    var children: ReactElement
+    /**
+     * React Children.
+     */
+    var children: ReactNode
 
+    /**
+     * Width of the element.
+     */
     var width: Int
 }
 
 @JsName("Content")
-external val Content: ComponentClass<ContentCProps>
+external val Content: ComponentClass<ContentProps>
 
-external interface ContentCProps : Props {
+external interface ContentProps : Props {
 
+    /**
+     * HTML id attribute. It also used as a target for skip links to land on. If missing, skip link for that Slot will
+     * not be generated.
+     */
     var id: String
 
-    var children: ReactElement
+    /**
+     * React children.
+     */
+    var children: ReactNode
 
+    /**
+     * Width of the element.
+     */
     var width: Int
 }
 
 @JsName("RightSidebar")
-external val RightSidebar: ComponentClass<RightSidebaProps>
+external val RightSidebar: ComponentClass<RightSidebarProps>
 
-external interface RightSidebaProps : Props {
+external interface RightSidebarProps : Props {
 
+    /**
+     * HTML id attribute.
+     */
     var id: String
 
-    var children: ReactElement
+    /**
+     * React children.
+     */
+    var children: ReactNode
 
+    /**
+     * Width of the element.
+     */
     var width: Int
 
+    /**
+     * Sets positon to fixed.
+     */
     var isFixed: Boolean
-
-
 }
 
 @JsName("LeftSidebar")
@@ -87,36 +132,75 @@ external val LeftSidebar: ComponentClass<LeftSidebaProps>
 
 external interface LeftSidebaProps : Props {
 
+    /**
+     * HTML id attribute. It also used as a target for skip links to land on. If missing, skip link for that Slot will
+     * not be generated
+     */
     var id: String
 
-    var children: ReactElement
+    /**
+     * React children.
+     */
+    var children: ReactNode
 
+    /**
+     * Width of the element.
+     */
     var width: Int
 
+    /**
+     * Sets positon to fixed.
+     */
     var isFixed: Boolean
 
+    /**
+     * Called when left-sidebar is collapsed.
+     */
     var onCollapse: () -> Unit
 
+    /**
+     * Called when left-sidebar is expanded.
+     */
     var onExpand: () -> Unit
 
+    /**
+     * Called when left-sidebar resize starts using mouse or touch.
+     */
     var onResizeStart: () -> Unit
 
+    /**
+     * Called when left-sidebar resize ends using mouse or touch.
+     */
     var onResizeEnd: () -> Unit
 
+    /**
+     * Called after flyout delay when left-sidebar is collapsed and mouse enters the area.
+     */
     var onFlyoutExpand: () -> Unit
-
 }
 
 @JsName("TopNavigation")
-external val TopNavigation: ComponentClass<TopNavigationCProps>
+external val TopNavigation: ComponentClass<TopNavigationProps>
 
-external interface TopNavigationCProps : Props {
+external interface TopNavigationProps : Props {
 
+    /**
+     * HTML id attribute.
+     */
     var id: String
 
-    var children: ReactElement
+    /**
+     * React Children.
+     */
+    var children: ReactNode
 
+    /**
+     * Height of the element.
+     */
     var height: Int
 
+    /**
+     * Sets positon to fixed.
+     */
     var isFixed: Boolean
 }

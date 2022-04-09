@@ -9,23 +9,22 @@ repositories {
     mavenCentral()
 }
 
+// See https://kotlinlang.org/docs/releases.html#release-details for recommended library versions of kotlin version
 dependencies {
     // Kotlin
-    api(kotlin("stdlib-js", "1.5.31"))
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.5.2")
+    api(kotlin("stdlib-js", "1.6.20"))
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.6.0")
     api("org.jetbrains.kotlinx:kotlinx-html-js:0.7.3")
 
-    // React
-    api("org.jetbrains.kotlin-wrappers:kotlin-react:17.0.2-pre.257-kotlin-1.5.31")
-    api("org.jetbrains.kotlin-wrappers:kotlin-react-dom:17.0.2-pre.257-kotlin-1.5.31")
-    api("org.jetbrains.kotlin-wrappers:kotlin-react-router-dom:5.3.0-pre.257-kotlin-1.5.31")
-
-    // Redux
-    api("org.jetbrains.kotlin-wrappers:kotlin-redux:4.1.1-pre.257-kotlin-1.5.31")
-    api("org.jetbrains.kotlin-wrappers:kotlin-react-redux:7.2.4-pre.257-kotlin-1.5.31")
+    // React & Redux
+    api("org.jetbrains.kotlin-wrappers:kotlin-react:18.0.0-pre.328-kotlin-1.6.20")
+    api("org.jetbrains.kotlin-wrappers:kotlin-react-dom:18.0.0-pre.328-kotlin-1.6.20")
+    api("org.jetbrains.kotlin-wrappers:kotlin-react-router-dom:6.3.0-pre.328-kotlin-1.6.20")
+    api("org.jetbrains.kotlin-wrappers:kotlin-redux:4.1.2-pre.328-kotlin-1.6.20")
+    api("org.jetbrains.kotlin-wrappers:kotlin-react-redux:7.2.6-pre.328-kotlin-1.6.20")
 
     // Styled
-    api("org.jetbrains.kotlin-wrappers:kotlin-styled:5.3.1-pre.257-kotlin-1.5.31")
+    api("org.jetbrains.kotlin-wrappers:kotlin-styled:5.3.5-pre.328-kotlin-1.6.20")
 
     // Moment
     api("io.github.samgarasx:kotlin-moment:2.27.0-pre.12-kotlin-1.5.21")
@@ -60,14 +59,18 @@ dependencies {
     implementation(npm("@atlaskit/textfield", "5.1.8"))
     implementation(npm("@atlaskit/toggle", "12.4.5"))
 
-    // Guided tour
+    // Misc
     implementation(npm("react-joyride", "2.4.0"))
-
-    // Tooltips
     implementation(npm("react-tooltip", "4.2.21"))
-
-    // Mime
     implementation(npm("mime-types", "2.1.34"))
+
+    // Dev
+    implementation(devNpm("style-loader", "3.3.1"))
+    implementation(devNpm("css-loader", "6.7.1"))
+    implementation(devNpm("sass-loader", "12.6.0"))
+    implementation(devNpm("sass", "1.50.0"))
+    implementation(devNpm("path-browserify", "1.0.1"))
+    implementation(devNpm("process", "0.11.10"))
 }
 
 kotlin {

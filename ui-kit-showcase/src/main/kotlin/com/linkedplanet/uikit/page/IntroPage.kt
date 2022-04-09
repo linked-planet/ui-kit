@@ -15,11 +15,12 @@
  */
 package com.linkedplanet.uikit.page
 
+import com.linkedplanet.uikit.wrapper.atlaskit.code.CodeBlock
 import react.Props
 import react.dom.div
 import react.dom.html.ReactHTML.h1
 import react.dom.html.ReactHTML.h3
-import react.dom.span
+import react.dom.html.ReactHTML.p
 import react.fc
 
 external interface IntroPageProps : Props
@@ -35,8 +36,19 @@ val IntroPage = fc<IntroPageProps> { _ ->
             +"Usage"
         }
 
-        span {
-            +"There will be more content soon..."
+        p {
+            +"UI-Kit is published to Maven Central."
+        }
+
+        p {
+            +" To use it in your project simply add the following dependency to your build.gradle:"
+        }
+
+        p {
+            CodeBlock {
+                attrs.text = "implementation 'com.linked-planet.ui:ui-kit-lib:{VERSION}'"
+                attrs.showLineNumbers = false
+            }
         }
     }
 }

@@ -119,7 +119,7 @@ external interface JoyrideStep {
     /**
      * The tooltip's body.
      */
-    var content: ReactElement
+    var content: ReactNode
 
     /**
      * The placement of the beacon and tooltip (default: bottom). It will re-position itself if there's no space

@@ -32,7 +32,7 @@ external interface BannerProps : Props {
     /**
      * Icon to be shown left of the main content. Typically an Atlaskit @atlaskit/icon.
      */
-    var icon: ReactElement?
+    var icon: ReactNode?
 
     /**
      * Defines whether the banner is shown. An animation is used when the value is changed.

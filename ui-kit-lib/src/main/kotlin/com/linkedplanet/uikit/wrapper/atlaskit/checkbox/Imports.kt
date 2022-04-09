@@ -54,7 +54,7 @@ external interface CheckboxProps : Props {
      * The label to be displayed to the right of the checkbox.
      * It is part of the clickable element to select the checkbox.
      */
-    var label: ReactElement
+    var label: ReactNode
 
     /**
      * The value to be used in the checkbox input. This is the value that will be returned on form submission.
@@ -66,5 +66,4 @@ external interface CheckboxProps : Props {
      * the react synthetic event. Use currentTarget to get value, name and checked.
      */
     var onChange: (Event) -> Unit
-
 }

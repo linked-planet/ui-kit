@@ -73,8 +73,8 @@ external interface NestableNavigationContentProps : Props
 external val ButtonItem: ComponentClass<ButtonItemProps>
 
 external interface ButtonItemProps : Props {
-    var iconBefore: ReactElement
-    var iconAfter: ReactElement
+    var iconBefore: ReactNode
+    var iconAfter: ReactNode
     var onClick: (Event) -> Unit
 }
 
@@ -84,7 +84,7 @@ external val NestingItem: ComponentClass<NestingItemProps>
 external interface NestingItemProps : Props {
     var id: String
     var title: String
-    var iconBefore: ReactElement
-    var iconAfter: ReactElement
+    var iconBefore: ReactNode
+    var iconAfter: ReactNode
     var onClick: (Event) -> Unit
 }
