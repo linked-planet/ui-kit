@@ -26,6 +26,8 @@ kotlin {
                 )
             }
             webpackTask {
+                args = mutableListOf("--stats", "verbose")
+                nodeArgs = mutableListOf("--trace-exit")
                 outputFileName = "${project.name}.js"
             }
         }
