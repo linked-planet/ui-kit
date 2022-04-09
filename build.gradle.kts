@@ -25,14 +25,17 @@ subprojects {
         ext["email"] = "info@linked-planet.com"
     }
 
-    tasks.register<com.hierynomus.gradle.license.tasks.LicenseCheck>("licenseCheckInSrc") {
-        source = fileTree(project.projectDir).matching { include("src/**/*") }
+    tasks {
+        val licenseCheckInSrc = register<com.hierynomus.gradle.license.tasks.LicenseCheck>("licenseCheckInSrc") {
+            source = fileTree(project.projectDir).matching { include("src/**/*") }
+        }
+        getByName("license").dependsOn(licenseCheckInSrc)
+
+        val licenseFormatInSrc = register<com.hierynomus.gradle.license.tasks.LicenseFormat>("licenseFormatInSrc") {
+            source = fileTree(project.projectDir).matching { include("src/**/*") }
+        }
+        getByName("licenseFormat").dependsOn(licenseFormatInSrc)
     }
-    tasks.register<com.hierynomus.gradle.license.tasks.LicenseFormat>("licenseFormatInSrc") {
-        source = fileTree(project.projectDir).matching { include("src/**/*") }
-    }
-    tasks["license"].dependsOn("licenseCheckInSrc")
-    tasks["licenseFormat"].dependsOn("licenseFormatInSrc")
 }
 
 nexusPublishing {
