@@ -9,15 +9,6 @@ repositories {
 
 dependencies {
     implementation(project(":ui-kit-lib"))
-
-    implementation(devNpm("style-loader", "3.3.1"))
-    implementation(devNpm("css-loader", "6.7.1"))
-    implementation(devNpm("sass-loader", "12.6.0"))
-    implementation(devNpm("node-sass", "7.0.1"))
-    implementation(devNpm("file-loader", "6.2.0"))
-    implementation(devNpm("@babel/core", "7.17.9"))
-    implementation(devNpm("path-browserify", "1.0.1"))
-    implementation(devNpm("process", "0.11.10"))
 }
 
 kotlin {
@@ -25,6 +16,7 @@ kotlin {
         languageSettings.optIn("kotlin.RequiresOptIn")
     }
     js {
+        moduleName = "ui-kit-showcase"
         browser {
             runTask {
                 devServer = devServer?.copy(
@@ -36,8 +28,6 @@ kotlin {
             webpackTask {
                 outputFileName = "${project.name}.js"
             }
-            @OptIn(org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalDceDsl::class)
-            dceTask {}
         }
         binaries.executable()
         useCommonJs()
@@ -62,5 +52,24 @@ tasks {
             }
         }
     }
+    getByName("processResources").dependsOn("gatherShowcaseSources")
+
+    // See https://stackoverflow.com/a/66186933 for more details
+    register("copyStylesProd", Copy::class) {
+        from(kotlin.sourceSets["main"].resources) { include("style/**") }
+        into("${rootProject.buildDir}/js/packages/${kotlin.js().moduleName}/kotlin-dce")
+    }
+    register("copyStylesDev", Copy::class) {
+        from(kotlin.sourceSets["main"].resources) {
+            include("style/**")
+        }
+        into("${rootProject.buildDir}/js/packages/${kotlin.js().moduleName}/kotlin-dce-dev")
+    }
+    withType(org.jetbrains.kotlin.gradle.tasks.KotlinJsDce::class) {
+        if (dceOptions.devMode) {
+            dependsOn("copyStylesDev")
+        } else {
+            dependsOn("copyStylesProd")
+        }
+    }
 }
-tasks["processResources"].dependsOn("gatherShowcaseSources")

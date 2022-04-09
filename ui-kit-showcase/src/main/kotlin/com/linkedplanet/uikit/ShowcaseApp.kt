@@ -37,6 +37,8 @@ external interface ShowcaseAppState : State
 class ShowcaseApp(props: ShowcaseAppProps) : RComponent<ShowcaseAppProps, ShowcaseAppState>(props) {
 
     override fun RBuilder.render() {
+        kotlinext.js.require("./style/custom.scss")
+
         CssReset
 
         PageLayout {
