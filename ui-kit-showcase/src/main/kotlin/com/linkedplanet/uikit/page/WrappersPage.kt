@@ -472,7 +472,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                         }
                     }
 
-                    ExtendedFormSection("More data", "Tell me even more.") {
+                    ExtendedFormSection("More data", "Tell me more.") {
                         val selectOptions =
                             arrayOf(
                                 SelectOption("Red", "red"),
