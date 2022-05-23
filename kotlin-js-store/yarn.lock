@@ -75,6 +75,17 @@
     "@babel/runtime" "^7.0.0"
     "@emotion/core" "^10.0.9"
 
+"@atlaskit/badge@15.0.3":
+  version "15.0.3"
+  resolved "https://registry.yarnpkg.com/@atlaskit/badge/-/badge-15.0.3.tgz#b5f8c4ded902c12e1225f31fa3537e24fb4a1ca4"
+  integrity sha512-UWc6EJC+Pn3oMFsMitf+psMqxTZHwFmS11DQouCx65RU/qIa9MycH10c1DebsM68dkVtAOWzQJ7YRZka+SApsQ==
+  dependencies:
+    "@atlaskit/codemod-utils" "^3.2.0"
+    "@atlaskit/theme" "^11.4.0"
+    "@atlaskit/tokens" "^0.2.0"
+    "@babel/runtime" "^7.0.0"
+    "@emotion/core" "^10.0.9"
+
 "@atlaskit/banner@11.4.9":
   version "11.4.9"
   resolved "https://registry.yarnpkg.com/@atlaskit/banner/-/banner-11.4.9.tgz#bcf80e816e53791aa246f5dcd2ad66d76d82d7ca"
@@ -741,7 +752,7 @@
     "@babel/runtime" "^7.0.0"
     "@emotion/core" "^10.0.9"
 
-"@atlaskit/theme@^11.0.0":
+"@atlaskit/theme@^11.0.0", "@atlaskit/theme@^11.4.0":
   version "11.5.2"
   resolved "https://registry.yarnpkg.com/@atlaskit/theme/-/theme-11.5.2.tgz#43ac3b3a203241ae83b1d62d15912e6c36f465a9"
   integrity sha512-iycVcMzGaPboTVu0s+DoeV3oZZGIxXca1IjVtlxERA/78dftYoVTjiBnh6XtAQnIgB0O+SaAOQaaHJZgJ4gwpQ==

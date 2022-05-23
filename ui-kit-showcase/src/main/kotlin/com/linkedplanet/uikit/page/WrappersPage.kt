@@ -22,6 +22,7 @@ import com.linkedplanet.uikit.style.ShowcaseStyles
 import com.linkedplanet.uikit.util.*
 import com.linkedplanet.uikit.wrapper.atlaskit.avatar.Avatar
 import com.linkedplanet.uikit.wrapper.atlaskit.avatar.AvatarItem
+import com.linkedplanet.uikit.wrapper.atlaskit.badge.Badge
 import com.linkedplanet.uikit.wrapper.atlaskit.banner.Banner
 import com.linkedplanet.uikit.wrapper.atlaskit.button.*
 import com.linkedplanet.uikit.wrapper.atlaskit.calendar.Calendar
@@ -127,6 +128,29 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
             // END_EXAMPLE:avatar
 
             examples = listOfNotNull(example1, example2)
+        }
+
+        ShowcaseWrapperItem {
+            name = "Badge"
+            packages =
+                Package("@atlaskit/badge", "https://atlassian.design/components/badge/examples").toList()
+
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "badge"
+
+            val badge = createElementNullSafe {
+                // START_EXAMPLE:badge
+                Badge {}
+                Badge {
+                    attrs.appearance = "added"
+                }
+                Badge {
+                    attrs.appearance = "important"
+                }
+                // END_EXAMPLE:badge
+            }
+
+            examples = listOfNotNull(badge)
         }
 
         ShowcaseWrapperItem {

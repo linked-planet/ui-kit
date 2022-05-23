@@ -32,6 +32,7 @@ dependencies {
     // Atlaskit
     implementation(npm("@atlaskit/atlassian-navigation", "2.1.3"))
     implementation(npm("@atlaskit/avatar", "20.5.7"))
+    implementation(npm("@atlaskit/badge", "15.0.3"))
     implementation(npm("@atlaskit/banner", "11.4.9"))
     implementation(npm("@atlaskit/button", "16.2.1"))
     implementation(npm("@atlaskit/calendar", "12.1.10"))
