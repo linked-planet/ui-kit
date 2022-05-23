@@ -32,6 +32,7 @@ dependencies {
     // Atlaskit
     implementation(npm("@atlaskit/atlassian-navigation", "2.1.3"))
     implementation(npm("@atlaskit/avatar", "20.5.7"))
+    implementation(npm("@atlaskit/badge", "15.0.3"))
     implementation(npm("@atlaskit/banner", "11.4.9"))
     implementation(npm("@atlaskit/button", "16.2.1"))
     implementation(npm("@atlaskit/calendar", "12.1.10"))
@@ -48,6 +49,7 @@ dependencies {
     implementation(npm("@atlaskit/lozenge", "11.1.8"))
     implementation(npm("@atlaskit/modal-dialog", "12.2.5"))
     implementation(npm("@atlaskit/page-layout", "1.2.0"))
+    implementation(npm("@atlaskit/pagination", "14.1.6"))
     implementation(npm("@atlaskit/panel", "0.4.7"))
     implementation(npm("@atlaskit/popup", "1.3.4"))
     implementation(npm("@atlaskit/select", "15.2.10"))
