@@ -150,6 +150,19 @@
     "@babel/runtime" "^7.0.0"
     "@emotion/core" "^10.0.9"
 
+"@atlaskit/button@^16.3.0":
+  version "16.3.1"
+  resolved "https://registry.yarnpkg.com/@atlaskit/button/-/button-16.3.1.tgz#51258e70e48c10926660d7088d9416e26ed7d166"
+  integrity sha512-44lEkbTz/PqQyOt6gB2/RDUEEUcSTsZoHWTXWLMQUXgGLxtKaUya+lznQfngDVUBBoSN3abLXJXkykj/cj5Z3A==
+  dependencies:
+    "@atlaskit/analytics-next" "^8.2.0"
+    "@atlaskit/ds-lib" "^1.4.0"
+    "@atlaskit/spinner" "^15.1.0"
+    "@atlaskit/theme" "^12.1.0"
+    "@atlaskit/tokens" "^0.10.0"
+    "@babel/runtime" "^7.0.0"
+    "@emotion/core" "^10.0.9"
+
 "@atlaskit/calendar@12.1.10":
   version "12.1.10"
   resolved "https://registry.yarnpkg.com/@atlaskit/calendar/-/calendar-12.1.10.tgz#b4b7970c62dfe2cc1d654e8bf7c10ed76eff6c07"
@@ -501,6 +514,21 @@
     "@emotion/core" "^10.0.9"
     raf-schd "^4.0.3"
 
+"@atlaskit/pagination@14.1.6":
+  version "14.1.6"
+  resolved "https://registry.yarnpkg.com/@atlaskit/pagination/-/pagination-14.1.6.tgz#9e5a5fba2ad299c1a577ba81936da2d87213403a"
+  integrity sha512-xy5b2qkmpB1/Ihv09cd8mixTJ1+GOLRFsh+eb16rxVPL+542bVqLP+PLSQXz+TL3an6DZQ8Q2ahpqtUWR5smKQ==
+  dependencies:
+    "@atlaskit/analytics-next" "^8.0.0"
+    "@atlaskit/button" "^16.3.0"
+    "@atlaskit/codemod-utils" "^4.0.0"
+    "@atlaskit/ds-lib" "^1.4.0"
+    "@atlaskit/icon" "^21.10.0"
+    "@atlaskit/theme" "^12.1.0"
+    "@babel/runtime" "^7.0.0"
+    "@emotion/core" "^10.0.9"
+    memoize-one "^6.0.0"
+
 "@atlaskit/pagination@^14.0.0":
   version "14.1.5"
   resolved "https://registry.yarnpkg.com/@atlaskit/pagination/-/pagination-14.1.5.tgz#cd839769c7a982e8bca51fac9e5f57068bb14efd"
@@ -816,6 +844,16 @@
     "@atlaskit/tokens" "^0.8.0"
     "@babel/runtime" "^7.0.0"
     "@emotion/core" "^10.0.9"
+
+"@atlaskit/tokens@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@atlaskit/tokens/-/tokens-0.10.0.tgz#34339915b5d9423f3065b4801b050145f6d04ed2"
+  integrity sha512-y7ClaaFbLSpnS1hwfgkU12vdHY+aZ2h/1DrA/CIPo2yThEirSOhtpTgU6nITnZTKGjNd2oIVvUodK5UZwXAUFA==
+  dependencies:
+    "@atlaskit/ds-lib" "^1.4.0"
+    "@babel/runtime" "^7.0.0"
+    "@babel/traverse" "^7.15.0"
+    "@babel/types" "^7.15.0"
 
 "@atlaskit/tokens@^0.2.0":
   version "0.2.1"

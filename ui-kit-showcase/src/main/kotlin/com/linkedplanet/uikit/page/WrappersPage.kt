@@ -35,6 +35,7 @@ import com.linkedplanet.uikit.wrapper.atlaskit.flag.Flag
 import com.linkedplanet.uikit.wrapper.atlaskit.icon.*
 import com.linkedplanet.uikit.wrapper.atlaskit.lozenge.Lozenge
 import com.linkedplanet.uikit.wrapper.atlaskit.modal.*
+import com.linkedplanet.uikit.wrapper.atlaskit.pagination.Pagination
 import com.linkedplanet.uikit.wrapper.atlaskit.panel.PanelStateless
 import com.linkedplanet.uikit.wrapper.atlaskit.popup.Popup
 import com.linkedplanet.uikit.wrapper.atlaskit.select.*
@@ -57,6 +58,7 @@ import react.*
 import react.dom.*
 import styled.css
 import styled.styledDiv
+import kotlin.math.ceil
 
 external interface WrappersPageProps : Props
 
@@ -71,6 +73,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
     val (isPanelActive, setIsPanelActive) = useState(false)
     val (isJoyrideActive, setIsJoyrideActive) = useState(false)
     val (formData, setFormData) = useState("")
+    val (selectedPage, setSelectedPage) = useState(0)
 
     // Retrieve source code
     Async.complete(
@@ -762,6 +765,33 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                     }
                 }
                 // END_EXAMPLE:modal
+            }
+
+            examples = listOfNotNull(example)
+        }
+
+        ShowcaseWrapperItem {
+            name = "Pagination"
+            packages = Package(
+                "@atlaskit/pagination",
+                "https://atlassian.design/components/pagination/examples"
+            ).toList()
+
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "pagination"
+
+            val example = createElementNullSafe {
+                // START_EXAMPLE:pagination
+                Pagination {
+                    attrs.pages = (1..10).toList().toTypedArray()
+                    attrs.defaultSelectedIndex = 0
+                    attrs.max = 10
+                    attrs.selectedIndex = selectedPage
+                    attrs.onChange = { _, pageLabel, _ ->
+                        setSelectedPage(pageLabel - 1)
+                    }
+                }
+                // END_EXAMPLE:pagination
             }
 
             examples = listOfNotNull(example)
