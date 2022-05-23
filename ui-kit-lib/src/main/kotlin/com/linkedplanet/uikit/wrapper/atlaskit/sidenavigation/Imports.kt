@@ -73,9 +73,36 @@ external interface NestableNavigationContentProps : Props
 external val ButtonItem: ComponentClass<ButtonItemProps>
 
 external interface ButtonItemProps : Props {
+    /**
+     * Description of the item. This will render smaller text below the primary text of the item as well as slightly
+     * increasing the height of the item.
+     */
+    var description: String
+
+    /**
+     * Element to render before the item text. Generally should be an icon component.
+     */
     var iconBefore: ReactNode
+
+    /**
+     * Element to render after the item text. Generally should be an icon component.
+     */
     var iconAfter: ReactNode
+
+    /**
+     * Event that is triggered when the element is clicked.
+     */
     var onClick: (Event) -> Unit
+
+    /**
+     * Makes the element appear selected.
+     */
+    var isSelected: Boolean
+
+    /**
+     * Makes the element appear disabled as well as removing interactivity.
+     */
+    var isDisabled: Boolean
 }
 
 @JsName("NestingItem")
