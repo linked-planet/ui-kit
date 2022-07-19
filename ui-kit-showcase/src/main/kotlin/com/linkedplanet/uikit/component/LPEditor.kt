@@ -2,14 +2,14 @@ package com.linkedplanet.uikit.component
 
 import com.linkedplanet.uikit.imports.Editor
 import com.linkedplanet.uikit.imports.Position
+import com.linkedplanet.uikit.imports.loader
 import kotlinx.js.Object
 import kotlinx.js.ReadonlyArray
 import react.*
 import react.dom.div
 import kotlin.js.Json
-import kotlin.js.json
-import com.linkedplanet.uikit.imports.loader
 import kotlin.js.Promise
+import kotlin.js.json
 
 external interface LPEditorProps : Props {
     var editorString: String
@@ -19,12 +19,15 @@ external interface LPEditorProps : Props {
 
 data class Item(val parent: String, val key: String, val value: String)
 
-val LPEditor = fc<LPEditorProps> { x ->
 
-    val (editorString, setEditorString) = useState(x.editorString)
+
+
+val LPEditor = fc<LPEditorProps> { props ->
+
+    val (editorString, setEditorString) = useState(props.editorString)
 
     fun flatObject(parentKey: String, obj: dynamic): List<Item> {
-        val keys: ReadonlyArray<String> = Object.keys(obj)
+        val keys: ReadonlyArray<String> = Object.keys(obj as Any)
         return keys.flatMap { key: String ->
             val value = obj[key]
             if (value == null || value == undefined) {
@@ -37,18 +40,16 @@ val LPEditor = fc<LPEditorProps> { x ->
         }
     }
 
-    fun itemsFromObjectString(): List<Item> {
-        val jsonObject = JSON.parse<dynamic>(x.objectString)
-        val objs = flatObject("$", jsonObject)
-        return objs
+    fun itemsFromObjectString(objectString: String): List<Item> {
+        val jsonObject = JSON.parse<dynamic>(objectString)
+        return flatObject("$", jsonObject)
     }
 
-    val (items, setItems) = useState(
-        itemsFromObjectString()
-    )
+    val (items, setItems) = useState(itemsFromObjectString(props.objectString))
 
     useEffect(arrayOf(editorString)) {
-        x.onChange(editorString)
+        console.info("useEffect editorString XXXXXXXXXXXXX", editorString)
+        props.onChange(editorString)
     }
 
     fun suggestionForLabel(word: String) = json(
@@ -79,14 +80,14 @@ val LPEditor = fc<LPEditorProps> { x ->
     fun provideCompletionItems(model: dynamic, position: Position, token: dynamic): Json {
         console.info("provideCompletionItems", position)
 
-        val textUntilPosition:String =
+        val textUntilPosition: String =
             model.getValueInRange(range(position.lineNumber, position.lineNumber, 1, position.column)) as String
         console.info("textUntilPosition", textUntilPosition)
 
         var jsonObject = "\$" + textUntilPosition.substringAfterLast("\$", missingDelimiterValue = "")
         console.info("textFromLastJsonObject", jsonObject)
 
-        if (jsonObject.contains(".")){
+        if (jsonObject.contains(".")) {
             jsonObject = jsonObject.substringBeforeLast(".") + "."
         }
 
@@ -124,18 +125,28 @@ val LPEditor = fc<LPEditorProps> { x ->
         )
     }
 
-    val matchesJsonKeyHierarchiesStartingWithDollar = Regex("""\$([^\s<]*\.)*([^\s<]*)""")
+    /**
+     * If the found key hierarchy is found inside a flatObject Item
+     *
+     * @param matchResult: a json key hierarchy (found by the regex) $object.Name,
+     */
+    fun areMatchesReallyKeys(matchResult: MatchResult): Boolean =
+        (items.any { it.parent + it.key == matchResult.value })
+            .also { wasFound ->
+                console.info("matchResult:", matchResult)
+                console.info("items:", items)
+                console.info("found any?", wasFound)
+            }
 
     /**
-     * The regex found some json variables e.g. $object.Name, lets see if the chain is actually defined in the json
+     * Allows to accumulate Semantic Tokens used for syntax highlighting
+     * Each Token highlights a range of characters inside the editor
+     *
+     * In a sane world one would expect an Array<SemanticToken>, but Monaco uses a continuous array of Ints,
+     * so the tokenCount is actually (tokens.data.length / 5) | 0;
+     * To make it more complicated the Tokens are not stored with absolute values but each token contains
+     * the distance from the last token. This class does handle all of this transparently.
      */
-    fun areMatchesReallyKeys(matchResult: MatchResult): Boolean {
-        console.info("matchResult:", matchResult)
-        console.info("items:", items)
-        if (items.any { it.parent + it.key == matchResult.value }) return true
-        return false
-    }
-
     class SemanticTokenArrayAccumulator(
         private var previousLine: Int = 0, // result needs the differences between hits, so remember the line of the previous token
         private var previousPos: Int = 0, // result needs the differences between hits, so remember the position of the previous token
@@ -153,13 +164,17 @@ val LPEditor = fc<LPEditorProps> { x ->
             val dataAsArray = tokens.toIntArray()
             return json(
                 "data" to dataAsArray,  /*deltaLine*/ /*deltaStart*/ /*distance*/ /*tokenTypeIndex*/ /*tokenModifierSet*/
-                // 	const tokenCount = (tokens.data.length / 5) | 0;
             )
         }
     }
 
+    /**
+     * matches $object $object.name $a.b.c but stops at whitespace or the html open bracket "<"
+     */
+    val matchesJsonKeyHierarchiesStartingWithDollar = Regex("""\$([^\s<]*\.)*([^\s<]*)""")
+
     @Suppress("UNUSED_PARAMETER") // since they are available inside the js
-    fun provideDocumentSemanticTokens(model: dynamic, lastResultId: String?, token: dynamic ): Json {
+    fun provideDocumentSemanticTokens(model: dynamic, lastResultId: String?, token: dynamic): Json {
         val lineContents = model.getLinesContent() as Array<String>
 
         return lineContents.foldIndexed(SemanticTokenArrayAccumulator()) { lineNumber, allTokens, lineContent: String ->
@@ -197,14 +212,18 @@ val LPEditor = fc<LPEditorProps> { x ->
     fun prepareMonaco(monaco: dynamic) {
         console.info("prepareMonaco")
 
-        monaco.languages.registerCompletionItemProvider("html", json (
-            "provideCompletionItems" to ::provideCompletionItems
+        monaco.languages.registerCompletionItemProvider(
+            "html", json(
+                "provideCompletionItems" to ::provideCompletionItems
 //optional  "resolveCompletionItem" to ...
-        ))
+            )
+        )
 
-        monaco.languages.registerDocumentHighlightProvider("html", json (
-            "provideDocumentHighlights" to ::provideDocumentHighlights // user selects something -> highlight other parts of the document
-        ))
+        monaco.languages.registerDocumentHighlightProvider(
+            "html", json(
+                "provideDocumentHighlights" to ::provideDocumentHighlights // user selects something -> highlight other parts of the document
+            )
+        )
 
         monaco.languages.registerDocumentSemanticTokensProvider("html", json(
             "getLegend" to ::getLegend,
@@ -216,7 +235,7 @@ val LPEditor = fc<LPEditorProps> { x ->
     fun init(editor: dynamic, monaco: dynamic) {
         console.info("init from onMount", monaco, editor)
         console.info("items", items)
-        if(editor != undefined && monaco != undefined) {
+        if (editor != undefined && monaco != undefined) {
             console.info("Preparing Monaco-Editor")
             console.info("Editor", monaco.editor)
             console.info("Monaco", monaco)
@@ -226,10 +245,6 @@ val LPEditor = fc<LPEditorProps> { x ->
     }
 
     useEffectOnce {
-        val jsonObject = JSON.parse<dynamic>(x.objectString)
-        val objs = flatObject("$", jsonObject)
-        setItems(objs)
-
         (loader.init() as Promise<dynamic>).then { monaco: dynamic ->
             val editor = monaco.editor
             console.info("loader.init() promise resolved with monaco.", monaco, editor)
@@ -241,9 +256,9 @@ val LPEditor = fc<LPEditorProps> { x ->
         console.info("useEffect setItems")
     }
 
-    useEffect(x.objectString) {
+    useEffect(props.objectString) {
         console.info("UseEffect for ObjectString")
-        setItems(itemsFromObjectString())
+        setItems(itemsFromObjectString(props.objectString))
     }
 
     useEffect(items) {
@@ -265,7 +280,7 @@ val LPEditor = fc<LPEditorProps> { x ->
         )
 
         console.info("Reload LPEditor")
-        console.info("withObjectString", x.objectString)
+        console.info("withObjectString", props.objectString)
 
         // Editor
         Editor {
