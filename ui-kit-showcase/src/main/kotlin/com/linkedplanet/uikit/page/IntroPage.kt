@@ -15,40 +15,47 @@
  */
 package com.linkedplanet.uikit.page
 
-import com.linkedplanet.uikit.wrapper.atlaskit.code.CodeBlock
+import com.linkedplanet.uikit.imports.Editor
+import com.linkedplanet.uikit.operator.EditorOperator
+import com.linkedplanet.uikit.operator.EditorOperator.Item
+import com.linkedplanet.uikit.wrapper.atlaskit.textarea.TextArea
+import kotlinx.js.Object
+import kotlinx.js.ReadonlyArray
+import org.w3c.dom.HTMLTextAreaElement
 import react.Props
+import react.dom.button
 import react.dom.div
 import react.dom.html.ReactHTML.h1
-import react.dom.html.ReactHTML.h3
-import react.dom.html.ReactHTML.p
 import react.fc
+import react.useState
+import kotlin.js.json
+
 
 external interface IntroPageProps : Props
 
 val IntroPage = fc<IntroPageProps> { _ ->
 
-    div {
-        h1 {
-            +"Welcome to UI-Kit"
-        }
+    val (editorString, setEditorString) = useState("<h1>Hello \$object.Name</h1>")
+    val (objectString, setObjectString) = useState("""{ "object": { "Name": { "lol" : "inception" } } }""")
 
-        h3 {
-            +"Usage"
-        }
-
-        p {
-            +"UI-Kit is published to Maven Central."
-        }
-
-        p {
-            +" To use it in your project simply add the following dependency to your build.gradle:"
-        }
-
-        p {
-            CodeBlock {
-                attrs.text = "implementation 'com.linked-planet.ui:ui-kit-lib:{VERSION}'"
-                attrs.showLineNumbers = false
+    fun flatObject(parentKey: String, obj: dynamic): List<Item> {
+        val keys: ReadonlyArray<String> = Object.keys(obj)
+        return keys.flatMap { key: String ->
+            val value = obj[key]
+            if (value == null || value == undefined) {
+                listOf(Item(parentKey, key, ""))
+            } else if (Object.keys(value as Any).isNotEmpty() && value !is String) { // assumes value is object
+                flatObject("$parentKey$key.", value).plus(Item(parentKey, key, value.toString()))
+            } else {
+                listOf(Item(parentKey, key, value.toString()))
             }
         }
+    }
+
+    div {
+        h1 {
+            +"Editor Test!"
+        }
+
     }
 }
