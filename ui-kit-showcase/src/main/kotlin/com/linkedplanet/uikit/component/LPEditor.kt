@@ -22,7 +22,6 @@ data class Item(val parent: String, val key: String, val value: String)
 val LPEditor = fc<LPEditorProps> { x ->
 
     val (editorString, setEditorString) = useState(x.editorString)
-    val (objectString, setObjectString) = useState(x.objectString)
 
     fun flatObject(parentKey: String, obj: dynamic): List<Item> {
         val keys: ReadonlyArray<String> = Object.keys(obj)
@@ -227,7 +226,7 @@ val LPEditor = fc<LPEditorProps> { x ->
     }
 
     useEffectOnce {
-        val jsonObject = JSON.parse<dynamic>(objectString)
+        val jsonObject = JSON.parse<dynamic>(x.objectString)
         val objs = flatObject("$", jsonObject)
         setItems(objs)
 
@@ -242,6 +241,22 @@ val LPEditor = fc<LPEditorProps> { x ->
         console.info("useEffect setItems")
     }
 
+    useEffect(x.objectString) {
+        console.info("UseEffect for ObjectString")
+        setItems(itemsFromObjectString())
+    }
+
+    useEffect(items) {
+        console.info("UseEffect for Items")
+        (loader.init() as Promise<dynamic>).then { monaco: dynamic ->
+            val editor = monaco.editor
+            console.info("loader.init() promise resolved with monaco.", monaco, editor)
+
+            prepareEditor(editor)
+            prepareMonaco(monaco)
+        }
+    }
+
     div {
         attrs["style"] = json(
             "flex" to "1",
@@ -250,6 +265,7 @@ val LPEditor = fc<LPEditorProps> { x ->
         )
 
         console.info("Reload LPEditor")
+        console.info("withObjectString", x.objectString)
 
         // Editor
         Editor {
