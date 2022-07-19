@@ -38,14 +38,14 @@ val LPEditor = fc<LPEditorProps> { x ->
         }
     }
 
-    fun initItems(): List<Item> {
-        val jsonObject = JSON.parse<dynamic>(objectString)
+    fun itemsFromObjectString(): List<Item> {
+        val jsonObject = JSON.parse<dynamic>(x.objectString)
         val objs = flatObject("$", jsonObject)
         return objs
     }
 
     val (items, setItems) = useState(
-        initItems()
+        itemsFromObjectString()
     )
 
     useEffect(arrayOf(editorString)) {

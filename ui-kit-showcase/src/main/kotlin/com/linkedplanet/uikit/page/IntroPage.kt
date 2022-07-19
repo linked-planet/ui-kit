@@ -67,7 +67,10 @@ val IntroPage = fc<IntroPageProps> { _ ->
                 // Json-String
                 TextArea {
                     attrs.value = objectString
-                    attrs.onChange = { event -> setObjectString((event.target as HTMLTextAreaElement).value) }
+                    attrs.onChange = { event ->
+                        console.info("onChange:", event.target)
+                        setObjectString((event.target as HTMLTextAreaElement).value)
+                    }
                 }
             }
 
@@ -78,30 +81,7 @@ val IntroPage = fc<IntroPageProps> { _ ->
                     "width" to "100%"
                 )
 
-                /*
-                    Autocomplete:
-                        $ --> Vorschlag: object
-                        $object. --> Vorschlag: Name
-
-                    Syntax-Hightlighting:
-                        $object, $object.Name
-                    Nicht Highlighting:
-                        $, $blub, $object., $object.Blub, ...
-                    Und: Alle Autocomplet-Vorschläge dürfen nur einmal in der Liste stehen!!
-                    Und: HTML Highlighting soll natürlich nach wie vor funktionieren
-
-                    Tipps:
-                    - json object preparation to flat List
-                    --> beforeMount sieht interessant aus für die Preparation
-                    - editorFunktionen:
-                        - monaco.languages.registerCompletionItemProvider(...) // AutoComplete
-                        - monaco.languages.setMonarchTokensProvider(...) // Syntax Highlighting
-                        - evtl: monaco.languages.registerDocumentSemanticTokensProvider(...) // Syntax Highlighting
-
-                    - registerDocumentHighlightProvider -> user selects something -> highlight other parts of the document
-                    - registerColorProvider
-                    - use deltaDecorations: https://microsoft.github.io/monaco-editor/playground.html#interacting-with-the-editor-line-and-inline-decorations
-                 */
+                console.info("Reload IntroPage with ObjectString", objectString)
 
                 // Editor
                 LPEditor {
@@ -112,15 +92,6 @@ val IntroPage = fc<IntroPageProps> { _ ->
                         console.info(it)
                     }
                 }
-//                Editor {
-//                    attrs.height = "250px"
-//                    attrs.value = editorString
-//                    attrs.onChange = { value, _ ->  setEditorString(value) }
-//                    attrs.defaultLanguage = "html"
-//                    attrs.onMount = { editor, monaco -> EditorOperator.init(editor, monaco) }
-//                    attrs.options = json("semanticHighlighting.enabled" to true)
-//                    attrs.theme = "lp-theme"
-//                }
             }
         }
 
