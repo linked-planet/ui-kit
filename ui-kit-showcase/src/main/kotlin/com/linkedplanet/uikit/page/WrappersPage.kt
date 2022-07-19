@@ -519,7 +519,8 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                             name = "color",
                             label = "Favorite Color",
                             options = selectOptions,
-                            defaultValue = selectOptions[1]
+                            defaultValue = selectOptions[1],
+                            onChange = { console.info("Value of color: ${it.label}") }
                         )
                     }
 

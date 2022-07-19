@@ -171,7 +171,11 @@ fun RBuilder.ExtendedFormSelectField(
         val selectProps: SelectProps = props.fieldProps
         selectProps.inputId = name
         selectProps.options = options
-        selectProps.onChange = onChange
+        val origOnChange = selectProps.onChange
+        selectProps.onChange = {
+            origOnChange(it)
+            onChange(it)
+        }
         createElement(Select, selectProps)
     }
 }
