@@ -439,8 +439,17 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
 
             val example = createElementNullSafe {
                 // START_EXAMPLE:form
-                ExtendedForm(
+                data class FormData(
+                    val name: String,
+                    val surname: String,
+                    val coder: Boolean,
+                    val reactFan: Boolean,
+                    val color: SelectOption
+                )
+
+                ExtendedForm<FormData>(
                     onSubmit = { values, _, _ ->
+                        console.info("Value of name after form submission: ${values.name}")
                         setFormData(JSON.stringify(values))
                     }
                 ) {

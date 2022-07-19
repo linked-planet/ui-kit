@@ -24,13 +24,12 @@ import com.linkedplanet.uikit.wrapper.atlaskit.select.*
 import com.linkedplanet.uikit.wrapper.atlaskit.textfield.TextField
 import com.linkedplanet.uikit.wrapper.atlaskit.textfield.TextFieldProps
 import org.w3c.dom.HTMLInputElement
-import org.w3c.dom.events.Event
 import react.*
 import react.dom.form
 import react.dom.onSubmit
 
-fun RBuilder.ExtendedForm(
-    onSubmit: (values: dynamic, form: dynamic, callback: dynamic) -> Unit,
+fun <T> RBuilder.ExtendedForm(
+    onSubmit: (values: T, form: dynamic, callback: dynamic) -> Unit,
     children: Render
 ) {
     Form {
@@ -194,7 +193,7 @@ fun RBuilder.ExtendedFormCheckboxField(
             val checkboxProps: CheckboxProps = props.fieldProps
             checkboxProps.label = createSpan(label)
             val origOnChange = checkboxProps.onChange
-            checkboxProps.onChange =  {
+            checkboxProps.onChange = {
                 val el = it.target as HTMLInputElement?
                 if (el != null) {
                     console.log("valueeeee: ${el.checked}")
