@@ -29,6 +29,9 @@ dependencies {
     // Moment
     api("io.github.samgarasx:kotlin-moment:2.27.0-pre.12-kotlin-1.5.21")
 
+    // Serialization
+    api("org.jetbrains.kotlinx", "kotlinx-serialization-json", "1.3.3")
+
     // Atlaskit
     implementation(npm("@atlaskit/atlassian-navigation", "2.1.3"))
     implementation(npm("@atlaskit/avatar", "20.5.7"))
