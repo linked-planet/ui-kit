@@ -58,7 +58,6 @@ import react.*
 import react.dom.*
 import styled.css
 import styled.styledDiv
-import kotlin.math.ceil
 
 external interface WrappersPageProps : Props
 
@@ -473,7 +472,8 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                             label = "Name",
                             defaultValue = "Carl",
                             validationMapping = stringValidationMapping,
-                            validate = ::validateString
+                            validate = ::validateString,
+                            onChange = { console.info("Value of name field: $it") }
                         )
 
                         ExtendedFormTextField(
@@ -489,7 +489,8 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                             ExtendedFormCheckboxField(
                                 name = "coder",
                                 label = "Coder",
-                                defaultIsChecked = true
+                                defaultIsChecked = true,
+                                onChange = { console.info("Value of coder: $it") }
                             )
 
                             ExtendedFormCheckboxField(

@@ -22,6 +22,9 @@ import com.linkedplanet.uikit.wrapper.atlaskit.checkbox.CheckboxProps
 import com.linkedplanet.uikit.wrapper.atlaskit.form.*
 import com.linkedplanet.uikit.wrapper.atlaskit.select.*
 import com.linkedplanet.uikit.wrapper.atlaskit.textfield.TextField
+import com.linkedplanet.uikit.wrapper.atlaskit.textfield.TextFieldProps
+import org.w3c.dom.HTMLInputElement
+import org.w3c.dom.events.Event
 import react.*
 import react.dom.form
 import react.dom.onSubmit
@@ -124,7 +127,8 @@ fun RBuilder.ExtendedFormTextField(
     defaultValue: dynamic = null,
     isRequired: Boolean = false,
     validationMapping: ValidationMapping? = null,
-    validate: (value: dynamic, form: dynamic, fieldState: dynamic) -> String? = { _, _, _ -> "" }
+    validate: (value: dynamic, form: dynamic, fieldState: dynamic) -> String? = { _, _, _ -> "" },
+    onChange: (String) -> Unit = {}
 ) {
     ExtendedFormField(
         name,
@@ -134,6 +138,15 @@ fun RBuilder.ExtendedFormTextField(
         validationMapping,
         validate
     ) { props ->
+        val textFieldProps: TextFieldProps = props.fieldProps
+        val origOnChange = textFieldProps.onChange
+        textFieldProps.onChange = {
+            val el = it.target as HTMLInputElement?
+            if (el != null) {
+                onChange(el.value)
+            }
+            origOnChange(it)
+        }
         createElement(TextField, props.fieldProps)
     }
 }
@@ -145,7 +158,8 @@ fun RBuilder.ExtendedFormSelectField(
     defaultValue: SelectOption? = null,
     isRequired: Boolean = false,
     validationMapping: ValidationMapping? = null,
-    validate: (value: dynamic, form: dynamic, fieldState: dynamic) -> String? = { _, _, _ -> "" }
+    validate: (value: dynamic, form: dynamic, fieldState: dynamic) -> String? = { _, _, _ -> "" },
+    onChange: (SelectOption) -> Unit = {}
 ) {
     ExtendedFormField(
         name,
@@ -158,6 +172,7 @@ fun RBuilder.ExtendedFormSelectField(
         val selectProps: SelectProps = props.fieldProps
         selectProps.inputId = name
         selectProps.options = options
+        selectProps.onChange = onChange
         createElement(Select, selectProps)
     }
 }
@@ -167,7 +182,8 @@ fun RBuilder.ExtendedFormCheckboxField(
     label: String,
     defaultIsChecked: Boolean = false,
     isRequired: Boolean = false,
-    isDisabled: Boolean = false
+    isDisabled: Boolean = false,
+    onChange: (Boolean) -> Unit = {}
 ) {
     CheckboxField {
         attrs.name = name
@@ -177,6 +193,15 @@ fun RBuilder.ExtendedFormCheckboxField(
         attrs.children = { props ->
             val checkboxProps: CheckboxProps = props.fieldProps
             checkboxProps.label = createSpan(label)
+            val origOnChange = checkboxProps.onChange
+            checkboxProps.onChange =  {
+                val el = it.target as HTMLInputElement?
+                if (el != null) {
+                    console.log("valueeeee: ${el.checked}")
+                    onChange(el.checked)
+                }
+                origOnChange(it)
+            }
             createElement(Checkbox, checkboxProps)
         }
     }
