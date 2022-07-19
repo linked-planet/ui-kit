@@ -15,12 +15,8 @@
  */
 package com.linkedplanet.uikit.page
 
-import com.linkedplanet.uikit.imports.Editor
-import com.linkedplanet.uikit.operator.EditorOperator
-import com.linkedplanet.uikit.operator.EditorOperator.Item
+import com.linkedplanet.uikit.component.LPEditor
 import com.linkedplanet.uikit.wrapper.atlaskit.textarea.TextArea
-import kotlinx.js.Object
-import kotlinx.js.ReadonlyArray
 import org.w3c.dom.HTMLTextAreaElement
 import react.Props
 import react.dom.button
@@ -36,25 +32,67 @@ external interface IntroPageProps : Props
 val IntroPage = fc<IntroPageProps> { _ ->
 
     val (editorString, setEditorString) = useState("<h1>Hello \$object.Name</h1>")
-    val (objectString, setObjectString) = useState("""{ "object": { "Name": { "lol" : "inception" } } }""")
-
-    fun flatObject(parentKey: String, obj: dynamic): List<Item> {
-        val keys: ReadonlyArray<String> = Object.keys(obj)
-        return keys.flatMap { key: String ->
-            val value = obj[key]
-            if (value == null || value == undefined) {
-                listOf(Item(parentKey, key, ""))
-            } else if (Object.keys(value as Any).isNotEmpty() && value !is String) { // assumes value is object
-                flatObject("$parentKey$key.", value).plus(Item(parentKey, key, value.toString()))
-            } else {
-                listOf(Item(parentKey, key, value.toString()))
-            }
-        }
-    }
+    val (objectString, setObjectString) = useState("""{ "object": { "Name": { "First" : "inception" } } }""")
 
     div {
         h1 {
             +"Editor Test!"
+        }
+
+        button {
+            //attrs { onClick={showRefs()} }
+            +"Show Editor Ref"
+        }
+
+        div {
+            attrs["style"] = json(
+                "backgroundColor" to "gray",
+                "display" to "flex",
+                "flexDirection" to "column",
+                "minHeight" to "0",
+                "minWidth" to "0",
+                "flex" to "1",
+                "width" to "100%",
+                "height" to "100%"
+            )
+
+            div {
+                attrs["style"] = json(
+                    "flex" to "0",
+                    "minHeight" to "50px",
+                    "width" to "100%",
+                    "minWidth" to "100%",
+                    "display" to "flex"
+                )
+                // Json-String
+                TextArea {
+                    attrs.value = objectString
+                    attrs.onChange = { event ->
+                        console.info("IntroPage.TextArea onChange:", event.target)
+                        setObjectString((event.target as HTMLTextAreaElement).value)
+                    }
+                }
+            }
+
+            div {
+                attrs["style"] = json(
+                    "flex" to "1",
+                    "minHeight" to "250px",
+                    "width" to "100%"
+                )
+
+                console.info("Reload IntroPage with ObjectString", objectString)
+                console.info("Reload IntroPage with EditorString", editorString)
+
+                LPEditor {
+                    attrs.editorString = editorString
+                    attrs.objectString = objectString
+                    attrs.onChange = {
+                        console.info("IntroPage OnChange for LPEditor was called:", it)
+                    }
+                }
+
+            }
         }
 
     }
