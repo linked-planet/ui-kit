@@ -70,6 +70,7 @@ dependencies {
     implementation(devNpm("style-loader", "3.3.1"))
     implementation(devNpm("css-loader", "6.7.1"))
     implementation(devNpm("sass-loader", "12.6.0"))
+    implementation(devNpm("file-loader", "6.2.0"))
     implementation(devNpm("sass", "1.50.0"))
     implementation(devNpm("path-browserify", "1.0.1"))
     implementation(devNpm("process", "0.11.10"))
