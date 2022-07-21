@@ -158,7 +158,8 @@ fun RBuilder.ExtendedFormSelectField(
     isRequired: Boolean = false,
     validationMapping: ValidationMapping? = null,
     validate: (value: dynamic, form: dynamic, fieldState: dynamic) -> String? = { _, _, _ -> "" },
-    onChange: (SelectOption) -> Unit = {}
+    onChange: (SelectOption) -> Unit = {},
+    menuPosition: String = "fixed"
 ) {
     ExtendedFormField(
         name,
@@ -171,6 +172,7 @@ fun RBuilder.ExtendedFormSelectField(
         val selectProps: SelectProps = props.fieldProps
         selectProps.inputId = name
         selectProps.options = options
+        selectProps.menuPosition = menuPosition
         val origOnChange = selectProps.onChange
         selectProps.onChange = {
             origOnChange(it)
