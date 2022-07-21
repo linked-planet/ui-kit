@@ -32,7 +32,7 @@ external interface IntroPageProps : Props
 val IntroPage = fc<IntroPageProps> { _ ->
 
     val (editorString, setEditorString) = useState("<h1>Hello \$object.Name</h1>")
-    val (objectString, setObjectString) = useState("""{ "object": { "Name": { "lol" : "inception" } } }""")
+    val (objectString, setObjectString) = useState("""{ "object": { "Name": { "First" : "inception" } } }""")
 
     div {
         h1 {
@@ -68,7 +68,7 @@ val IntroPage = fc<IntroPageProps> { _ ->
                 TextArea {
                     attrs.value = objectString
                     attrs.onChange = { event ->
-                        console.info("onChange:", event.target)
+                        console.info("IntroPage.TextArea onChange:", event.target)
                         setObjectString((event.target as HTMLTextAreaElement).value)
                     }
                 }
@@ -82,16 +82,16 @@ val IntroPage = fc<IntroPageProps> { _ ->
                 )
 
                 console.info("Reload IntroPage with ObjectString", objectString)
+                console.info("Reload IntroPage with EditorString", editorString)
 
-                // Editor
                 LPEditor {
                     attrs.editorString = editorString
                     attrs.objectString = objectString
                     attrs.onChange = {
-                        console.info("OnChange")
-                        console.info(it)
+                        console.info("IntroPage OnChange for LPEditor was called:", it)
                     }
                 }
+
             }
         }
 

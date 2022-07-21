@@ -31,12 +31,3 @@ external interface Position : Props {
     var lineNumber: Int
     var column: Int
 }
-
-
-
-external interface Range : Props {
-    var startLineNumber: Int
-    var endLineNumber: Int
-    var startColumn: Int
-    var endColumn: Int
-}
