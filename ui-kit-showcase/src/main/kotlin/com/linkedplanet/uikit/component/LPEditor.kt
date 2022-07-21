@@ -140,23 +140,6 @@ val LPEditor = fc<LPEditorProps> { props ->
         }.dataAsJsonObject()
     }
 
-    fun createHighlights(): Array<Json> {
-        console.info("createHighlights")
-        return arrayOf(
-            json(
-                "kind" to "Text", // https://microsoft.github.io/monaco-editor/api/enums/monaco.languages.CompletionItemKind.html
-                "range" to MonacoRange(1, 1, 3, 8)
-            )
-        )
-    }
-
-    // https://microsoft.github.io/monaco-editor/api/interfaces/monaco.languages.DocumentHighlight.html
-    // https://microsoft.github.io/monaco-editor/api/interfaces/monaco.languages.DocumentHighlightProvider.html
-    @Suppress("UNUSED_PARAMETER") // since they are available inside the js
-    fun provideDocumentHighlights(model: dynamic, position: dynamic, token: dynamic): Array<Json> {
-        return createHighlights()
-    }
-
     fun prepareMonaco(monaco: dynamic) {
         console.info("prepareMonaco")
 
@@ -164,12 +147,6 @@ val LPEditor = fc<LPEditorProps> { props ->
             "html", json(
                 "provideCompletionItems" to ::provideCompletionItems
 //optional  "resolveCompletionItem" to ...
-            )
-        )
-
-        monaco.languages.registerDocumentHighlightProvider(
-            "html", json(
-                "provideDocumentHighlights" to ::provideDocumentHighlights // user selects something -> highlight other parts of the document
             )
         )
 
