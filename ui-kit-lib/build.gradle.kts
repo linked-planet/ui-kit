@@ -66,6 +66,9 @@ dependencies {
     implementation(npm("react-tooltip", "4.2.21"))
     implementation(npm("mime-types", "2.1.34"))
 
+    // Monaco Editor for LPEditor
+    implementation(npm("@monaco-editor/react", "4.4.5", generateExternals = true))
+
     // Dev
     implementation(devNpm("style-loader", "3.3.1"))
     implementation(devNpm("css-loader", "6.7.1"))

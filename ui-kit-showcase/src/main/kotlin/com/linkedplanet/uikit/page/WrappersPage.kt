@@ -19,17 +19,25 @@ import com.linkedplanet.uikit.component.Package
 import com.linkedplanet.uikit.component.ShowcaseWrapperItem
 import com.linkedplanet.uikit.extension.form.*
 import com.linkedplanet.uikit.style.ShowcaseStyles
-import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.util.Async
+import com.linkedplanet.uikit.util.RequestUtil
+import com.linkedplanet.uikit.util.createElementNullSafe
+import com.linkedplanet.uikit.util.createSpan
 import com.linkedplanet.uikit.wrapper.atlaskit.avatar.Avatar
 import com.linkedplanet.uikit.wrapper.atlaskit.avatar.AvatarItem
 import com.linkedplanet.uikit.wrapper.atlaskit.badge.Badge
 import com.linkedplanet.uikit.wrapper.atlaskit.banner.Banner
-import com.linkedplanet.uikit.wrapper.atlaskit.button.*
+import com.linkedplanet.uikit.wrapper.atlaskit.button.Button
+import com.linkedplanet.uikit.wrapper.atlaskit.button.ButtonGroup
+import com.linkedplanet.uikit.wrapper.atlaskit.button.LoadingButton
 import com.linkedplanet.uikit.wrapper.atlaskit.calendar.Calendar
 import com.linkedplanet.uikit.wrapper.atlaskit.checkbox.Checkbox
 import com.linkedplanet.uikit.wrapper.atlaskit.code.CodeBlock
 import com.linkedplanet.uikit.wrapper.atlaskit.datetimepicker.DateTimePicker
-import com.linkedplanet.uikit.wrapper.atlaskit.dropdownmenu.*
+import com.linkedplanet.uikit.wrapper.atlaskit.dropdownmenu.DropdownItem
+import com.linkedplanet.uikit.wrapper.atlaskit.dropdownmenu.DropdownItemCheckbox
+import com.linkedplanet.uikit.wrapper.atlaskit.dropdownmenu.DropdownItemGroup
+import com.linkedplanet.uikit.wrapper.atlaskit.dropdownmenu.DropdownMenu
 import com.linkedplanet.uikit.wrapper.atlaskit.emptystate.EmptyState
 import com.linkedplanet.uikit.wrapper.atlaskit.flag.Flag
 import com.linkedplanet.uikit.wrapper.atlaskit.icon.*
@@ -38,7 +46,10 @@ import com.linkedplanet.uikit.wrapper.atlaskit.modal.*
 import com.linkedplanet.uikit.wrapper.atlaskit.pagination.Pagination
 import com.linkedplanet.uikit.wrapper.atlaskit.panel.PanelStateless
 import com.linkedplanet.uikit.wrapper.atlaskit.popup.Popup
-import com.linkedplanet.uikit.wrapper.atlaskit.select.*
+import com.linkedplanet.uikit.wrapper.atlaskit.select.GroupedSelectOptions
+import com.linkedplanet.uikit.wrapper.atlaskit.select.Select
+import com.linkedplanet.uikit.wrapper.atlaskit.select.SelectGroup
+import com.linkedplanet.uikit.wrapper.atlaskit.select.SelectOption
 import com.linkedplanet.uikit.wrapper.atlaskit.tab.Tab
 import com.linkedplanet.uikit.wrapper.atlaskit.tab.Tabs
 import com.linkedplanet.uikit.wrapper.atlaskit.table.*
@@ -49,16 +60,20 @@ import com.linkedplanet.uikit.wrapper.atlaskit.textfield.TextField
 import com.linkedplanet.uikit.wrapper.atlaskit.toggle.Toggle
 import com.linkedplanet.uikit.wrapper.joyride.Joyride
 import com.linkedplanet.uikit.wrapper.joyride.JoyrideLocale
+import com.linkedplanet.uikit.wrapper.lpeditor.LPEditor
 import com.linkedplanet.uikit.wrapper.tooltip.ReactTooltip
 import com.linkedplanet.uikit.wrapper.tooltip.ReactTooltipOffset
 import kotlinx.browser.window
 import kotlinx.coroutines.await
 import kotlinx.js.jso
-import react.*
-import react.dom.*
+import react.Props
+import react.dom.div
+import react.dom.h1
+import react.dom.span
+import react.fc
+import react.useState
 import styled.css
 import styled.styledDiv
-import kotlin.math.ceil
 
 external interface WrappersPageProps : Props
 
@@ -74,6 +89,9 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
     val (isJoyrideActive, setIsJoyrideActive) = useState(false)
     val (formData, setFormData) = useState("")
     val (selectedPage, setSelectedPage) = useState(0)
+    val (editorString, setEditorString) = useState("<h1>Hello \$object.Name</h1>")
+    val (objectString, setObjectString) = useState("""{ "object": { "Name": { "First" : "inception" } } }""")
+
 
     // Retrieve source code
     Async.complete(
@@ -1210,10 +1228,41 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                     }
                 }
             }
-
+            examples = listOfNotNull(example)
             // END_EXAMPLE:tooltip
+        }
+
+        ShowcaseWrapperItem {
+            name = "LPEditor"
+            packages =
+                Package("@monaco-editor/react", "https://github.com/suren-atoyan/monaco-react").toList()
+
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "lpeditor"
+
+            val example = createElementNullSafe {
+                styledDiv {
+                    css {
+                        +ShowcaseStyles.showcaseItemExampleLargeSize
+                        +ShowcaseStyles.showcaseItemExampleMediumHeight
+                    }
+                    // START_EXAMPLE:lpeditor
+                    LPEditor {
+                        attrs.objectString = objectString
+                        attrs.onChange = { value, event ->
+                            setEditorString(value)
+                            console.info("IntroPage OnChange for LPEditor was called:", value)
+                        }
+                        attrs.defaultLanguage = "html"
+                        attrs.value = editorString
+                        attrs.height = "300px"
+                    }
+                    // END_EXAMPLE:lpeditor
+                }
+            }
 
             examples = listOfNotNull(example)
         }
+
     }
 }
