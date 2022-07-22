@@ -1,0 +1,3 @@
+div[data-style="ShowcaseStyles-showcaseCopyrightFooter"] span:after {
+    content: "Copyright " attr(data-year) " by linked-planet GmbH";
+}
