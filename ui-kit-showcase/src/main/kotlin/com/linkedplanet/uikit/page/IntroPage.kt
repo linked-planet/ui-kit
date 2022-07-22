@@ -15,85 +15,40 @@
  */
 package com.linkedplanet.uikit.page
 
-import com.linkedplanet.uikit.component.LPEditor
-import com.linkedplanet.uikit.wrapper.atlaskit.textarea.TextArea
-import org.w3c.dom.HTMLTextAreaElement
+import com.linkedplanet.uikit.wrapper.atlaskit.code.CodeBlock
 import react.Props
-import react.dom.button
 import react.dom.div
 import react.dom.html.ReactHTML.h1
+import react.dom.html.ReactHTML.h3
+import react.dom.html.ReactHTML.p
 import react.fc
-import react.useState
-import kotlin.js.json
-
 
 external interface IntroPageProps : Props
 
 val IntroPage = fc<IntroPageProps> { _ ->
 
-    val (editorString, setEditorString) = useState("<h1>Hello \$object.Name</h1>")
-    val (objectString, setObjectString) = useState("""{ "object": { "Name": { "First" : "inception" } } }""")
-
     div {
         h1 {
-            +"Editor Test!"
+            +"Welcome to UI-Kit"
         }
 
-        button {
-            //attrs { onClick={showRefs()} }
-            +"Show Editor Ref"
+        h3 {
+            +"Usage"
         }
 
-        div {
-            attrs["style"] = json(
-                "backgroundColor" to "gray",
-                "display" to "flex",
-                "flexDirection" to "column",
-                "minHeight" to "0",
-                "minWidth" to "0",
-                "flex" to "1",
-                "width" to "100%",
-                "height" to "100%"
-            )
+        p {
+            +"UI-Kit is published to Maven Central."
+        }
 
-            div {
-                attrs["style"] = json(
-                    "flex" to "0",
-                    "minHeight" to "50px",
-                    "width" to "100%",
-                    "minWidth" to "100%",
-                    "display" to "flex"
-                )
-                // Json-String
-                TextArea {
-                    attrs.value = objectString
-                    attrs.onChange = { event ->
-                        console.info("IntroPage.TextArea onChange:", event.target)
-                        setObjectString((event.target as HTMLTextAreaElement).value)
-                    }
-                }
-            }
+        p {
+            +" To use it in your project simply add the following dependency to your build.gradle:"
+        }
 
-            div {
-                attrs["style"] = json(
-                    "flex" to "1",
-                    "minHeight" to "250px",
-                    "width" to "100%"
-                )
-
-                console.info("Reload IntroPage with ObjectString", objectString)
-                console.info("Reload IntroPage with EditorString", editorString)
-
-                LPEditor {
-                    attrs.editorString = editorString
-                    attrs.objectString = objectString
-                    attrs.onChange = {
-                        console.info("IntroPage OnChange for LPEditor was called:", it)
-                    }
-                }
-
+        p {
+            CodeBlock {
+                attrs.text = "implementation 'com.linked-planet.ui:ui-kit-lib:{VERSION}'"
+                attrs.showLineNumbers = false
             }
         }
-
     }
 }

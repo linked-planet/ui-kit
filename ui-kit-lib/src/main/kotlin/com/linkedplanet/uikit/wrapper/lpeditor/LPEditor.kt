@@ -1,52 +1,54 @@
-package com.linkedplanet.uikit.component
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.wrapper.lpeditor
 
-import CompletionItemKind
-import MonacoRange
-import Suggestion
-import TokenLegend
-import com.linkedplanet.uikit.imports.Editor
-import com.linkedplanet.uikit.imports.Position
 import kotlinx.js.Object
 import kotlinx.js.ReadonlyArray
 import react.*
-import react.dom.div
 import kotlin.js.Json
 import kotlin.js.json
 
 /**
  * Enables Syntax highlighting in the editor for a json object hierarchy provided through objectString
  */
-external interface LPEditorProps : Props {
-    var editorString: String
+external interface LPEditorProps : EditorProps {
     var objectString: String
-    var onChange: (String) -> Unit
+    var highlightColor: String?
+    var fontStyle: String?
 }
 
 val LPEditor = fc<LPEditorProps> { props ->
 
-    console.info("LPEditor with editorString:${props.editorString}  objectString:${props.objectString}")
-
-    val (editorString, setEditorString) = useState(props.editorString)
+    val modelRef: MutableRefObject<dynamic> = useRef(null)
+    fun forceReloadTokens() {
+        val model = modelRef.current ?: return
+        model.setValue(model.getValue()) // https://stackoverflow.com/questions/69664000/monaco-editor-how-to-recompute-and-redraw-semantic-highlighting-data
+    }
 
     // do not use items directly, use itemsRef or updateItems
     val (_items, _setItems) = useState(itemsFromObjectString(props.objectString))
-
     val itemsRef = useRef(_items)
-
-    fun updateItems(items : List<Item>){
+    fun updateItems(items: List<Item>) {
         itemsRef.current = items
         _setItems(items)
+        forceReloadTokens()
     }
 
     useEffect(props.objectString) {
-        console.info("UseEffect for ObjectString")
         updateItems(itemsFromObjectString(props.objectString))
-        //TODO: somehow force monaco to refresh SemanticTokens
-    }
-
-    useEffect(arrayOf(editorString)) {
-        console.info("useEffect editorString", editorString)
-        props.onChange(editorString)
     }
 
     fun suggestions(jsonObject: String): Array<Suggestion> {
@@ -63,14 +65,10 @@ val LPEditor = fc<LPEditorProps> { props ->
      */
     @Suppress("UNUSED_PARAMETER") // since they are available inside the js
     fun provideCompletionItems(model: dynamic, position: Position, token: dynamic): Json {
-        console.info("provideCompletionItems", position)
-
         val textUntilPosition: String =
             model.getValueInRange(MonacoRange(position.lineNumber, position.lineNumber, 1, position.column)) as String
-        console.info("textUntilPosition", textUntilPosition)
 
         var jsonObject = "\$" + textUntilPosition.substringAfterLast("\$", missingDelimiterValue = "")
-        console.info("textFromLastJsonObject", jsonObject)
 
         if (jsonObject.contains(".")) {
             jsonObject = jsonObject.substringBeforeLast(".") + "."
@@ -94,9 +92,8 @@ val LPEditor = fc<LPEditorProps> { props ->
                 "rules" to arrayOf(
                     json(
                         "token" to "lp-editor-token-type",
-                        "foreground" to "#00FF00",
-                        "fontStyle" to "italic",
-                        "underline" to true,
+                        "foreground" to (props.highlightColor ?: "#0052CC"),
+                        "fontStyle" to (props.fontStyle ?: "bold"),
                     )
                 )
             )
@@ -109,12 +106,7 @@ val LPEditor = fc<LPEditorProps> { props ->
      * @param matchResult: a json key hierarchy (found by the regex) $object.Name,
      */
     fun areMatchesReallyKeys(matchResult: MatchResult): Boolean =
-        (itemsRef.current?.any { it.parent + it.key == matchResult.value })
-            .also { wasFound ->
-                console.info("matchResult:", matchResult)
-                console.info("items:", itemsRef.current)
-                console.info("found any?", wasFound)
-            } ?: false
+        (itemsRef.current?.any { it.parent + it.key == matchResult.value }) ?: false
 
     /**
      * matches $object $object.name $a.b.c but stops at whitespace or the html open bracket "<"
@@ -123,6 +115,7 @@ val LPEditor = fc<LPEditorProps> { props ->
 
     @Suppress("UNUSED_PARAMETER") // since they are available inside the js
     fun provideDocumentSemanticTokens(model: dynamic, lastResultId: String?, token: dynamic): Json {
+        modelRef.current = model // remember the model reference for forceUpdate
         val lineContents = model.getLinesContent() as Array<String>
 
         return lineContents.foldIndexed(SemanticTokenArrayAccumulator()) { lineNumber, allTokens, lineContent: String ->
@@ -140,16 +133,8 @@ val LPEditor = fc<LPEditorProps> { props ->
         }.dataAsJsonObject()
     }
 
-    fun prepareMonaco(monaco: dynamic) {
-        console.info("prepareMonaco")
 
-        monaco.languages.registerCompletionItemProvider(
-            "html", json(
-                "provideCompletionItems" to ::provideCompletionItems
-//optional  "resolveCompletionItem" to ...
-            )
-        )
-
+    fun registerDocumentSemanticTokensProvider(monaco: dynamic) {
         monaco.languages.registerDocumentSemanticTokensProvider("html", json(
             "getLegend" to { TokenLegend(emptyList(/*no modifiers*/), arrayOf("lp-editor-token-type")) },
             "provideDocumentSemanticTokens" to ::provideDocumentSemanticTokens,
@@ -157,37 +142,37 @@ val LPEditor = fc<LPEditorProps> { props ->
         ))
     }
 
+    fun registerCompletionItemProvider(monaco: dynamic) {
+        monaco.languages.registerCompletionItemProvider(
+            "html", json(
+                "provideCompletionItems" to ::provideCompletionItems
+                //optional  "resolveCompletionItem" to ...
+            )
+        )
+    }
+
+    fun prepareMonaco(monaco: dynamic) {
+        registerCompletionItemProvider(monaco)
+        registerDocumentSemanticTokensProvider(monaco)
+    }
+
     fun init(editor: dynamic, monaco: dynamic) {
-        console.info("init: Preparing Monaco-Editor")
-        console.info("items", itemsRef.current)
-        console.info("Editor", editor)
-        console.info("Monaco.Editor", monaco.editor)
-        console.info("Monaco", monaco)
         prepareMonaco(monaco)
         prepareEditorTheme(editor) // does not work in init
     }
 
-    div {
-        attrs["style"] = json(
-            "flex" to "1",
-            "minHeight" to "250px",
-            "width" to "100%"
-        )
-
-        console.info("Reload LPEditor withObjectString", props.objectString)
-
-        // Editor
-        Editor {
-            attrs.height = "250px"
-            attrs.value = editorString
-            attrs.onChange = { value, _ -> setEditorString(value) }
-            attrs.defaultLanguage = "html"
-            attrs.beforeMount = { monaco -> init(monaco.editor, monaco) }
-            attrs.options = json("semanticHighlighting.enabled" to true)
-            attrs.theme = "lp-editor-theme"
-        }
+    Editor {
+        attrs.height = props.height
+        attrs.width = props.width
+        attrs.defaultLanguage = props.defaultLanguage
+        attrs.defaultValue = props.defaultValue
+        attrs.value = props.value
+        attrs.onMount = props.onMount
+        attrs.onChange = props.onChange
+        attrs.beforeMount = { monaco -> init(monaco.editor, monaco) }
+        attrs.options = json("semanticHighlighting.enabled" to true)
+        attrs.theme = "lp-editor-theme"
     }
-
 }
 
 /**
@@ -222,8 +207,13 @@ fun flatObject(parentKey: String, obj: dynamic): List<Item> {
 }
 
 fun itemsFromObjectString(objectString: String): List<Item> {
-    val jsonObject = JSON.parse<dynamic>(objectString)
-    return flatObject("$", jsonObject)
+    try {
+        val jsonObject = JSON.parse<dynamic>(objectString)
+        return flatObject("$", jsonObject)
+    } catch (exception: dynamic) {
+        console.error("LPEditor received invalid JSON Object")
+    }
+    return emptyList()
 }
 
 /**
@@ -242,8 +232,13 @@ class SemanticTokenArrayAccumulator(
     private var previousPos: Int = 0, // result needs the differences between hits, so remember the position of the previous token
     private val tokens: MutableList<Int> = listOf<Int>().toMutableList()
 ) {
-    fun addTokenWithAbsolutePosition(lineNumber: Int, hitPos: Int, hitLength: Int, tokenTypeIndex: Int, tokenModifierSet: Int = 0) {
-        console.info("addTokenWithAbsolutePosition lineNumber:$lineNumber hitPos$hitPos hitLength:$hitLength tokenTypeIndex:$tokenTypeIndex")
+    fun addTokenWithAbsolutePosition(
+        lineNumber: Int,
+        hitPos: Int,
+        hitLength: Int,
+        tokenTypeIndex: Int,
+        tokenModifierSet: Int = 0
+    ) {
         val deltaPos = if (lineNumber == previousLine) hitPos - previousPos else hitPos
         val deltaLine = lineNumber - previousLine
         tokens.addAll(listOf(deltaLine, deltaPos, hitLength, tokenTypeIndex, tokenModifierSet))
