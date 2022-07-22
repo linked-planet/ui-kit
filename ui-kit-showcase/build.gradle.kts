@@ -9,6 +9,7 @@ repositories {
 
 dependencies {
     implementation(project(":ui-kit-lib"))
+    implementation(npm("@monaco-editor/react", "4.4.5", generateExternals = true))
 }
 
 kotlin {

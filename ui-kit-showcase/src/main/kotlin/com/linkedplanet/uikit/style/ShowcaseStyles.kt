@@ -67,6 +67,14 @@ object ShowcaseStyles : StyleSheet("ShowcaseStyles") {
         minWidth = 300.px
     }
 
+    val showcaseItemExampleLargeSize by css {
+        minWidth = 600.px
+    }
+
+    val showcaseItemExampleMediumHeight by css {
+        minHeight = 300.px
+    }
+
     val showcaseItemExamplePanel by css {
         paddingLeft = 24.px
     }
