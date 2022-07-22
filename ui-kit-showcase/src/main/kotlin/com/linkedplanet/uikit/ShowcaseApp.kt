@@ -23,10 +23,13 @@ import com.linkedplanet.uikit.util.createElementNullSafe
 import com.linkedplanet.uikit.wrapper.atlaskit.cssreset.CssReset
 import com.linkedplanet.uikit.wrapper.atlaskit.pagelayout.*
 import react.*
+import react.dom.attrs
+import react.dom.span
 import react.router.*
 import react.router.dom.HashRouter
 import styled.css
 import styled.styledDiv
+import kotlin.js.Date
 
 external interface ShowcaseAppProps : Props {
     var name: String
@@ -83,6 +86,17 @@ class ShowcaseApp(props: ShowcaseAppProps) : RComponent<ShowcaseAppProps, Showca
                                 Route {
                                     attrs.element = createElement(NotFoundPage)
                                 }
+                            }
+                        }
+
+                        // Copyright footer
+                        styledDiv {
+                            css {
+                                +ShowcaseStyles.showcaseCopyrightFooter
+                            }
+
+                            span {
+                                attrs["data-year"] = "${Date().getFullYear()}"
                             }
                         }
                     }

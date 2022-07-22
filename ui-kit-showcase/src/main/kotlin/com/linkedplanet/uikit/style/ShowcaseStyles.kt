@@ -74,4 +74,10 @@ object ShowcaseStyles : StyleSheet("ShowcaseStyles") {
     val showcaseItemExamplePopup by css {
         padding(15.px)
     }
+
+    val showcaseCopyrightFooter by css {
+        fontSize = 0.7.rem
+        fontWeight = FontWeight("300")
+        marginTop = 30.px
+    }
 }
