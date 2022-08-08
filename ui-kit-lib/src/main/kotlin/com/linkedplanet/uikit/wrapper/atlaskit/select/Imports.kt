@@ -36,6 +36,7 @@ external interface SelectProps : Props {
     var isDisabled: Boolean
     var styles: SelectStyles
     var noOptionsMessage: (searchString: String) -> String
+    var menuPosition: String
 }
 
 @JsName("default")

@@ -125,7 +125,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
             this.overallSourceCode = overallSourceCode
             sourceCodeExampleId = "avatar"
 
-            // START_EXAMPLE:avatar
+            // region:avatar
             val avatar = createElementNullSafe {
                 Avatar {
                     attrs.size = "large"
@@ -146,7 +146,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                     attrs.secondaryText = "Software Engineer"
                 }
             }
-            // END_EXAMPLE:avatar
+            // endregion:avatar
 
             examples = listOfNotNull(example1, example2)
         }
@@ -160,7 +160,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
             sourceCodeExampleId = "badge"
 
             val badge = createElementNullSafe {
-                // START_EXAMPLE:badge
+                // region:badge
                 Badge {}
                 Badge {
                     attrs.appearance = "added"
@@ -168,7 +168,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                 Badge {
                     attrs.appearance = "important"
                 }
-                // END_EXAMPLE:badge
+                // endregion:badge
             }
 
             examples = listOfNotNull(badge)
@@ -183,7 +183,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
             sourceCodeExampleId = "button"
 
             val example = createElementNullSafe {
-                // START_EXAMPLE:button
+                // region:button
                 ButtonGroup {
                     Button {
                         +"Normal button"
@@ -202,7 +202,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                         }
                     }
                 }
-                // END_EXAMPLE:button
+                // endregion:button
             }
 
             examples = listOfNotNull(example)
@@ -217,7 +217,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
             this.overallSourceCode = overallSourceCode
             sourceCodeExampleId = "banner"
 
-            // START_EXAMPLE:banner
+            // region:banner
             val example1 = createElementNullSafe {
                 Banner {
                     attrs.appearance = "announcement"
@@ -260,7 +260,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                     }
                 }
             }
-            // END_EXAMPLE:banner
+            // endregion:banner
 
             examples = listOfNotNull(example1, example2, example3)
         }
@@ -278,12 +278,12 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                     css {
                         +ShowcaseStyles.showcaseItemExampleMediumSize
                     }
-                    // START_EXAMPLE:calendar
+                    // region:calendar
                     Calendar {
                         attrs.locale = "de-DE"
                         attrs.weekStartDay = 1
                     }
-                    // END_EXAMPLE:calendar
+                    // endregion:calendar
                 }
             }
 
@@ -299,14 +299,14 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
             sourceCodeExampleId = "checkbox"
 
             val example = createElementNullSafe {
-                // START_EXAMPLE:checkbox
+                // region:checkbox
                 Checkbox {
                     attrs.isChecked = isCheckboxActive
                     attrs.onChange = {
                         setIsCheckboxActive(!isCheckboxActive)
                     }
                 }
-                // END_EXAMPLE:checkbox
+                // endregion:checkbox
             }
 
             examples = listOfNotNull(example)
@@ -321,7 +321,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
             sourceCodeExampleId = "code-block"
 
             val example = createElementNullSafe {
-                // START_EXAMPLE:code-block
+                // region:code-block
                 CodeBlock {
                     attrs.language = "java"
                     attrs.text = """
@@ -332,7 +332,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                         }
                         """.trimIndent()
                 }
-                // END_EXAMPLE:code-block
+                // endregion:code-block
             }
 
             examples = listOfNotNull(example)
@@ -353,9 +353,9 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                     css {
                         +ShowcaseStyles.showcaseItemExampleMediumSize
                     }
-                    // START_EXAMPLE:datetime-picker
+                    // region:datetime-picker
                     DateTimePicker {}
-                    // END_EXAMPLE:datetime-picker
+                    // endregion:datetime-picker
                 }
             }
 
@@ -373,7 +373,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
             sourceCodeExampleId = "dropdown-menu"
 
             val example = createElementNullSafe {
-                // START_EXAMPLE:dropdown-menu
+                // region:dropdown-menu
                 DropdownMenu {
                     attrs.trigger = "Dropdown"
 
@@ -385,7 +385,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                         DropdownItem { +"First dropdown Item" }
                     }
                 }
-                // END_EXAMPLE:dropdown-menu
+                // endregion:dropdown-menu
             }
 
             examples = listOfNotNull(example)
@@ -406,7 +406,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                     css {
                         +ShowcaseStyles.showcaseItemExampleMediumSize
                     }
-                    // START_EXAMPLE:empty-state
+                    // region:empty-state
                     EmptyState {
                         attrs.header = "Empty state"
                         attrs.description = createElementNullSafe {
@@ -420,7 +420,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                             }
                         }
                     }
-                    // END_EXAMPLE:empty-state
+                    // endregion:empty-state
                 }
             }
 
@@ -435,7 +435,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
             sourceCodeExampleId = "flag"
 
             val example = createElementNullSafe {
-                // START_EXAMPLE:flag
+                // region:flag
                 Flag {
                     attrs.title = "Flag"
                     attrs.icon = createElementNullSafe {
@@ -443,7 +443,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                     }
                     attrs.description = "Description of flag."
                 }
-                // END_EXAMPLE:flag
+                // endregion:flag
             }
 
             examples = listOfNotNull(example)
@@ -457,9 +457,18 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
             sourceCodeExampleId = "form"
 
             val example = createElementNullSafe {
-                // START_EXAMPLE:form
-                ExtendedForm(
+                // region:form
+                data class FormData(
+                    val name: String,
+                    val surname: String,
+                    val coder: Boolean,
+                    val reactFan: Boolean,
+                    val color: SelectOption
+                )
+
+                ExtendedForm<FormData>(
                     onSubmit = { values, _, _ ->
+                        console.info("Value of name after form submission: ${values.name}")
                         setFormData(JSON.stringify(values))
                     }
                 ) {
@@ -491,7 +500,8 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                             label = "Name",
                             defaultValue = "Carl",
                             validationMapping = stringValidationMapping,
-                            validate = ::validateString
+                            validate = ::validateString,
+                            onChange = { console.info("Value of name field: $it") }
                         )
 
                         ExtendedFormTextField(
@@ -507,7 +517,8 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                             ExtendedFormCheckboxField(
                                 name = "coder",
                                 label = "Coder",
-                                defaultIsChecked = true
+                                defaultIsChecked = true,
+                                onChange = { console.info("Value of coder: $it") }
                             )
 
                             ExtendedFormCheckboxField(
@@ -527,7 +538,8 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                             name = "color",
                             label = "Favorite Color",
                             options = selectOptions,
-                            defaultValue = selectOptions[1]
+                            defaultValue = selectOptions[1],
+                            onChange = { console.info("Value of color: ${it.label}") }
                         )
                     }
 
@@ -549,7 +561,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                         attrs.text = formData
                     }
                 }
-                // END_EXAMPLE:form
+                // endregion:form
             }
 
             examples = listOfNotNull(example)
@@ -564,7 +576,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
             sourceCodeExampleId = "icon"
 
             val example = createElementNullSafe {
-                // START_EXAMPLE:icon
+                // region:icon
                 ArrowDownIcon {}
                 BulletListIcon {}
                 CheckCircleIcon {}
@@ -574,7 +586,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                 TrashIcon {
                     attrs.primaryColor = "red"
                 }
-                // END_EXAMPLE:icon
+                // endregion:icon
             }
 
             examples = listOfNotNull(example)
@@ -589,7 +601,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
             sourceCodeExampleId = "joyride"
 
             val example = createElementNullSafe {
-                // START_EXAMPLE:joyride
+                // region:joyride
                 ButtonGroup {
                     Button {
                         attrs.isSelected = isJoyrideActive
@@ -673,7 +685,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                         }
                     )
                 }
-                // END_EXAMPLE:joyride
+                // endregion:joyride
             }
 
             examples = listOfNotNull(example)
@@ -689,7 +701,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
             this.overallSourceCode = overallSourceCode
             sourceCodeExampleId = "lozenge"
 
-            // START_EXAMPLE:lozenge
+            // region:lozenge
             val example1 = createElementNullSafe {
                 Lozenge {
                     +"First lozenge"
@@ -718,7 +730,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                     attrs.isBold = false
                 }
             }
-            // END_EXAMPLE:lozenge
+            // endregion:lozenge
 
             examples = listOfNotNull(example1, example2, example3, example4)
         }
@@ -734,7 +746,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
             sourceCodeExampleId = "modal"
 
             val example = createElementNullSafe {
-                // START_EXAMPLE:modal
+                // region:modal
                 Button {
                     +"Show modal"
 
@@ -782,7 +794,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                         }
                     }
                 }
-                // END_EXAMPLE:modal
+                // endregion:modal
             }
 
             examples = listOfNotNull(example)
@@ -799,7 +811,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
             sourceCodeExampleId = "pagination"
 
             val example = createElementNullSafe {
-                // START_EXAMPLE:pagination
+                // region:pagination
                 Pagination {
                     attrs.pages = (1..10).toList().toTypedArray()
                     attrs.defaultSelectedIndex = 0
@@ -809,7 +821,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                         setSelectedPage(pageLabel - 1)
                     }
                 }
-                // END_EXAMPLE:pagination
+                // endregion:pagination
             }
 
             examples = listOfNotNull(example)
@@ -833,7 +845,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                         // Attention: Additional style!
                         +ShowcaseStyles.showcaseItemExamplePanel
                     }
-                    // START_EXAMPLE:panel
+                    // region:panel
                     PanelStateless {
                         attrs.isExpanded = isPanelActive
                         attrs.onChange = {
@@ -849,7 +861,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                             +"Panel content..."
                         }
                     }
-                    // END_EXAMPLE:panel
+                    // endregion:panel
                 }
             }
 
@@ -865,7 +877,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
             sourceCodeExampleId = "popup"
 
             val example = createElementNullSafe {
-                // START_EXAMPLE:popup
+                // region:popup
                 Popup {
                     attrs.isOpen = isPopupActive
                     attrs.placement = "top"
@@ -896,7 +908,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                         }
                     }
                 }
-                // END_EXAMPLE:popup
+                // endregion:popup
             }
 
             examples = listOfNotNull(example)
@@ -910,7 +922,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
             this.overallSourceCode = overallSourceCode
             sourceCodeExampleId = "select"
 
-            // START_EXAMPLE:select
+            // region:select
             val example1 = createElementNullSafe {
                 styledDiv {
                     css {
@@ -943,7 +955,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                     }
                 }
             }
-            // END_EXAMPLE:select
+            // endregion:select
 
             examples = listOfNotNull(example1, example2)
         }
@@ -960,14 +972,14 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                     css {
                         +ShowcaseStyles.showcaseItemExampleMediumSize
                     }
-                    // START_EXAMPLE:tabs
+                    // region:tabs
                     Tabs {
                         attrs.tabs = arrayOf(
                             Tab("First tab", createSpan("First")),
                             Tab("Second tab", createSpan("Second")),
                         )
                     }
-                    // END_EXAMPLE:tabs
+                    // endregion:tabs
                 }
             }
 
@@ -983,7 +995,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
             sourceCodeExampleId = "tags"
 
             val example = createElementNullSafe {
-                // START_EXAMPLE:tags
+                // region:tags
                 TagGroup {
                     SimpleTag {
                         attrs.text = "Simple Tag"
@@ -993,7 +1005,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                         attrs.color = "purple"
                     }
                 }
-                // END_EXAMPLE:tags
+                // endregion:tags
             }
 
             examples = listOfNotNull(example)
@@ -1014,7 +1026,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                     css {
                         +ShowcaseStyles.showcaseItemExampleMediumSize
                     }
-                    // START_EXAMPLE:table
+                    // region:table
                     DynamicTable {
                         attrs.caption = createElementNullSafe { +"" }
                         attrs.head = DynamicTableHead(
@@ -1106,7 +1118,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                             )
                         )
                     }
-                    // END_EXAMPLE:table
+                    // endregion:table
                 }
             }
 
@@ -1126,11 +1138,11 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                     css {
                         +ShowcaseStyles.showcaseItemExampleMediumSize
                     }
-                    // START_EXAMPLE:textarea
+                    // region:textarea
                     TextArea {
                         attrs.defaultValue = "Content of text area..."
                     }
-                    // END_EXAMPLE:textarea
+                    // endregion:textarea
                 }
             }
 
@@ -1145,7 +1157,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
             this.overallSourceCode = overallSourceCode
             sourceCodeExampleId = "textfield"
 
-            // START_EXAMPLE:textfield
+            // region:textfield
             val example1 = createElementNullSafe {
                 styledDiv {
                     css {
@@ -1168,7 +1180,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                     }
                 }
             }
-            // END_EXAMPLE:textfield
+            // endregion:textfield
 
             examples = listOfNotNull(example1, example2)
         }
@@ -1182,14 +1194,14 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
             sourceCodeExampleId = "toggle"
 
             val example = createElementNullSafe {
-                // START_EXAMPLE:toggle
+                // region:toggle
                 Toggle {
                     attrs.isChecked = isCheckboxActive
                     attrs.onChange = {
                         setIsCheckboxActive(!isCheckboxActive)
                     }
                 }
-                // END_EXAMPLE:toggle
+                // endregion:toggle
             }
 
             examples = listOfNotNull(example)
@@ -1204,7 +1216,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
             this.overallSourceCode = overallSourceCode
             sourceCodeExampleId = "tooltip"
 
-            // START_EXAMPLE:tooltip
+            // region:tooltip
             val key = "tooltip-1"
             val example = createElementNullSafe {
                 div {
@@ -1229,7 +1241,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                 }
             }
             examples = listOfNotNull(example)
-            // END_EXAMPLE:tooltip
+            // endregion:tooltip
         }
 
         ShowcaseWrapperItem {
@@ -1246,7 +1258,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                         +ShowcaseStyles.showcaseItemExampleLargeSize
                         +ShowcaseStyles.showcaseItemExampleMediumHeight
                     }
-                    // START_EXAMPLE:lpeditor
+                    // region:lpeditor
                     LPEditor {
                         attrs.objectString = objectString
                         attrs.onChange = { value, event ->
@@ -1257,12 +1269,11 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                         attrs.value = editorString
                         attrs.height = "300px"
                     }
-                    // END_EXAMPLE:lpeditor
+                    // endregion:lpeditor
                 }
             }
 
             examples = listOfNotNull(example)
         }
-
     }
 }

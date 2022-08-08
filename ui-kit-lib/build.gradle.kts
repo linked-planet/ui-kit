@@ -29,6 +29,9 @@ dependencies {
     // Moment
     api("io.github.samgarasx:kotlin-moment:2.27.0-pre.12-kotlin-1.5.21")
 
+    // Serialization
+    api("org.jetbrains.kotlinx", "kotlinx-serialization-json", "1.3.3")
+
     // Atlaskit
     implementation(npm("@atlaskit/atlassian-navigation", "2.1.3"))
     implementation(npm("@atlaskit/avatar", "20.5.7"))
@@ -73,6 +76,7 @@ dependencies {
     implementation(devNpm("style-loader", "3.3.1"))
     implementation(devNpm("css-loader", "6.7.1"))
     implementation(devNpm("sass-loader", "12.6.0"))
+    implementation(devNpm("file-loader", "6.2.0"))
     implementation(devNpm("sass", "1.50.0"))
     implementation(devNpm("path-browserify", "1.0.1"))
     implementation(devNpm("process", "0.11.10"))

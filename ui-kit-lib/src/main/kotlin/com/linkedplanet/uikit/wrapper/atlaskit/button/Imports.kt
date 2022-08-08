@@ -54,6 +54,11 @@ external interface ButtonProps : Props {
     var iconBefore: ReactNode
 
     /**
+     * Places an icon within the button, after the button's text.
+     */
+    var iconAfter: ReactNode
+
+    /**
      * Add a classname to the button.
      */
     var className: String

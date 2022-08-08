@@ -44,9 +44,9 @@ external interface ShowcaseWrapperItemProps : PropsWithChildren {
      * Identifies the code block used as source code for the example.
      *
      * Mark such code blocks in the source code using comments like this with the desired id (e.g. ex-1):
-     * // START_EXAMPLE:ex-1
+     * // region:ex-1
      * ...
-     * // END_EXAMPLE:ex-1
+     * // endregion:ex-1
      */
     var sourceCodeExampleId: String?
     var overallSourceCode: String?
@@ -138,8 +138,8 @@ val ShowcaseWrapperItem = fc<ShowcaseWrapperItemProps> { props ->
 }
 
 private fun extractSourceCodeExample(overallSourceCode: String, sourceCodeExampleId: String): String {
-    val exampleCodeStartMarker = "// START_EXAMPLE:$sourceCodeExampleId"
-    val exampleCodeEndMarker = "// END_EXAMPLE:$sourceCodeExampleId"
+    val exampleCodeStartMarker = "// region:$sourceCodeExampleId"
+    val exampleCodeEndMarker = "// endregion:$sourceCodeExampleId"
     return if (overallSourceCode.contains(exampleCodeStartMarker) && overallSourceCode.contains(exampleCodeEndMarker)) {
         overallSourceCode
             .replaceBefore(exampleCodeStartMarker, "")

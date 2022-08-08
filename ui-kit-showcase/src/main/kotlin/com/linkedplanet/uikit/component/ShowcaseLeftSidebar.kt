@@ -82,12 +82,6 @@ val ShowcaseLeftSidebar = fc<ShowcaseLeftSidebarProps> { _ ->
                         +"Apache License, Version 2.0"
                     }
                 }
-                Footer {
-                    +"Copyright ${Date().getFullYear()} "
-                    a(href = "https://www.linked-planet.com/") {
-                        +"linked-planet GmbH"
-                    }
-                }
             }
         }
     }
