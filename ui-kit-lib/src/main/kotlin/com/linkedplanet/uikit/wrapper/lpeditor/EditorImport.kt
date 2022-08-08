@@ -26,8 +26,10 @@ import kotlin.js.Json
 @JsName("default")
 external var Editor: ComponentClass<EditorProps>
 
+/**
+ * See <a href="https://github.com/suren-atoyan/monaco-react#diffeditor">Official Documentation</a>
+ */
 external interface EditorProps : Props {
-    //TODO: documentation
     var height: String
     var width: String
     var defaultLanguage: String
@@ -35,7 +37,7 @@ external interface EditorProps : Props {
     var value: String
     var onMount: (dynamic, dynamic) -> Unit // editor, monaco
     var onChange: (String, Event) -> Unit
-    var beforeMount: (dynamic) -> Unit // monaco
+    var beforeMount: (Monaco) -> Unit // monaco
     var options: Json
     var theme: String
 }
@@ -43,4 +45,14 @@ external interface EditorProps : Props {
 external interface Position : Props {
     var lineNumber: Int
     var column: Int
+}
+
+external interface Monaco {
+    val editor: dynamic
+    val languages: Languages
+}
+
+external interface Languages {
+    fun registerCompletionItemProvider(language: String, providerJson: Json): IDisposable
+    fun registerDocumentSemanticTokensProvider(language: String, providerJson: Json): IDisposable
 }

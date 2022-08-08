@@ -23,6 +23,8 @@ import kotlin.js.json
 
 /**
  * Enables Syntax highlighting in the editor for a json object hierarchy provided through objectString
+ *
+ * @property objectString: a single Json Object as String used for auto-completion and highlighting in the editor
  */
 external interface LPEditorProps : EditorProps {
     var objectString: String
@@ -134,16 +136,16 @@ val LPEditor = fc<LPEditorProps> { props ->
     }
 
 
-    fun registerDocumentSemanticTokensProvider(monaco: dynamic) {
-        monaco.languages.registerDocumentSemanticTokensProvider("html", json(
+    fun registerDocumentSemanticTokensProvider(monaco: Monaco): IDisposable {
+        return monaco.languages.registerDocumentSemanticTokensProvider("html", json(
             "getLegend" to { TokenLegend(emptyList(/*no modifiers*/), arrayOf("lp-editor-token-type")) },
             "provideDocumentSemanticTokens" to ::provideDocumentSemanticTokens,
             "releaseDocumentSemanticTokens" to { resultId: String -> /*doNothing*/ }
         ))
     }
 
-    fun registerCompletionItemProvider(monaco: dynamic) {
-        monaco.languages.registerCompletionItemProvider(
+    fun registerCompletionItemProvider(monaco: Monaco): IDisposable {
+        return monaco.languages.registerCompletionItemProvider(
             "html", json(
                 "provideCompletionItems" to ::provideCompletionItems
                 //optional  "resolveCompletionItem" to ...
@@ -151,14 +153,21 @@ val LPEditor = fc<LPEditorProps> { props ->
         )
     }
 
-    fun prepareMonaco(monaco: dynamic) {
-        registerCompletionItemProvider(monaco)
-        registerDocumentSemanticTokensProvider(monaco)
+    val (disposeProviders, setDisposeProviders) = useState<IDisposable>()
+
+    fun init(editor: dynamic, monaco: Monaco) {
+        val completionDisposable = registerCompletionItemProvider(monaco)
+        val tokenDisposable = registerDocumentSemanticTokensProvider(monaco)
+        prepareEditorTheme(editor) // overrides the theme, so no dispose necessary
+
+        setDisposeProviders(IDisposable {
+            completionDisposable.dispose()
+            tokenDisposable.dispose()
+        })
     }
 
-    fun init(editor: dynamic, monaco: dynamic) {
-        prepareMonaco(monaco)
-        prepareEditorTheme(editor) // does not work in init
+    useEffect(disposeProviders) {// will be called when component is dismounted
+        disposeProviders?.let { this.cleanup { it.dispose() } }
     }
 
     Editor {
