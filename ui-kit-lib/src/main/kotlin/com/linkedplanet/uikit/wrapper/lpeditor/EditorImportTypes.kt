@@ -21,7 +21,8 @@ package com.linkedplanet.uikit.wrapper.lpeditor
  * https://microsoft.github.io/monaco-editor/api/interfaces/monaco.languages.CompletionItem.html
  *
  * @param label label is shown in the gui as a selection option
- * @param insertText whats inserted after selecting the shown label
+ * @param insertText what's inserted after selecting the shown label
+ * @param documentation what's displayed when show more is clicked
  */
 data class Suggestion(
     val label: String,

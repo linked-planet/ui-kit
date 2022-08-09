@@ -54,12 +54,17 @@ val LPEditor = fc<LPEditorProps> { props ->
     }
 
     fun suggestions(jsonObject: String): Array<Suggestion> {
-        fun suggestionForLabel(lbl: String) = Suggestion(lbl, CompletionItemKind.Text, lbl, lbl)
+        fun suggestionForItem(lbl: Item) = Suggestion(
+            label = lbl.key,
+            kind = CompletionItemKind.Text,
+            documentation = "${lbl.valueType}: ${lbl.key} = ${lbl.value}",
+            insertText = lbl.key
+        )
 
         val currentItems = itemsRef.current ?: return emptyArray()
         return currentItems
             .filter { it.parent == jsonObject }
-            .map { suggestionForLabel(it.key) }.toTypedArray()
+            .map { suggestionForItem(it) }.toTypedArray()
     }
 
     /**
@@ -188,29 +193,30 @@ val LPEditor = fc<LPEditorProps> { props ->
  * Represents a key inside a json hierarchy.
  * Parent contains the whole hierarchy up to the root object
  *
- * e.g. { parent: "$object.Name.", key: "First", value: "inception" }
+ * e.g. { parent: "$object.Name.", key: "First", value: "inception" , valueType: String}
  */
-data class Item(val parent: String, val key: String, val value: String)
+data class Item(val parent: String, val key: String, val value: String, val valueType: String)
 
 /**
  * Generates flat Items from nested Json objects, where parent contains the whole path to the root object.
  *
  * @param obj a dynamic json object e.g. { "object": { "Name": { "First" : "inception" } } }
  * @return a list of flat items e.g.:
- *         0: Object { parent: "$object.Name.", key: "First", value: "inception" }
- *         1: Object { parent: "$object.", key: "Name", value: "[object Object]" }
- *         2: Object { parent: "$", key: "object", value: "[object Object]" }
+ *         0: Object { parent: "$object.Name.", key: "First", value: "inception", valueType: String }
+ *         1: Object { parent: "$object.", key: "Name", value: "First", "valueType": Object  }
+ *         2: Object { parent: "$", key: "object", value: "Name", "valueType": Object  }
  */
 fun flatObject(parentKey: String, obj: dynamic): List<Item> {
     val keys: ReadonlyArray<String> = Object.keys(obj as Any)
     return keys.flatMap { key: String ->
         val value = obj[key]
         if (value == null || value == undefined) {
-            listOf(Item(parentKey, key, ""))
-        } else if (Object.keys(value as Any).isNotEmpty() && value !is String) { // assumes value is object
-            flatObject("$parentKey$key.", value).plus(Item(parentKey, key, value.toString()))
+            listOf(Item(parentKey, key, "", valueType = "None"))
+        } else if (Object.keys(value as Any).isNotEmpty() && value !is String) {
+            flatObject("$parentKey$key.", value)
+                .plus(Item(parentKey, key, Object.keys(value).toString(), "Object"))
         } else {
-            listOf(Item(parentKey, key, value.toString()))
+            listOf(Item(parentKey, key, value.toString(), value::class.simpleName ?: ""))
         }
     }
 }
