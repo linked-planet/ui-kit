@@ -112,17 +112,21 @@ val LPEditor = fc<LPEditorProps> { props ->
     }
 
     /**
-     * If the found key hierarchy is found inside a flatObject Item
+     * If the hierarchy is a prefix found inside a flatObject Item return the length of the Item
      *
      * @param matchResult: a json key hierarchy (found by the regex) $object.Name,
      */
-    fun areMatchesReallyKeys(matchResult: MatchResult): Boolean =
-        (itemsRef.current?.any { it.parent + it.key == matchResult.value }) ?: false
+    fun lengthOfLongestMatchingItem(matchResult: MatchResult): Int =
+        itemsRef.current!!
+            .map { it.parent + it.key }
+            .filter { fullPrefix -> matchResult.value.startsWith(fullPrefix) }
+            .map { it.length }
+            .maxOrNull() ?: 0
 
     /**
      * matches $object $object.name $a.b.c but stops at whitespace or the html open bracket "<"
      */
-    val matchesJsonKeyHierarchiesStartingWithDollar = Regex("""\$([^\s<]*\.)*([^\s<]*)""")
+    val matchesJsonKeyHierarchiesStartingWithDollar = Regex("""\$([^=;:?"]*\.)*([^=;:?."]*)""")
 
     @Suppress("UNUSED_PARAMETER") // since they are available inside the js
     fun provideDocumentSemanticTokens(model: dynamic, lastResultId: String?, token: dynamic): Json {
@@ -133,9 +137,9 @@ val LPEditor = fc<LPEditorProps> { props ->
             matchesJsonKeyHierarchiesStartingWithDollar
                 .findAll(lineContent)
                 .fold(allTokens) { lineTokens, matchResult ->
-                    if (areMatchesReallyKeys(matchResult)) {
+                    val hitLength = lengthOfLongestMatchingItem(matchResult)
+                    if (hitLength > 0) {
                         val hitPos = matchResult.range.first
-                        val hitLength = matchResult.range.last - hitPos + 1
                         lineTokens.addTokenWithAbsolutePosition(lineNumber, hitPos, hitLength, 0)
                     }
                     return@fold lineTokens
