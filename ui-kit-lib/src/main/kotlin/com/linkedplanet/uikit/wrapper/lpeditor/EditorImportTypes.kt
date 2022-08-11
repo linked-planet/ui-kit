@@ -27,10 +27,24 @@ package com.linkedplanet.uikit.wrapper.lpeditor
 data class Suggestion(
     val label: String,
     val kind: CompletionItemKind,
-    val documentation: String,
+    val documentation: MarkdownString, /*IMarkdownString*/
     val insertText: String // the text that
 //    val range: String
 )
+
+/**
+ * @param value a markdown string
+ * https://microsoft.github.io/monaco-editor/api/interfaces/monaco.IMarkdownString.html
+ */
+data class MarkdownString(val value: String) {
+    companion object {
+        fun escapeMarkdownSyntaxTokens(text: String): String {
+            // see vscode htmlContent.ts escapeMarkdownSyntaxTokens
+            // escape markdown syntax tokens: http://daringfireball.net/projects/markdown/syntax#backslash
+            return text.replace(Regex("[`*_{}\\[\\]()#+\\-!]")) { match -> "\\" + match.value };
+        }
+    }
+}
 
 /**
  * Used to tell monaco all available tokenTypes

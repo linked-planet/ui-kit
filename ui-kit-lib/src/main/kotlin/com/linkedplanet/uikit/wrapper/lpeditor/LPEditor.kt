@@ -54,12 +54,16 @@ val LPEditor = fc<LPEditorProps> { props ->
     }
 
     fun suggestions(jsonObject: String): Array<Suggestion> {
-        fun suggestionForItem(lbl: Item) = Suggestion(
-            label = lbl.key,
-            kind = CompletionItemKind.Text,
-            documentation = "${lbl.valueType}: ${lbl.key} = ${lbl.value}",
-            insertText = lbl.key
-        )
+
+        fun suggestionForItem(lbl: Item): Suggestion {
+            fun escape(value: String) = MarkdownString.escapeMarkdownSyntaxTokens(value)
+            return Suggestion(
+                label = lbl.key,
+                kind = CompletionItemKind.Text,
+                documentation = MarkdownString("${lbl.valueType}: **${escape(lbl.key)}** = ${escape(lbl.value)}"),
+                insertText = lbl.key
+            )
+        }
 
         val currentItems = itemsRef.current ?: return emptyArray()
         return currentItems
