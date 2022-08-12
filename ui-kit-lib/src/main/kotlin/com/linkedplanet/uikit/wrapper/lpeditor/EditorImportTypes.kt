@@ -53,3 +53,6 @@ data class MonacoRange(
     val endColumn: Int,
 )
 
+fun interface IDisposable {
+    fun dispose()
+}
