@@ -221,8 +221,9 @@ fun flatObject(parentKey: String, obj: dynamic): List<Item> {
         if (value == null || value == undefined) {
             listOf(Item(parentKey, key, "", valueType = "None"))
         } else if (Object.keys(value as Any).isNotEmpty() && value !is String) {
-            flatObject("$parentKey$key.", value)
-                .plus(Item(parentKey, key, Object.keys(value).toString(), "Object"))
+            val velocityKey = if (obj is Array<*>) "get($key)" else key // arrays are accessed using get()
+            flatObject("$parentKey$velocityKey.", value)
+                    .plus(Item(parentKey, velocityKey, Object.keys(value).toString(), "Object"))
         } else {
             listOf(Item(parentKey, key, value.toString(), value::class.simpleName ?: ""))
         }
