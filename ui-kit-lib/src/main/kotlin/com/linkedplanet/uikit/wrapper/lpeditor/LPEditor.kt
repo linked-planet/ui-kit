@@ -54,12 +54,21 @@ val LPEditor = fc<LPEditorProps> { props ->
     }
 
     fun suggestions(jsonObject: String): Array<Suggestion> {
-        fun suggestionForLabel(lbl: String) = Suggestion(lbl, CompletionItemKind.Text, lbl, lbl)
+
+        fun suggestionForItem(lbl: Item): Suggestion {
+            fun escape(value: String) = MarkdownString.escapeMarkdownSyntaxTokens(value)
+            return Suggestion(
+                label = lbl.key,
+                kind = CompletionItemKind.Text,
+                documentation = MarkdownString("${lbl.valueType}: **${escape(lbl.key)}** = ${escape(lbl.value)}"),
+                insertText = lbl.key
+            )
+        }
 
         val currentItems = itemsRef.current ?: return emptyArray()
         return currentItems
             .filter { it.parent == jsonObject }
-            .map { suggestionForLabel(it.key) }.toTypedArray()
+            .map { suggestionForItem(it) }.toTypedArray()
     }
 
     /**
@@ -103,17 +112,21 @@ val LPEditor = fc<LPEditorProps> { props ->
     }
 
     /**
-     * If the found key hierarchy is found inside a flatObject Item
+     * If the hierarchy is a prefix found inside a flatObject Item return the length of the Item
      *
      * @param matchResult: a json key hierarchy (found by the regex) $object.Name,
      */
-    fun areMatchesReallyKeys(matchResult: MatchResult): Boolean =
-        (itemsRef.current?.any { it.parent + it.key == matchResult.value }) ?: false
+    fun lengthOfLongestMatchingItem(matchResult: MatchResult): Int =
+        itemsRef.current!!
+            .map { it.parent + it.key }
+            .filter { fullPrefix -> matchResult.value.startsWith(fullPrefix) }
+            .map { it.length }
+            .maxOrNull() ?: 0
 
     /**
      * matches $object $object.name $a.b.c but stops at whitespace or the html open bracket "<"
      */
-    val matchesJsonKeyHierarchiesStartingWithDollar = Regex("""\$([^\s<]*\.)*([^\s<]*)""")
+    val matchesJsonKeyHierarchiesStartingWithDollar = Regex("""\$([^=;:?"]*\.)*([^=;:?."]*)""")
 
     @Suppress("UNUSED_PARAMETER") // since they are available inside the js
     fun provideDocumentSemanticTokens(model: dynamic, lastResultId: String?, token: dynamic): Json {
@@ -124,9 +137,9 @@ val LPEditor = fc<LPEditorProps> { props ->
             matchesJsonKeyHierarchiesStartingWithDollar
                 .findAll(lineContent)
                 .fold(allTokens) { lineTokens, matchResult ->
-                    if (areMatchesReallyKeys(matchResult)) {
+                    val hitLength = lengthOfLongestMatchingItem(matchResult)
+                    if (hitLength > 0) {
                         val hitPos = matchResult.range.first
-                        val hitLength = matchResult.range.last - hitPos + 1
                         lineTokens.addTokenWithAbsolutePosition(lineNumber, hitPos, hitLength, 0)
                     }
                     return@fold lineTokens
@@ -188,29 +201,30 @@ val LPEditor = fc<LPEditorProps> { props ->
  * Represents a key inside a json hierarchy.
  * Parent contains the whole hierarchy up to the root object
  *
- * e.g. { parent: "$object.Name.", key: "First", value: "inception" }
+ * e.g. { parent: "$object.Name.", key: "First", value: "inception" , valueType: String}
  */
-data class Item(val parent: String, val key: String, val value: String)
+data class Item(val parent: String, val key: String, val value: String, val valueType: String)
 
 /**
  * Generates flat Items from nested Json objects, where parent contains the whole path to the root object.
  *
  * @param obj a dynamic json object e.g. { "object": { "Name": { "First" : "inception" } } }
  * @return a list of flat items e.g.:
- *         0: Object { parent: "$object.Name.", key: "First", value: "inception" }
- *         1: Object { parent: "$object.", key: "Name", value: "[object Object]" }
- *         2: Object { parent: "$", key: "object", value: "[object Object]" }
+ *         0: Object { parent: "$object.Name.", key: "First", value: "inception", valueType: String }
+ *         1: Object { parent: "$object.", key: "Name", value: "First", "valueType": Object  }
+ *         2: Object { parent: "$", key: "object", value: "Name", "valueType": Object  }
  */
 fun flatObject(parentKey: String, obj: dynamic): List<Item> {
     val keys: ReadonlyArray<String> = Object.keys(obj as Any)
     return keys.flatMap { key: String ->
         val value = obj[key]
         if (value == null || value == undefined) {
-            listOf(Item(parentKey, key, ""))
-        } else if (Object.keys(value as Any).isNotEmpty() && value !is String) { // assumes value is object
-            flatObject("$parentKey$key.", value).plus(Item(parentKey, key, value.toString()))
+            listOf(Item(parentKey, key, "", valueType = "None"))
+        } else if (Object.keys(value as Any).isNotEmpty() && value !is String) {
+            flatObject("$parentKey$key.", value)
+                .plus(Item(parentKey, key, Object.keys(value).toString(), "Object"))
         } else {
-            listOf(Item(parentKey, key, value.toString()))
+            listOf(Item(parentKey, key, value.toString(), value::class.simpleName ?: ""))
         }
     }
 }

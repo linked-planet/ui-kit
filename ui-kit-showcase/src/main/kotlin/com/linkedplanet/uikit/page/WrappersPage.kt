@@ -89,8 +89,8 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
     val (isJoyrideActive, setIsJoyrideActive) = useState(false)
     val (formData, setFormData) = useState("")
     val (selectedPage, setSelectedPage) = useState(0)
-    val (editorString, setEditorString) = useState("<h1>Hello \$object.Name</h1>")
-    val (objectString, setObjectString) = useState("""{ "object": { "Name": { "First" : "inception" } } }""")
+    val (editorString, setEditorString) = useState("<h1>Hello \$object.Person</h1>")
+    val (objectString, setObjectString) = useState("""{ "object": { "Person": { "First Name" : "inception", "Last Name": "2ndValue", "Age": 30, "VIP": true } } }""")
 
 
     // Retrieve source code
