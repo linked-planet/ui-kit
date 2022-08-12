@@ -21,15 +21,30 @@ package com.linkedplanet.uikit.wrapper.lpeditor
  * https://microsoft.github.io/monaco-editor/api/interfaces/monaco.languages.CompletionItem.html
  *
  * @param label label is shown in the gui as a selection option
- * @param insertText whats inserted after selecting the shown label
+ * @param insertText what's inserted after selecting the shown label
+ * @param documentation what's displayed when show more is clicked
  */
 data class Suggestion(
     val label: String,
     val kind: CompletionItemKind,
-    val documentation: String,
+    val documentation: MarkdownString, /*IMarkdownString*/
     val insertText: String // the text that
 //    val range: String
 )
+
+/**
+ * @param value a markdown string
+ * https://microsoft.github.io/monaco-editor/api/interfaces/monaco.IMarkdownString.html
+ */
+data class MarkdownString(val value: String) {
+    companion object {
+        fun escapeMarkdownSyntaxTokens(text: String): String {
+            // see vscode htmlContent.ts escapeMarkdownSyntaxTokens
+            // escape markdown syntax tokens: http://daringfireball.net/projects/markdown/syntax#backslash
+            return text.replace(Regex("[`*_{}\\[\\]()#+\\-!]")) { match -> "\\" + match.value };
+        }
+    }
+}
 
 /**
  * Used to tell monaco all available tokenTypes
@@ -53,3 +68,6 @@ data class MonacoRange(
     val endColumn: Int,
 )
 
+fun interface IDisposable {
+    fun dispose()
+}
