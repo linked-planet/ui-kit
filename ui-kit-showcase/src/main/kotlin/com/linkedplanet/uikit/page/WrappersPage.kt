@@ -514,6 +514,13 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                         )
 
                         ExtendedFormTextField(
+                            name = "disabledField",
+                            label = "Disabled Field",
+                            defaultValue = "Disabled Field",
+                            isDisabled = true
+                        )
+
+                        ExtendedFormTextField(
                             name = "surname",
                             label = "Surname",
                             defaultValue = "Coderrrr",

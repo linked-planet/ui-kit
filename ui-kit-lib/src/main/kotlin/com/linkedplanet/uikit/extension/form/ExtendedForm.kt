@@ -126,6 +126,7 @@ fun RBuilder.ExtendedFormTextField(
     defaultValue: dynamic = null,
     isRequired: Boolean = false,
     isReadOnly: Boolean = false,
+    isDisabled: Boolean = false,
     validationMapping: ValidationMapping? = null,
     validate: (value: dynamic, form: dynamic, fieldState: dynamic) -> String? = { _, _, _ -> "" },
     onChange: (String) -> Unit = {}
@@ -148,6 +149,7 @@ fun RBuilder.ExtendedFormTextField(
             origOnChange(it)
         }
         textFieldProps.isReadOnly = isReadOnly
+        textFieldProps.isDisabled = isDisabled
         createElement(TextField, props.fieldProps)
     }
 }
