@@ -95,6 +95,8 @@ external interface ModalHeaderProps : Props {
 @JsName("ModalTitle")
 external val ModalTitle: ComponentClass<Props>
 
+@JsName("ModalBody")
+external val ModalBody: ComponentClass<ModalHeaderProps>
 
 @JsName("ModalFooter")
 external val ModalFooter: ComponentClass<Props>

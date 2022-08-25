@@ -69,6 +69,7 @@ import kotlinx.js.jso
 import react.Props
 import react.dom.div
 import react.dom.h1
+import react.dom.html.ReactHTML.p
 import react.dom.span
 import react.fc
 import react.useState
@@ -778,6 +779,13 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                                     }
                                 }
                             }
+
+                            ModalBody {
+                                p {
+                                    +"This is the body of the modal."
+                                }
+                            }
+
                             ModalFooter {
                                 ButtonGroup {
                                     Button {
