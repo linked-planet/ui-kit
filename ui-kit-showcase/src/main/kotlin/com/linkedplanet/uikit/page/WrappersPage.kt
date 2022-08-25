@@ -505,6 +505,14 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                             onChange = { console.info("Value of name field: $it") }
                         )
 
+
+                        ExtendedFormTextField(
+                            name = "readOnlyField",
+                            label = "Read-only Field",
+                            defaultValue = "Read-only Field",
+                            isReadOnly = true
+                        )
+
                         ExtendedFormTextField(
                             name = "surname",
                             label = "Surname",
