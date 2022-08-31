@@ -32,7 +32,7 @@ external interface LPEditorProps : EditorProps {
     var fontStyle: String?
 }
 
-val LPEditor = fc<LPEditorProps> { props ->
+val LPEditor = FC<LPEditorProps> { props ->
 
     val modelRef: MutableRefObject<dynamic> = useRef(null)
     fun forceReloadTokens() {
@@ -120,8 +120,7 @@ val LPEditor = fc<LPEditorProps> { props ->
         itemsRef.current!!
             .map { it.parent + it.key }
             .filter { fullPrefix -> matchResult.value.startsWith(fullPrefix) }
-            .map { it.length }
-            .maxOrNull() ?: 0
+            .maxOfOrNull { it.length } ?: 0
 
     /**
      * matches $object $object.name $a.b.c but stops at whitespace or the html open bracket "<"
@@ -184,16 +183,16 @@ val LPEditor = fc<LPEditorProps> { props ->
     }
 
     Editor {
-        attrs.height = props.height
-        attrs.width = props.width
-        attrs.defaultLanguage = props.defaultLanguage
-        attrs.defaultValue = props.defaultValue
-        attrs.value = props.value
-        attrs.onMount = props.onMount
-        attrs.onChange = props.onChange
-        attrs.beforeMount = { monaco -> init(monaco.editor, monaco) }
-        attrs.options = json("semanticHighlighting.enabled" to true)
-        attrs.theme = "lp-editor-theme"
+        height = props.height
+        width = props.width
+        defaultLanguage = props.defaultLanguage
+        defaultValue = props.defaultValue
+        value = props.value
+        onMount = props.onMount
+        onChange = props.onChange
+        beforeMount = { monaco -> init(monaco.editor, monaco) }
+        options = json("semanticHighlighting.enabled" to true)
+        theme = "lp-editor-theme"
     }
 }
 

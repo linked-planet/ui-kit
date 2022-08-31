@@ -45,6 +45,7 @@ dependencies {
     implementation(npm("@atlaskit/datetime-picker", "6.2.0"))
     implementation(npm("@atlaskit/dropdown-menu", "11.1.2"))
     implementation(npm("@atlaskit/dynamic-table", "14.5.2"))
+    implementation(npm("@atlaskit/table-tree", "9.1.9"))
     implementation(npm("@atlaskit/empty-state", "7.3.8"))
     implementation(npm("@atlaskit/flag", "14.5.5"))
     implementation(npm("@atlaskit/form", "8.5.2"))

@@ -726,6 +726,22 @@
     babel-runtime "^6.26.0"
     react-transition-group "^2.2.1"
 
+"@atlaskit/table-tree@9.1.9":
+  version "9.1.9"
+  resolved "https://registry.yarnpkg.com/@atlaskit/table-tree/-/table-tree-9.1.9.tgz#87427e12d631fddef34f672f4c74997fd25b7708"
+  integrity sha512-hREI8v2pc6c43+xNV7Zinwcem0SMQ3aPRPsUaKEDqwnmKvVeKpKgCc1sI/dwzSlbC9rvRwF1AEZcyVHNNu22dA==
+  dependencies:
+    "@atlaskit/analytics-next" "^8.2.0"
+    "@atlaskit/button" "^16.3.0"
+    "@atlaskit/icon" "^21.10.0"
+    "@atlaskit/spinner" "^15.0.0"
+    "@atlaskit/theme" "^12.1.0"
+    "@atlaskit/tokens" "^0.10.0"
+    "@babel/runtime" "^7.0.0"
+    "@emotion/core" "^10.0.9"
+    lodash "^4.17.21"
+    prop-types "^15.5.10"
+
 "@atlaskit/tabs@12.1.3":
   version "12.1.3"
   resolved "https://registry.yarnpkg.com/@atlaskit/tabs/-/tabs-12.1.3.tgz#388f67484049d775c304b39b608387e92f691524"
