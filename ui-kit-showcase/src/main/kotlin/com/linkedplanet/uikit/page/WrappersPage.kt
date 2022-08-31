@@ -53,6 +53,7 @@ import com.linkedplanet.uikit.wrapper.atlaskit.select.SelectOption
 import com.linkedplanet.uikit.wrapper.atlaskit.tab.Tab
 import com.linkedplanet.uikit.wrapper.atlaskit.tab.Tabs
 import com.linkedplanet.uikit.wrapper.atlaskit.table.*
+import com.linkedplanet.uikit.wrapper.atlaskit.tabletree.*
 import com.linkedplanet.uikit.wrapper.atlaskit.tag.SimpleTag
 import com.linkedplanet.uikit.wrapper.atlaskit.taggroup.TagGroup
 import com.linkedplanet.uikit.wrapper.atlaskit.textarea.TextArea
@@ -69,6 +70,7 @@ import kotlinx.js.jso
 import react.Props
 import react.dom.div
 import react.dom.h1
+import react.dom.onClick
 import react.dom.html.ReactHTML.p
 import react.dom.span
 import react.fc
@@ -91,7 +93,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
     val (formData, setFormData) = useState("")
     val (selectedPage, setSelectedPage) = useState(0)
     val (editorString, setEditorString) = useState("<h1>Hello \$object.Person</h1>")
-    val (objectString, setObjectString) = useState("""{ "object": { "Person": { "First Name" : "inception", "Last Name": "2ndValue", "Age": 30, "VIP": true } } }""")
+    val (objectString, setObjectString) = useState("""{ "object": { "Person": { "First Name" : [{"k1":"v1"},{"k2":"v2"}], "Last Name": "2ndValue", "Age": 30, "VIP": true } } }""")
 
 
     // Retrieve source code
@@ -1146,6 +1148,96 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
             }
 
             examples = listOfNotNull(example)
+        }
+
+        ShowcaseWrapperItem {
+            name = "TableTree"
+            packages = Package("@atlaskit/table-tree", "https://atlassian.design/components/table-tree").toList()
+
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "table_tree"
+
+            @Suppress("NonExternalClassifierExtendingStateOrProps")
+            // region:table_tree
+            data class BookData(val title: String, val numbering: String) : Props
+            data class BookTreeItem(
+                override val id: String,
+                override val content: BookData,
+                override val children: Array<TableTreeItem>? = null,
+                override val hasChildren: Boolean = children?.isNotEmpty() ?: false,
+            ) : TableTreeBasicUseCaseItem<BookData>
+
+            val bookDataTree = arrayOf(
+                BookTreeItem(
+                    "1", BookData("It is lonely at the top.", "1"), children = arrayOf(
+                        BookTreeItem(
+                            "1.1", BookData("Look at me! I am nested.", "1.1"), children = arrayOf(
+                                BookTreeItem("1.1.1", BookData("I am deeply nested.", "1.1.1"))
+                            )
+                        )
+                    )
+                ),
+                BookTreeItem("2", BookData("Kotlin is  fun", "2"))
+            )
+
+            val example1 = createElementNullSafe {
+                val fcTitle = fc<BookData> { myprops -> span { +myprops.title } }
+                val fcNumbering = fc<BookData> { myprops -> span { +myprops.numbering } }
+
+                TableTree {
+                    attrs.headers = arrayOf("Title", "Numbering")
+                    attrs.columns = arrayOf(fcTitle, fcNumbering)
+                    attrs.columnWidths = arrayOf(300, 100)
+
+                    attrs.items = bookDataTree
+                }
+            }
+
+            val example2 = createElementNullSafe {
+                TableTree {
+                    TTHeaders {
+                        TTHeader {
+                            attrs.width = "400px"
+                            attrs.onClick = { _ ->
+                                window.alert("OnClick Chapter Title Header")
+                            }
+                            +"Chapter Title (Click me)"
+                        }
+                        TTHeader {
+                            attrs.width = "100px"
+                            +"Numbering"
+                        }
+                    }
+                    TTRows {
+                        attrs.items = bookDataTree
+                        attrs.render = { data: BookTreeItem ->
+                            createElementNullSafe {
+                                TTRow {
+                                    attrs.itemId = data.content.numbering
+                                    attrs.items = data.children
+                                    attrs.hasChildren = data.hasChildren
+                                    attrs.isDefaultExpanded = false
+
+                                    TTCell {
+                                        attrs.singleLine = true
+                                        div {
+                                            attrs.onClick = { _ -> window.alert("onClick:" + data.content.title) }
+                                            +data.content.title
+                                        }
+                                    }
+                                    TTCell {
+                                        attrs.singleLine = true
+                                        attrs.onClick = { _ -> window.alert("onClick:" + data.content.numbering) }
+                                        +data.content.numbering
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } // of TableTree
+            }
+            // endregion:table_tree
+            examples = listOfNotNull(example1, example2)
         }
 
         ShowcaseWrapperItem {
