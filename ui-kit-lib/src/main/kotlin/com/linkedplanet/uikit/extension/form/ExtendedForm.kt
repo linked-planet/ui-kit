@@ -123,6 +123,7 @@ fun RBuilder.ExtendedFormField(
 fun RBuilder.ExtendedFormTextField(
     name: String,
     label: String,
+    placeholder: String? = null,
     defaultValue: dynamic = null,
     isRequired: Boolean = false,
     isReadOnly: Boolean = false,
@@ -148,6 +149,7 @@ fun RBuilder.ExtendedFormTextField(
             }
             origOnChange(it)
         }
+        placeholder?.let { textFieldProps.placeholder = it }
         textFieldProps.isReadOnly = isReadOnly
         textFieldProps.isDisabled = isDisabled
         createElement(TextField, props.fieldProps)
@@ -157,6 +159,8 @@ fun RBuilder.ExtendedFormTextField(
 fun RBuilder.ExtendedFormSelectField(
     name: String,
     label: String,
+    placeholder: String? = null,
+    noOptionsMessage: ((searchString: String) -> String)? = null,
     options: Array<SelectOption>,
     defaultValue: SelectOption? = null,
     isRequired: Boolean = false,
@@ -177,12 +181,50 @@ fun RBuilder.ExtendedFormSelectField(
         selectProps.inputId = name
         selectProps.options = options
         selectProps.menuPosition = menuPosition
+        placeholder?.let { selectProps.placeholder = it }
+        noOptionsMessage?.let { selectProps.noOptionsMessage = it }
         val origOnChange = selectProps.onChange
         selectProps.onChange = {
             origOnChange(it)
             onChange(it)
         }
         createElement(Select, selectProps)
+    }
+}
+
+fun RBuilder.ExtendedFormCreatableSelectField(
+    name: String,
+    label: String,
+    placeholder: String? = null,
+    formatCreateLabel: ((String) -> String)? = null,
+    options: Array<SelectOption>,
+    onCreate: (String) -> Unit,
+    defaultValue: SelectOption? = null,
+    isRequired: Boolean = false,
+    validationMapping: ValidationMapping? = null,
+    validate: (value: dynamic, form: dynamic, fieldState: dynamic) -> String? = { _, _, _ -> "" },
+    onChange: (SelectOption) -> Unit = {}
+) {
+    ExtendedFormField(
+        name,
+        label,
+        defaultValue,
+        isRequired,
+        validationMapping,
+        validate
+    ) { props ->
+        val selectProps: CreatableSelectProps = props.fieldProps
+        selectProps.inputId = name
+        selectProps.options = options
+        selectProps.onCreateOption = onCreate
+        placeholder?.let { selectProps.placeholder = it }
+        formatCreateLabel?.let { selectProps.formatCreateLabel = it }
+        val origOnChange = selectProps.onChange
+        selectProps.onChange = {
+            origOnChange(it)
+            onChange(it)
+        }
+        createElement(CreatableSelect, selectProps)
     }
 }
 

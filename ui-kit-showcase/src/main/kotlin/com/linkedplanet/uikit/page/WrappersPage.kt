@@ -94,6 +94,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
     val (selectedPage, setSelectedPage) = useState(0)
     val (editorString, setEditorString) = useState("<h1>Hello \$object.Person</h1>")
     val (objectString, setObjectString) = useState("""{ "object": { "Person": { "First Name" : [{"k1":"v1"},{"k2":"v2"}], "Last Name": "2ndValue", "Age": 30, "VIP": true } } }""")
+    val (formSelectOptions, setFormSelectOptions) = useState (listOf(SelectOption("Red", "red"), SelectOption("Blue", "blue")))
 
 
     // Retrieve source code
@@ -466,7 +467,8 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                     val surname: String,
                     val coder: Boolean,
                     val reactFan: Boolean,
-                    val color: SelectOption
+                    val color: SelectOption,
+                    val creatableColor: SelectOption
                 )
 
                 ExtendedForm<FormData>(
@@ -547,17 +549,21 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                     }
 
                     ExtendedFormSection("More data", "Tell me more.") {
-                        val selectOptions =
-                            arrayOf(
-                                SelectOption("Red", "red"),
-                                SelectOption("Blue", "blue")
-                            )
                         ExtendedFormSelectField(
                             name = "color",
                             label = "Favorite Color",
-                            options = selectOptions,
-                            defaultValue = selectOptions[1],
+                            options = formSelectOptions.toTypedArray(),
+                            defaultValue = formSelectOptions[1],
                             onChange = { console.info("Value of color: ${it.label}") }
+                        )
+
+                        ExtendedFormCreatableSelectField(
+                            name = "colorCreatable",
+                            label = "Favorite Color (Creatable)",
+                            options = formSelectOptions.toTypedArray(),
+                            defaultValue = formSelectOptions[1],
+                            onCreate = { setFormSelectOptions(formSelectOptions.plus(SelectOption(it, it.lowercase()))) },
+                            onChange = { console.info("Value of colorCreatable: ${it.label}") }
                         )
                     }
 
