@@ -55,6 +55,7 @@ external interface SelectGroupProps : Props {
     var isDisabled: Boolean
     var styles: SelectStyles
     var noOptionsMessage: (searchString: String) -> String
+    var menuPosition: String
 }
 
 @JsName("default")
@@ -75,6 +76,7 @@ external interface MultiSelectProps : Props {
     var styles: SelectStyles
     var spacing: String
     var noOptionsMessage: (searchString: String) -> String
+    var menuPosition: String
 }
 
 @JsName("CreatableSelect")
@@ -96,4 +98,5 @@ external interface CreatableSelectProps : Props {
     var styles: SelectStyles
     var spacing: String
     var formatCreateLabel: (String) -> String
+    var menuPosition: String
 }

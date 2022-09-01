@@ -203,7 +203,8 @@ fun RBuilder.ExtendedFormCreatableSelectField(
     isRequired: Boolean = false,
     validationMapping: ValidationMapping? = null,
     validate: (value: dynamic, form: dynamic, fieldState: dynamic) -> String? = { _, _, _ -> "" },
-    onChange: (SelectOption) -> Unit = {}
+    onChange: (SelectOption) -> Unit = {},
+    menuPosition: String = "fixed"
 ) {
     ExtendedFormField(
         name,
@@ -217,6 +218,7 @@ fun RBuilder.ExtendedFormCreatableSelectField(
         selectProps.inputId = name
         selectProps.options = options
         selectProps.onCreateOption = onCreate
+        selectProps.menuPosition = menuPosition
         placeholder?.let { selectProps.placeholder = it }
         formatCreateLabel?.let { selectProps.formatCreateLabel = it }
         val origOnChange = selectProps.onChange
