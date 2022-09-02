@@ -21,9 +21,12 @@ import com.linkedplanet.uikit.wrapper.atlaskit.pagelayout.LeftSidebar
 import com.linkedplanet.uikit.wrapper.atlaskit.sidenavigation.*
 import kotlinx.browser.document
 import kotlinx.js.jso
-import react.*
+import overrideBackButton
+import react.Props
+import react.RBuilder
+import react.createElement
 import react.dom.a
-import kotlin.js.Date
+import react.fc
 
 external interface ShowcaseLeftSidebarProps : Props
 
@@ -49,10 +52,19 @@ val ShowcaseLeftSidebar = fc<ShowcaseLeftSidebarProps> { _ ->
                             console.log("My Flights clicked")
                         }
                     }
+
                     NestingItem {
                         attrs.id = "nesting-item-id"
                         attrs.title = "Nested menu item"
                         attrs.iconBefore = createElement(FileIcon, jso {})
+                        attrs.overrideBackButton { props ->
+                            GoBackItem {
+                                description = "BackDescription!"
+                                onClick = props.onClick
+                                +"Custom GoBackItem"
+                            }
+                        }
+
                         Section {
                             attrs.title = "Section 1"
                             ButtonItem {
