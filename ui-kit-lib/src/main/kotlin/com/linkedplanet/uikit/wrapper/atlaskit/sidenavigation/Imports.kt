@@ -17,6 +17,7 @@
 
 package com.linkedplanet.uikit.wrapper.atlaskit.sidenavigation
 
+import GoBackItemRenderer
 import org.w3c.dom.events.Event
 import react.*
 
@@ -69,6 +70,14 @@ external val NestableNavigationContent: ComponentClass<NestableNavigationContent
 
 external interface NestableNavigationContentProps : Props
 
+@JsName("NestingItemOverrides")
+external interface NestingItemOverrides {
+    var GoBackItem: GoBackItemRenderer
+}
+
+@JsName("GoBackItem")
+external val GoBackItem: ComponentClass<ButtonItemProps>
+
 @JsName("ButtonItem")
 external val ButtonItem: ComponentClass<ButtonItemProps>
 
@@ -111,7 +120,20 @@ external val NestingItem: ComponentClass<NestingItemProps>
 external interface NestingItemProps : Props {
     var id: String
     var title: String
+
+    /**
+     * Description of the item. This will render smaller text below the primary text of the item as well as slightly
+     * increasing the height of the item.
+     */
+    var description: String
     var iconBefore: ReactNode
     var iconAfter: ReactNode
     var onClick: (Event) -> Unit
+    var isSelected: Boolean
+    var isDisabled: Boolean
+
+    /**
+     * Custom overrides to change the GoBackItem
+     */
+    var overrides: NestingItemOverrides?
 }
