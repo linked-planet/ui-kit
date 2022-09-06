@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 import com.linkedplanet.uikit.wrapper.atlaskit.sidenavigation.ButtonItemProps
+import com.linkedplanet.uikit.wrapper.atlaskit.sidenavigation.GoBackItem
 import com.linkedplanet.uikit.wrapper.atlaskit.sidenavigation.NestingItemOverrides
 import com.linkedplanet.uikit.wrapper.atlaskit.sidenavigation.NestingItemProps
 import react.ChildrenBuilder
@@ -27,12 +28,17 @@ interface GoBackItemRenderer {
 
 /**
  * Helper to add a GoBackItem to the overrides attribute.
- * You probably want to set the onClick attribute to props.onClick for the back button to work
  */
 fun NestingItemProps.overrideBackButton(block: ChildrenBuilder.(props: ButtonItemProps) -> Unit) {
     data class GoBackItemRenderImpl(override val render: (ButtonItemProps) -> ReactNode) : GoBackItemRenderer
     data class Overrides(override var GoBackItem: GoBackItemRenderer) : NestingItemOverrides
-    this.overrides = Overrides(GoBackItemRenderImpl { props ->
-        createElement(FC(block), props)
+
+    overrides = Overrides(GoBackItemRenderImpl { props ->
+        createElement(FC { originalButtonProps ->
+            GoBackItem {
+                onClick = originalButtonProps.onClick
+                this.block(this)
+            }
+        }, props)
     })
 }

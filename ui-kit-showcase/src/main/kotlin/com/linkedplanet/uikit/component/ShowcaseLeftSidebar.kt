@@ -58,11 +58,8 @@ val ShowcaseLeftSidebar = fc<ShowcaseLeftSidebarProps> { _ ->
                         attrs.title = "Nested menu item"
                         attrs.iconBefore = createElement(FileIcon, jso {})
                         attrs.overrideBackButton { props ->
-                            GoBackItem {
-                                description = "BackDescription!"
-                                onClick = props.onClick
+                                props.description = "BackDescription!"
                                 +"Custom GoBackItem"
-                            }
                         }
 
                         Section {
