@@ -44,9 +44,11 @@ object RequestUtil {
             requestRedirect = requestRedirect,
             body = body,
             handler = { response ->
+                val statusCode = response.status.toInt()
                 when {
-                    response.status.toInt() < 400 -> parse(response.json().await())
-                    response.status.toInt() == 404 -> null
+                    statusCode < 400 -> parse(response.json().await())
+                    statusCode == 401 -> throw SessionExpiredException()
+                    statusCode == 404 -> null
                     else -> throw BadStatusCodeException(response.status.toInt())
                 }
             }
@@ -75,10 +77,14 @@ object RequestUtil {
                         val json = response.json().await()
                         parse(json)
                     }
+
                     statusCode == 400 -> {
                         val json = response.json().await().asDynamic()
                         throw FrontendException(json.error as String, json.message as String)
                     }
+
+                    statusCode == 401 -> throw SessionExpiredException()
+
                     else -> {
                         throw BadStatusCodeException(response.status.toInt())
                     }
@@ -156,16 +162,16 @@ object RequestUtil {
             handler = { response ->
                 val status = response.status.toInt()
                 when {
-                    status < 400 -> {
-                        handler(response)
-                    }
+                    status < 400 -> handler(response)
+
                     status == 400 -> {
                         val json = response.json().await().asDynamic()
                         throw FrontendException(json.error as String, json.message as String)
                     }
-                    else -> {
-                        throw BadStatusCodeException(response.status.toInt())
-                    }
+
+                    status == 401 -> throw SessionExpiredException()
+
+                    else -> throw BadStatusCodeException(response.status.toInt())
                 }
             }
         )
@@ -244,7 +250,13 @@ object RequestUtil {
 }
 
 data class ProblemDescription(val title: String, val detail: String)
+
 class FrontendException(val error: String, val detailMessage: String) : Exception()
+
 class ChaosModeException : RuntimeException()
-class BadStatusCodeException(val statusCode: Int, val problemDescription: ProblemDescription? = null) :
+
+open class BadStatusCodeException(val statusCode: Int, val problemDescription: ProblemDescription? = null) :
     RuntimeException()
+
+class SessionExpiredException :
+    BadStatusCodeException(401, ProblemDescription("Session expired", "Please start a new session."))
