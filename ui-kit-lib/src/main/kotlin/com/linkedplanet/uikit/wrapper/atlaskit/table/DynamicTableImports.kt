@@ -57,15 +57,26 @@ external interface DynamicTableProps : Props {
     /**
      * Callback fired when a column heading has been sorted, useful when wanting to control dynamic table.
      */
-    var onSort: () -> Unit
+    var onSort: (options: SortOptions) -> Unit
 
     /**
      * Callback fired when the table page has changed, useful when wanting to control dynamic table.
      */
-    var onSetPage: () -> Unit
+    var onSetPage: (pageNumber: Int) -> Unit
 
     /**
      * Controls how many rows should be diplayed per page.
      */
     var rowsPerPage: Int
+
+    /**
+     * Page the table should show. Useful when wanting to control dynamic table.
+     */
+    var page: Int
+}
+
+external interface SortOptions {
+    var item: HeaderCell
+    var key: String
+    var sortOrder: String
 }

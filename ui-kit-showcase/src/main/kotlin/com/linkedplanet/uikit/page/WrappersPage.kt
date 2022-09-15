@@ -1148,6 +1148,12 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                                 )
                             )
                         )
+                        attrs.onSort = {
+                            console.log(it)
+                        }
+                        attrs.onSetPage = {
+                            console.log(it)
+                        }
                     }
                     // endregion:table
                 }
