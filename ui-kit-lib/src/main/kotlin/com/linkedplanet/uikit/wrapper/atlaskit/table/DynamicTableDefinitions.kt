@@ -22,11 +22,19 @@ data class DynamicTableHead(
     val cells: Array<HeaderCell>
 )
 
-data class HeaderCell(
+abstract class HeaderCell
+
+data class StringHeaderCell(
     val key: String,
     val content: String,
     val isSortable: Boolean = false
-)
+): HeaderCell()
+
+data class ElementHeaderCell(
+    val key: String,
+    val content: ReactNode,
+    val isSortable: Boolean = false
+): HeaderCell()
 
 data class DynamicTableRow(
     val key: String,

@@ -19,25 +19,17 @@ import com.linkedplanet.uikit.component.Package
 import com.linkedplanet.uikit.component.ShowcaseWrapperItem
 import com.linkedplanet.uikit.extension.form.*
 import com.linkedplanet.uikit.style.ShowcaseStyles
-import com.linkedplanet.uikit.util.Async
-import com.linkedplanet.uikit.util.RequestUtil
-import com.linkedplanet.uikit.util.createElementNullSafe
-import com.linkedplanet.uikit.util.createSpan
+import com.linkedplanet.uikit.util.*
 import com.linkedplanet.uikit.wrapper.atlaskit.avatar.Avatar
 import com.linkedplanet.uikit.wrapper.atlaskit.avatar.AvatarItem
 import com.linkedplanet.uikit.wrapper.atlaskit.badge.Badge
 import com.linkedplanet.uikit.wrapper.atlaskit.banner.Banner
-import com.linkedplanet.uikit.wrapper.atlaskit.button.Button
-import com.linkedplanet.uikit.wrapper.atlaskit.button.ButtonGroup
-import com.linkedplanet.uikit.wrapper.atlaskit.button.LoadingButton
+import com.linkedplanet.uikit.wrapper.atlaskit.button.*
 import com.linkedplanet.uikit.wrapper.atlaskit.calendar.Calendar
 import com.linkedplanet.uikit.wrapper.atlaskit.checkbox.Checkbox
 import com.linkedplanet.uikit.wrapper.atlaskit.code.CodeBlock
 import com.linkedplanet.uikit.wrapper.atlaskit.datetimepicker.DateTimePicker
-import com.linkedplanet.uikit.wrapper.atlaskit.dropdownmenu.DropdownItem
-import com.linkedplanet.uikit.wrapper.atlaskit.dropdownmenu.DropdownItemCheckbox
-import com.linkedplanet.uikit.wrapper.atlaskit.dropdownmenu.DropdownItemGroup
-import com.linkedplanet.uikit.wrapper.atlaskit.dropdownmenu.DropdownMenu
+import com.linkedplanet.uikit.wrapper.atlaskit.dropdownmenu.*
 import com.linkedplanet.uikit.wrapper.atlaskit.emptystate.EmptyState
 import com.linkedplanet.uikit.wrapper.atlaskit.flag.Flag
 import com.linkedplanet.uikit.wrapper.atlaskit.icon.*
@@ -46,10 +38,7 @@ import com.linkedplanet.uikit.wrapper.atlaskit.modal.*
 import com.linkedplanet.uikit.wrapper.atlaskit.pagination.Pagination
 import com.linkedplanet.uikit.wrapper.atlaskit.panel.PanelStateless
 import com.linkedplanet.uikit.wrapper.atlaskit.popup.Popup
-import com.linkedplanet.uikit.wrapper.atlaskit.select.GroupedSelectOptions
-import com.linkedplanet.uikit.wrapper.atlaskit.select.Select
-import com.linkedplanet.uikit.wrapper.atlaskit.select.SelectGroup
-import com.linkedplanet.uikit.wrapper.atlaskit.select.SelectOption
+import com.linkedplanet.uikit.wrapper.atlaskit.select.*
 import com.linkedplanet.uikit.wrapper.atlaskit.tab.Tab
 import com.linkedplanet.uikit.wrapper.atlaskit.tab.Tabs
 import com.linkedplanet.uikit.wrapper.atlaskit.table.*
@@ -67,14 +56,12 @@ import com.linkedplanet.uikit.wrapper.tooltip.ReactTooltipOffset
 import kotlinx.browser.window
 import kotlinx.coroutines.await
 import kotlinx.js.jso
-import react.Props
+import react.*
 import react.dom.div
 import react.dom.h1
-import react.dom.onClick
 import react.dom.html.ReactHTML.p
+import react.dom.onClick
 import react.dom.span
-import react.fc
-import react.useState
 import styled.css
 import styled.styledDiv
 
@@ -94,7 +81,12 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
     val (selectedPage, setSelectedPage) = useState(0)
     val (editorString, setEditorString) = useState("<h1>Hello \$object.Person</h1>")
     val (objectString, setObjectString) = useState("""{ "object": { "Person": { "First Name" : [{"k1":"v1"},{"k2":"v2"}], "Last Name": "2ndValue", "Age": 30, "VIP": true } } }""")
-    val (formSelectOptions, setFormSelectOptions) = useState (listOf(SelectOption("Red", "red"), SelectOption("Blue", "blue")))
+    val (formSelectOptions, setFormSelectOptions) = useState(
+        listOf(
+            SelectOption("Red", "red"),
+            SelectOption("Blue", "blue")
+        )
+    )
 
 
     // Retrieve source code
@@ -562,7 +554,16 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                             label = "Favorite Color (Creatable)",
                             options = formSelectOptions.toTypedArray(),
                             defaultValue = formSelectOptions[1],
-                            onCreate = { setFormSelectOptions(formSelectOptions.plus(SelectOption(it, it.lowercase()))) },
+                            onCreate = {
+                                setFormSelectOptions(
+                                    formSelectOptions.plus(
+                                        SelectOption(
+                                            it,
+                                            it.lowercase()
+                                        )
+                                    )
+                                )
+                            },
                             onChange = { console.info("Value of colorCreatable: ${it.label}") }
                         )
                     }
@@ -1062,9 +1063,9 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                         attrs.caption = createElementNullSafe { +"" }
                         attrs.head = DynamicTableHead(
                             arrayOf(
-                                HeaderCell("first", "First col", isSortable = true),
-                                HeaderCell("second", "Second col", isSortable = true),
-                                HeaderCell("third", "Action col")
+                                StringHeaderCell("first", "First col", isSortable = true),
+                                StringHeaderCell("second", "Second col", isSortable = true),
+                                ElementHeaderCell("third", createElementNullSafe { span { +"Action col" } })
                             )
                         )
                         attrs.rowsPerPage = 3
