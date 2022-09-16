@@ -22,6 +22,9 @@ import react.*
 @JsName("default")
 external val DynamicTable: ComponentClass<DynamicTableProps>
 
+@JsName("DynamicTableStateless")
+external val DynamicTableStateless: ComponentClass<DynamicTableProps>
+
 external interface DynamicTableProps : Props {
 
     /**
