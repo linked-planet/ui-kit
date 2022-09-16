@@ -73,6 +73,18 @@ external interface DynamicTableProps : Props {
      * Page the table should show. Useful when wanting to control dynamic table.
      */
     var page: Int
+
+    /**
+     * Column key that the rows should be sorted by. Corresponds to the key's defined in the head prop. Useful when wanting to control dynamic table.
+     */
+    var sortKey: String
+
+    /**
+     * Column sort order. Useful when wanting to control dynamic table. One of
+     * - "ASC",
+     * - "DESC"
+     */
+    var sortOrder: String
 }
 
 external interface SortOptions {
