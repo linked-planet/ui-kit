@@ -161,6 +161,7 @@ fun RBuilder.ExtendedFormSelectField(
     label: String,
     placeholder: String? = null,
     noOptionsMessage: ((searchString: String) -> String)? = null,
+    value: SelectOption? = null,
     options: Array<SelectOption>,
     defaultValue: SelectOption? = null,
     isRequired: Boolean = false,
@@ -181,6 +182,7 @@ fun RBuilder.ExtendedFormSelectField(
         selectProps.inputId = name
         selectProps.options = options
         selectProps.menuPosition = menuPosition
+        value?.let { selectProps.value = value }
         placeholder?.let { selectProps.placeholder = it }
         noOptionsMessage?.let { selectProps.noOptionsMessage = it }
         val origOnChange = selectProps.onChange
