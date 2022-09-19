@@ -198,6 +198,7 @@ fun RBuilder.ExtendedFormCreatableSelectField(
     placeholder: String? = null,
     formatCreateLabel: ((String) -> String)? = null,
     options: Array<SelectOption>,
+    value: SelectOption? = null,
     onCreate: (String) -> Unit,
     defaultValue: SelectOption? = null,
     isRequired: Boolean = false,
@@ -219,6 +220,7 @@ fun RBuilder.ExtendedFormCreatableSelectField(
         selectProps.options = options
         selectProps.onCreateOption = onCreate
         selectProps.menuPosition = menuPosition
+        value?.let { selectProps.value = value }
         placeholder?.let { selectProps.placeholder = it }
         formatCreateLabel?.let { selectProps.formatCreateLabel = it }
         val origOnChange = selectProps.onChange
