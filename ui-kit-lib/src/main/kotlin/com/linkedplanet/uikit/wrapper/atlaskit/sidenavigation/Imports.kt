@@ -137,3 +137,19 @@ external interface NestingItemProps : Props {
      */
     var overrides: NestingItemOverrides?
 }
+
+/**
+ * A custom item can be used to a
+ *  - Provide a link to an external page
+ *  - Contain a custom functional component with arbitrary content
+ *  Not wrapping custom components in CustomItem leads to reappearing components in nested menus.
+ *
+ */
+@JsName("CustomItem")
+external val CustomItem: ComponentClass<CustomItemProps>
+
+external interface CustomItemProps : Props {
+    var id: String
+
+    var component: dynamic
+}

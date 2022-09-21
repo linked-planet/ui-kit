@@ -73,7 +73,32 @@ val ShowcaseLeftSidebar = fc<ShowcaseLeftSidebarProps> { _ ->
                             ButtonItem {
                                 +"Do something else"
                             }
+                            NestingItem {
+                                attrs.id = "nesting-item-id-2"
+                                attrs.title = "Go Deeper"
+
+                                Section {
+                                    attrs.title = "Section 2.1"
+                                    ButtonItem {
+                                        +"The end!"
+                                    }
+                                }
+                            }
                         }
+
+                        Section {
+                            attrs.title = "Link Section"
+                            CustomItem {
+                                attrs.id = "custom-item-id"
+                                attrs.component = fc<Props> {
+                                    react.dom.html.ReactHTML.a {
+                                        attrs.href = "/"
+                                        +"Link to Home"
+                                    }
+                                }
+                            }
+                        }
+
                     }
                 }
             }
