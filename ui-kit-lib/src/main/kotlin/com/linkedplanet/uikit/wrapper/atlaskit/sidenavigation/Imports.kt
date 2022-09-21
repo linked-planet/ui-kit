@@ -139,11 +139,28 @@ external interface NestingItemProps : Props {
 }
 
 /**
- * A custom item can be used to a
- *  - Provide a link to an external page
- *  - Contain a custom functional component with arbitrary content
- *  Not wrapping custom components in CustomItem leads to reappearing components in nested menus.
+ *   Sometimes you'll want to use components that aren't supplied by this library,
+ *   and that's great!
+ *   However, you'll need to know that when you do if you don't opt into our "should I render" hook -
+ *   your element will be rendered on _every_ nested view,
+ *   which may or may not be what you want to happen.
  *
+ *   When writing a leaf node component, you'll want to conditionally return `null` (if shouldRender is false)
+ *   When writing a wrapping component, you'll want to conditionally return `children` (if shouldRender is false)
+ *
+ */
+@JsName("useShouldNestedElementRender")
+external val useShouldNestedElementRender: () -> ShouldRender
+
+external interface ShouldRender {
+    val shouldRender: Boolean
+}
+
+/**
+ * Useful when wanting to create a item using a your own component that inherits the look and feel of a menu item.
+ * Use cases could include using your own router link component for example.
+ *
+ * The original component passes on props. The wrapper does not support this at this time.
  */
 @JsName("CustomItem")
 external val CustomItem: ComponentClass<CustomItemProps>

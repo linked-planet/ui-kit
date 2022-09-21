@@ -15,22 +15,54 @@
  */
 package com.linkedplanet.uikit.component
 
+import com.linkedplanet.uikit.wrapper.atlaskit.button.Button
 import com.linkedplanet.uikit.wrapper.atlaskit.icon.EmojiTravelIcon
 import com.linkedplanet.uikit.wrapper.atlaskit.icon.FileIcon
 import com.linkedplanet.uikit.wrapper.atlaskit.pagelayout.LeftSidebar
 import com.linkedplanet.uikit.wrapper.atlaskit.sidenavigation.*
+import com.linkedplanet.uikit.wrapper.atlaskit.textfield.TextField
+import csstype.FlexDirection
 import kotlinx.browser.document
 import kotlinx.js.jso
+import org.w3c.dom.HTMLInputElement
 import overrideBackButton
-import react.Props
-import react.RBuilder
-import react.createElement
+import react.*
 import react.dom.a
-import react.fc
+import react.dom.html.ReactHTML.div
 
 external interface ShowcaseLeftSidebarProps : Props
 
-val ShowcaseLeftSidebar = fc<ShowcaseLeftSidebarProps> { _ ->
+val textFieldWithClearButtonCustomComponent = FC<Props> {
+    val nestedElement = useShouldNestedElementRender()
+    var data by useState("")
+
+    if (!nestedElement.shouldRender){
+        return@FC
+    }
+    div {
+        style = jso {
+            display = csstype.Display.flex
+            flexDirection = FlexDirection.row
+        }
+        TextField {
+            placeholder = "Custom TextField"
+            value = data
+            isCompact = true
+            type = "text"
+            onChange ={
+                data = (it.target as HTMLInputElement).value.trim()
+            }
+        }
+        Button {
+            onClick = {
+                data = ""
+            }
+            + "Clear"
+        }
+    }
+}
+
+val ShowcaseLeftSidebar = fc<ShowcaseLeftSidebarProps> {
 
     LeftSidebar {
 
@@ -83,6 +115,12 @@ val ShowcaseLeftSidebar = fc<ShowcaseLeftSidebarProps> { _ ->
                                         +"The end!"
                                     }
                                 }
+                            }
+                        }
+
+                        Section {
+                            attrs.title = "Custom Component Section"
+                            textFieldWithClearButtonCustomComponent {
                             }
                         }
 
