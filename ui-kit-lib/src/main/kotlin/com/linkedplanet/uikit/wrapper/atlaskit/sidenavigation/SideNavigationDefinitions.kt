@@ -13,6 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import react.ElementType
+import com.linkedplanet.uikit.wrapper.atlaskit.sidenavigation.useShouldNestedElementRender
+import react.Props
 import com.linkedplanet.uikit.wrapper.atlaskit.sidenavigation.ButtonItemProps
 import com.linkedplanet.uikit.wrapper.atlaskit.sidenavigation.GoBackItem
 import com.linkedplanet.uikit.wrapper.atlaskit.sidenavigation.NestingItemOverrides
@@ -42,3 +46,27 @@ fun NestingItemProps.overrideBackButton(block: ChildrenBuilder.(props: ButtonIte
         }, props)
     })
 }
+
+// region NestableNavigationContent Helpers
+
+/**
+ * Convenience wrapper around a functional component
+ * that will only render at the correct hierarchy inside a NestableNavigationContent
+ */
+fun <P : Props> nestingFC(
+    block: ChildrenBuilder.(props: P) -> Unit,
+): FC<P> = FC {
+    if (useShouldNestedElementRender().shouldRender) {
+        block(this, it)
+    }
+}
+
+/**
+ * Creates a nestable Element for an ElementType
+ * that will only render at the correct hierarchy inside a NestableNavigationContent
+ */
+fun <PropsType : Props> ElementType<PropsType>.nesting(): FC<PropsType> = nestingFC {
+    +createElement(type = this@nesting, props = it)
+}
+
+// endregion NestableNavigationContent Helpers
