@@ -24,6 +24,8 @@ import com.linkedplanet.uikit.wrapper.atlaskit.textfield.TextField
 import csstype.FlexDirection
 import kotlinx.browser.document
 import kotlinx.js.jso
+import nesting
+import nestingFC
 import org.w3c.dom.HTMLInputElement
 import overrideBackButton
 import react.*
@@ -32,13 +34,9 @@ import react.dom.html.ReactHTML.div
 
 external interface ShowcaseLeftSidebarProps : Props
 
-val textFieldWithClearButtonCustomComponent = FC<Props> {
-    val nestedElement = useShouldNestedElementRender()
+val nestingTextFieldWithClearButtonCustomComponent = nestingFC<Props> {
     var data by useState("")
 
-    if (!nestedElement.shouldRender){
-        return@FC
-    }
     div {
         style = jso {
             display = csstype.Display.flex
@@ -57,10 +55,13 @@ val textFieldWithClearButtonCustomComponent = FC<Props> {
             onClick = {
                 data = ""
             }
-            + "Clear"
+            + "Clear ${data.take(10)}"
         }
     }
 }
+
+val nestingTextField = TextField.nesting()
+
 
 val ShowcaseLeftSidebar = fc<ShowcaseLeftSidebarProps> {
 
@@ -120,7 +121,15 @@ val ShowcaseLeftSidebar = fc<ShowcaseLeftSidebarProps> {
 
                         Section {
                             attrs.title = "Custom Component Section"
-                            textFieldWithClearButtonCustomComponent {
+                            nestingTextField {
+                                attrs.placeholder = "Nesting Textfield"
+                                attrs.isCompact = true
+                            }
+                            TextField {
+                                attrs.placeholder = "Sticks if Going Deeper"
+                                attrs.isCompact = true
+                            }
+                            nestingTextFieldWithClearButtonCustomComponent {
                             }
                         }
 
