@@ -43,7 +43,7 @@ val nestingTextFieldWithClearButtonCustomComponent = nestingFC<Props> {
             flexDirection = FlexDirection.row
         }
         TextField {
-            placeholder = "Custom TextField"
+            placeholder = "Custom Nesting TextField"
             value = data
             isCompact = true
             type = "text"
