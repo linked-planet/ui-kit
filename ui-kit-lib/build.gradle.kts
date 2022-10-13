@@ -73,6 +73,9 @@ dependencies {
     // Monaco Editor for LPEditor
     implementation(npm("@monaco-editor/react", "4.4.5", generateExternals = true))
 
+    // Awesome Slider
+    implementation(npm("react-awesome-slider", "4.1.0"))
+
     // Dev
     implementation(devNpm("style-loader", "3.3.1"))
     implementation(devNpm("css-loader", "6.7.1"))

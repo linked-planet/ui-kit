@@ -48,6 +48,7 @@ import com.linkedplanet.uikit.wrapper.atlaskit.taggroup.TagGroup
 import com.linkedplanet.uikit.wrapper.atlaskit.textarea.TextArea
 import com.linkedplanet.uikit.wrapper.atlaskit.textfield.TextField
 import com.linkedplanet.uikit.wrapper.atlaskit.toggle.Toggle
+import com.linkedplanet.uikit.wrapper.awesomeslider.AwesomeSlider
 import com.linkedplanet.uikit.wrapper.joyride.Joyride
 import com.linkedplanet.uikit.wrapper.joyride.JoyrideLocale
 import com.linkedplanet.uikit.wrapper.lpeditor.LPEditor
@@ -55,15 +56,13 @@ import com.linkedplanet.uikit.wrapper.tooltip.ReactTooltip
 import com.linkedplanet.uikit.wrapper.tooltip.ReactTooltipOffset
 import kotlinx.browser.window
 import kotlinx.coroutines.await
+import kotlinx.css.*
 import kotlinx.js.jso
 import react.*
-import react.dom.div
-import react.dom.h1
-import react.dom.html.ReactHTML.p
-import react.dom.onClick
-import react.dom.span
+import react.dom.*
 import styled.css
 import styled.styledDiv
+import kotlin.js.json
 
 external interface WrappersPageProps : Props
 
@@ -145,6 +144,62 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
             // endregion:avatar
 
             examples = listOfNotNull(example1, example2)
+        }
+
+        ShowcaseWrapperItem {
+            name = "Awesome Slider"
+            packages =
+                Package("react-awesome-slider", "https://github.com/rcaferati/react-awesome-slider").toList()
+
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "awesome-slider"
+
+            val slider = createElementNullSafe {
+                styledDiv {
+                    css {
+                        +ShowcaseStyles.showcaseItemExampleLargeSize
+                        display = Display.flex
+                        height = 200.px
+                    }
+
+                    // region:awesome-slider
+                    kotlinext.js.require("react-awesome-slider/dist/styles.css")
+                    AwesomeSlider {
+                        attrs.bullets = false
+
+                        div {
+                            attrs["style"] = json(
+                                "backgroundColor" to "transparent"
+                            )
+
+                            img(src = "images/logo.png") {
+                                attrs["style"] = json(
+                                    "objectFit" to "scale-down"
+                                )
+                                attrs.width = "100%"
+                                attrs.height = "100%"
+                            }
+                        }
+
+                        div {
+                            attrs["style"] = json(
+                                "backgroundColor" to "transparent"
+                            )
+
+                            img(src = "images/github-logo.png") {
+                                attrs["style"] = json(
+                                    "objectFit" to "scale-down"
+                                )
+                                attrs.width = "100%"
+                                attrs.height = "100%"
+                            }
+                        }
+                    }
+                    // endregion:awesome-slider
+                }
+            }
+
+            examples = listOfNotNull(slider)
         }
 
         ShowcaseWrapperItem {
