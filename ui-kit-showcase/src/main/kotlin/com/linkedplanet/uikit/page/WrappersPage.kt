@@ -515,7 +515,9 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                     val coder: Boolean,
                     val reactFan: Boolean,
                     val color: SelectOption,
-                    val creatableColor: SelectOption
+                    val creatableColor: SelectOption,
+                    val disabledField: String,
+                    val readOnlyField: String
                 )
 
                 ExtendedForm<FormData>(
@@ -548,7 +550,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                         )
 
                         ExtendedFormTextField(
-                            name = "name",
+                            formProperty = FormData::name,
                             label = "Name",
                             defaultValue = "Carl",
                             validationMapping = stringValidationMapping,
@@ -556,23 +558,22 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                             onChange = { console.info("Value of name field: $it") }
                         )
 
-
                         ExtendedFormTextField(
-                            name = "readOnlyField",
+                            formProperty = FormData::readOnlyField,
                             label = "Read-only Field",
                             defaultValue = "Read-only Field",
                             isReadOnly = true
                         )
 
                         ExtendedFormTextField(
-                            name = "disabledField",
+                            formProperty = FormData::disabledField,
                             label = "Disabled Field",
                             defaultValue = "Disabled Field",
                             isDisabled = true
                         )
 
                         ExtendedFormTextField(
-                            name = "surname",
+                            formProperty = FormData::surname,
                             label = "Surname",
                             defaultValue = "Coderrrr",
                             isRequired = true,
@@ -582,14 +583,14 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
 
                         ExtendedFieldset("Some more info") {
                             ExtendedFormCheckboxField(
-                                name = "coder",
+                                formProperty = FormData::coder,
                                 label = "Coder",
                                 defaultIsChecked = true,
                                 onChange = { console.info("Value of coder: $it") }
                             )
 
                             ExtendedFormCheckboxField(
-                                name = "reactFan",
+                                formProperty = FormData::reactFan,
                                 label = "React fan"
                             )
                         }
@@ -597,7 +598,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
 
                     ExtendedFormSection("More data", "Tell me more.") {
                         ExtendedFormSelectField(
-                            name = "color",
+                            formProperty = FormData::color,
                             label = "Favorite Color",
                             options = formSelectOptions.toTypedArray(),
                             defaultValue = formSelectOptions[1],
@@ -605,7 +606,7 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                         )
 
                         ExtendedFormCreatableSelectField(
-                            name = "colorCreatable",
+                            formProperty = FormData::creatableColor,
                             label = "Favorite Color (Creatable)",
                             options = formSelectOptions.toTypedArray(),
                             defaultValue = formSelectOptions[1],

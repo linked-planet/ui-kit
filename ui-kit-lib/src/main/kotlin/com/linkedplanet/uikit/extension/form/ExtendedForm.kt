@@ -27,6 +27,7 @@ import org.w3c.dom.HTMLInputElement
 import react.*
 import react.dom.form
 import react.dom.onSubmit
+import kotlin.reflect.KProperty1
 
 fun <T> RBuilder.ExtendedForm(
     onSubmit: (values: T, form: dynamic, callback: dynamic) -> Unit,
@@ -120,6 +121,31 @@ fun RBuilder.ExtendedFormField(
     }
 }
 
+fun <T> RBuilder.ExtendedFormTextField(
+    formProperty: KProperty1<T, String>,
+    label: String,
+    placeholder: String? = null,
+    defaultValue: dynamic = null,
+    isRequired: Boolean = false,
+    isReadOnly: Boolean = false,
+    isDisabled: Boolean = false,
+    validationMapping: ValidationMapping? = null,
+    validate: (value: dynamic, form: dynamic, fieldState: dynamic) -> String? = { _, _, _ -> "" },
+    onChange: (String) -> Unit = {}
+) = ExtendedFormTextField(
+    formProperty.name,
+    label,
+    placeholder,
+    defaultValue,
+    isRequired,
+    isReadOnly,
+    isDisabled,
+    validationMapping,
+    validate,
+    onChange
+)
+
+@Deprecated("Use property variant instead.")
 fun RBuilder.ExtendedFormTextField(
     name: String,
     label: String,
@@ -156,6 +182,35 @@ fun RBuilder.ExtendedFormTextField(
     }
 }
 
+fun <T> RBuilder.ExtendedFormSelectField(
+    formProperty: KProperty1<T, SelectOption>,
+    label: String,
+    placeholder: String? = null,
+    noOptionsMessage: ((searchString: String) -> String)? = null,
+    value: SelectOption? = null,
+    options: Array<SelectOption>,
+    defaultValue: SelectOption? = null,
+    isRequired: Boolean = false,
+    validationMapping: ValidationMapping? = null,
+    validate: (value: dynamic, form: dynamic, fieldState: dynamic) -> String? = { _, _, _ -> "" },
+    onChange: (SelectOption) -> Unit = {},
+    menuPosition: String = "fixed"
+) = ExtendedFormSelectField(
+    formProperty.name,
+    label,
+    placeholder,
+    noOptionsMessage,
+    value,
+    options,
+    defaultValue,
+    isRequired,
+    validationMapping,
+    validate,
+    onChange,
+    menuPosition
+)
+
+@Deprecated("Use property variant instead.")
 fun RBuilder.ExtendedFormSelectField(
     name: String,
     label: String,
@@ -194,6 +249,37 @@ fun RBuilder.ExtendedFormSelectField(
     }
 }
 
+fun <T> RBuilder.ExtendedFormCreatableSelectField(
+    formProperty: KProperty1<T, SelectOption>,
+    label: String,
+    placeholder: String? = null,
+    formatCreateLabel: ((String) -> String)? = null,
+    options: Array<SelectOption>,
+    value: SelectOption? = null,
+    onCreate: (String) -> Unit,
+    defaultValue: SelectOption? = null,
+    isRequired: Boolean = false,
+    validationMapping: ValidationMapping? = null,
+    validate: (value: dynamic, form: dynamic, fieldState: dynamic) -> String? = { _, _, _ -> "" },
+    onChange: (SelectOption) -> Unit = {},
+    menuPosition: String = "fixed"
+) = ExtendedFormCreatableSelectField(
+    formProperty.name,
+    label,
+    placeholder,
+    formatCreateLabel,
+    options,
+    value,
+    onCreate,
+    defaultValue,
+    isRequired,
+    validationMapping,
+    validate,
+    onChange,
+    menuPosition
+)
+
+@Deprecated("Use property variant instead.")
 fun RBuilder.ExtendedFormCreatableSelectField(
     name: String,
     label: String,
@@ -234,6 +320,23 @@ fun RBuilder.ExtendedFormCreatableSelectField(
     }
 }
 
+fun <T> RBuilder.ExtendedFormCheckboxField(
+    formProperty: KProperty1<T, Boolean>,
+    label: String,
+    defaultIsChecked: Boolean = false,
+    isRequired: Boolean = false,
+    isDisabled: Boolean = false,
+    onChange: (Boolean) -> Unit = {}
+) = ExtendedFormCheckboxField(
+    formProperty.name,
+    label,
+    defaultIsChecked,
+    isRequired,
+    isDisabled,
+    onChange
+)
+
+@Deprecated("Use property variant instead.")
 fun RBuilder.ExtendedFormCheckboxField(
     name: String,
     label: String,
