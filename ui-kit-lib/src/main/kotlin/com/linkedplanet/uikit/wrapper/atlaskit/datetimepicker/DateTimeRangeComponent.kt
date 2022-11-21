@@ -77,9 +77,9 @@ external interface DateTimeRangeProps: Props {
 
 val DateTimeRange = fc<DateTimeRangeProps> { props ->
 
-    val (dateSelectCounter, setDateSelectCounter) = useState(0)
-    val (startDate, setStartDate) = useState(props.startDate)
-    val (endDate, setEndDate) = useState(props.endDate)
+    var dateSelectCounter by useState(0)
+    var startDate by useState(props.startDate)
+    var endDate by useState(props.endDate)
 
     fun getDatesBetweenStartEnd(startDate: Moment, endDate: Moment): Set<Moment> {
         val daysDiff = endDate.diff(startDate, "day").toInt()
@@ -94,15 +94,15 @@ val DateTimeRange = fc<DateTimeRangeProps> { props ->
     fun getSelectedDates(): Array<String> =
         when {
             startDate != null && endDate == null -> {
-                listOf(startDate!!).toTypedArray()
+                listOf(startDate!!)
             }
             startDate != null && endDate != null -> {
-                getDatesBetweenStartEnd(moment(startDate), moment(endDate)).map { it.toDateString() }.toTypedArray()
+                getDatesBetweenStartEnd(moment(startDate), moment(endDate)).map { it.toDateString() }
             }
             else -> {
-                listOf<String>().toTypedArray()
+                listOf<String>()
             }
-        }
+        }.toTypedArray()
 
     fun checkCollisions(to: String): Boolean {
         val range = getDatesBetweenStartEnd(moment(startDate), moment(to)).map { it.toDateString() }.toSet()
@@ -112,29 +112,24 @@ val DateTimeRange = fc<DateTimeRangeProps> { props ->
     }
 
     fun onDateSelect(value: String) {
-        if (dateSelectCounter == 0) {
-            // select from
-            setStartDate(value)
-            setEndDate(null)
-            setDateSelectCounter(1)
-        } else if (dateSelectCounter == 1) {
+        if (dateSelectCounter == 1) {
             // select to
             if (checkCollisions(value)) {
-                setDateSelectCounter(0)
+                dateSelectCounter = 0
                 props.onCollision()
             } else if (moment(value).isBefore(moment(startDate))) {
-                setDateSelectCounter(0)
+                dateSelectCounter = 0
                 props.onCollision()
             } else {
-                setDateSelectCounter(2)
-                setEndDate(value)
+                dateSelectCounter = 2
+                endDate = value
                 props.onChange(startDate!!, value)
             }
         } else {
             // select from
-            setStartDate(value)
-            setEndDate(null)
-            setDateSelectCounter(1)
+            startDate = value
+            endDate = null
+            dateSelectCounter = 1
         }
     }
 
