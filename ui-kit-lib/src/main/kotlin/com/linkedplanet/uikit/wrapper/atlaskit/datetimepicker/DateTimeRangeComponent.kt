@@ -22,14 +22,56 @@ import react.*
 
 
 external interface DateTimeRangeProps: Props {
+    /**
+     * The earliest enabled date. Dates before this are disabled on the calendar. This does not affect what users can type into the picker.
+     */
     var minDate: String?
+
+    /**
+     * The latest enabled date. Dates after this are disabled on the calendar. This does not affect what users can type into the picker.
+     */
     var maxDate: String?
+
+    /**
+     * Takes an array of dates as string in the format 'YYYY-MM-DD'. All dates provided are greyed out. This does not prevent these dates being selected.
+     */
     var disabledDates: Array<String>
+
+    /**
+     * The startDate for the calendar selection (YYYY-MM-DD).
+     */
     var startDate: String?
+
+    /**
+     * The endDate for the calendar selection (YYYY-MM-DD).
+     */
     var endDate: String?
+
+    /**
+     * Locale used to format the date and calendar. See DateTimeFormat.
+     */
     var locale: String  // "de-de"
+
+    /**
+     * Start day of the week for the calendar.
+            0 sunday (default value)
+            1 monday
+            2 tuesday
+            3 wednesday
+            4 thursday
+            5 friday
+            6 saturday
+     */
     var weekStartDay: Int // 1
+
+    /**
+     * Called when the startDate and endDate is selected. The only argument is an ISO time or empty string.
+     */
     var onChange: (String, String) -> Unit
+
+    /**
+     * Called when there are collisions detected.
+     */
     var onCollision: () -> Unit
 }
 
