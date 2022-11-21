@@ -67,7 +67,10 @@ external interface SectionProps : Props {
 @JsName("NestableNavigationContent")
 external val NestableNavigationContent: ComponentClass<NestableNavigationContentProps>
 
-external interface NestableNavigationContentProps : Props
+external interface NestableNavigationContentProps : Props {
+    var initialStack: Array<String>
+    var stack: Array<String>
+}
 
 @JsName("ButtonItem")
 external val ButtonItem: ComponentClass<ButtonItemProps>
