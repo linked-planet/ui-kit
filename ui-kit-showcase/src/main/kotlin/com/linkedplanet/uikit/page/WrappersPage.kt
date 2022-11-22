@@ -29,6 +29,7 @@ import com.linkedplanet.uikit.wrapper.atlaskit.calendar.Calendar
 import com.linkedplanet.uikit.wrapper.atlaskit.checkbox.Checkbox
 import com.linkedplanet.uikit.wrapper.atlaskit.code.CodeBlock
 import com.linkedplanet.uikit.wrapper.atlaskit.datetimepicker.DateTimePicker
+import com.linkedplanet.uikit.wrapper.atlaskit.datetimepicker.DateTimeRange
 import com.linkedplanet.uikit.wrapper.atlaskit.dropdownmenu.*
 import com.linkedplanet.uikit.wrapper.atlaskit.emptystate.EmptyState
 import com.linkedplanet.uikit.wrapper.atlaskit.flag.Flag
@@ -58,6 +59,7 @@ import kotlinx.browser.window
 import kotlinx.coroutines.await
 import kotlinx.css.*
 import kotlinx.js.jso
+import moment.moment
 import react.*
 import react.dom.*
 import styled.css
@@ -407,6 +409,44 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
                     // region:datetime-picker
                     DateTimePicker {}
                     // endregion:datetime-picker
+                }
+            }
+
+            examples = listOfNotNull(example)
+        }
+
+        ShowcaseWrapperItem {
+            name = "Date time Range picker"
+            packages = Package(
+                "@atlaskit/datetime-picker",
+                "https://atlassian.design/components/datetime-picker/examples"
+            ).toList()
+
+            this.overallSourceCode = overallSourceCode
+            sourceCodeExampleId = "datetime-range-picker"
+
+            val example = createElementNullSafe {
+                styledDiv {
+                    css {
+                        +ShowcaseStyles.showcaseItemExampleMediumSize
+                    }
+                    // region:datetime-range-picker
+                    val today = moment().format("yyyy-MM-DD")
+                    val todayPlus2 = moment().add(2, "day").format("yyyy-MM-DD")
+                    val todayPlus10 = moment().add(10, "day").format("yyyy-MM-DD")
+                    DateTimeRange {
+                        attrs.minDate = today
+                        attrs.maxDate = todayPlus10
+                        attrs.disabledDates = arrayOf(todayPlus2)
+                        attrs.locale = "de-de"
+                        attrs.onCollision = {
+                            console.info("Collision detected")
+                        }
+                        attrs.onChange = { start, end ->
+                            console.info("Selected Range: ($start) --> ($end)")
+                        }
+                    }
+                    // endregion:datetime-range-picker
                 }
             }
 

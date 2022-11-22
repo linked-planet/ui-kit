@@ -19,7 +19,9 @@ package com.linkedplanet.uikit.wrapper.atlaskit.sidenavigation
 
 import GoBackItemRenderer
 import org.w3c.dom.events.Event
-import react.*
+import react.ComponentClass
+import react.Props
+import react.ReactNode
 
 @JsName("SideNavigation")
 external val SideNavigation: ComponentClass<SideNavigationProps>
@@ -68,7 +70,17 @@ external interface SectionProps : Props {
 @JsName("NestableNavigationContent")
 external val NestableNavigationContent: ComponentClass<NestableNavigationContentProps>
 
-external interface NestableNavigationContentProps : Props
+external interface NestableNavigationContentProps : Props {
+    /**
+     * Array of the initial stack you want to show. Useful when wanting to set the initial nested view but not wanting to opt into controlled state. Make sure to have all intermediate navigation pages line up.
+     */
+    var initialStack: Array<String>
+
+    /**
+     * Enables you to control the stack of navigation views you want to show. Do not jump between controlled and uncontrolled else undefined behaviour will occur. This means either using initialStack OR stack but not both. Make sure your stack array has a stable reference and does not change between renders.
+     */
+    var stack: Array<String>
+}
 
 @JsName("NestingItemOverrides")
 external interface NestingItemOverrides {
