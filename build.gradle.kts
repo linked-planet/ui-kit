@@ -1,5 +1,5 @@
 plugins {
-    kotlin("js") version "1.6.20" apply false
+    kotlin("js") version "1.7.21" apply false
     id("com.github.hierynomus.license") version "0.16.1"
     id("pl.allegro.tech.build.axion-release") version "1.13.6"
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"

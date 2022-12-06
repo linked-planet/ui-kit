@@ -18,17 +18,16 @@ package com.linkedplanet.uikit
 import com.linkedplanet.uikit.component.ShowcaseLeftSidebar
 import com.linkedplanet.uikit.component.ShowcaseTopNavigation
 import com.linkedplanet.uikit.page.*
-import com.linkedplanet.uikit.style.ShowcaseStyles
 import com.linkedplanet.uikit.util.createElementNullSafe
 import com.linkedplanet.uikit.wrapper.atlaskit.cssreset.CssReset
 import com.linkedplanet.uikit.wrapper.atlaskit.pagelayout.*
+import csstype.*
+import emotion.react.css
 import react.*
-import react.dom.attrs
-import react.dom.span
+import react.dom.html.ReactHTML.div
+import react.dom.html.ReactHTML.span
 import react.router.*
 import react.router.dom.HashRouter
-import styled.css
-import styled.styledDiv
 import kotlin.js.Date
 
 external interface ShowcaseAppProps : Props {
@@ -53,10 +52,13 @@ class ShowcaseApp(props: ShowcaseAppProps) : RComponent<ShowcaseAppProps, Showca
                 ShowcaseLeftSidebar {}
 
                 Main {
-                    styledDiv {
-                        css {
-                            +ShowcaseStyles.showcaseContainer
+                    div {
+                        attrs.css {
+                            margin = Margin(50.px, 50.px)
+                            display = Display.flex
+                            flexDirection = FlexDirection.column
                         }
+
                         HashRouter {
                             Routes { // use switch to render only the first matching result
                                 Route {
@@ -90,13 +92,16 @@ class ShowcaseApp(props: ShowcaseAppProps) : RComponent<ShowcaseAppProps, Showca
                         }
 
                         // Copyright footer
-                        styledDiv {
-                            css {
-                                +ShowcaseStyles.showcaseCopyrightFooter
+                        div {
+                            attrs.css {
+                                fontSize = 0.7.rem
+                                fontWeight = FontWeight.lighter
+                                marginTop = 30.px
                             }
 
                             span {
-                                attrs["data-year"] = "${Date().getFullYear()}"
+                                val dynAttrs = attrs.asDynamic()
+                                dynAttrs["data-year"] = "${Date().getFullYear()}"
                             }
                         }
                     }

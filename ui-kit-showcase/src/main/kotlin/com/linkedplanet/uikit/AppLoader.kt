@@ -15,8 +15,8 @@
  */
 package com.linkedplanet.uikit
 
-import kotlinx.browser.document
-import kotlinx.browser.window
+import browser.document
+import browser.window
 import react.createElement
 import react.dom.client.createRoot
 import react.react

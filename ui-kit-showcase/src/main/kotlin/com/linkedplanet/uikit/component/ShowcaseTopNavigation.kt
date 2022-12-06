@@ -19,11 +19,13 @@ import com.linkedplanet.uikit.util.createElementNullSafe
 import com.linkedplanet.uikit.util.createSpan
 import com.linkedplanet.uikit.wrapper.atlaskit.navigation.*
 import com.linkedplanet.uikit.wrapper.atlaskit.pagelayout.TopNavigation
+import csstype.pct
+import csstype.px
+import emotion.react.css
+import js.core.jso
 import kotlinx.browser.window
-import kotlinx.js.jso
 import react.*
-import react.dom.img
-import react.dom.jsStyle
+import react.dom.html.ReactHTML.img
 
 external interface ShowcaseTopNavigationProps : Props
 
@@ -67,10 +69,10 @@ val ShowcaseTopNavigation = fc<ShowcaseTopNavigationProps> { _ ->
             val profileIcon = createElementNullSafe {
                 img {
                     attrs.src = "images/github-logo.png"
-                    attrs.jsStyle {
-                        borderRadius = "50%"
-                        width = 32
-                        height = 32
+                    attrs.css {
+                        borderRadius = 50.pct
+                        width = 32.px
+                        height = 32.px
                     }
                 }
             }

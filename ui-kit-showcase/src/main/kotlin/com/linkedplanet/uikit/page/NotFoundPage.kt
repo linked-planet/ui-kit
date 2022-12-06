@@ -20,7 +20,7 @@ import com.linkedplanet.uikit.wrapper.atlaskit.button.Button
 import com.linkedplanet.uikit.wrapper.atlaskit.emptystate.EmptyState
 import kotlinx.browser.window
 import react.Props
-import react.dom.span
+import react.dom.html.ReactHTML.span
 import react.fc
 
 external interface NotFoundPageProps : Props
