@@ -15,19 +15,18 @@
  */
 package com.linkedplanet.uikit.component
 
-import com.linkedplanet.uikit.style.ShowcaseStyles
 import com.linkedplanet.uikit.util.createElementNullSafe
 import com.linkedplanet.uikit.wrapper.atlaskit.code.CodeBlock
 import com.linkedplanet.uikit.wrapper.atlaskit.tab.Tab
 import com.linkedplanet.uikit.wrapper.atlaskit.tab.Tabs
-import kotlinx.css.*
+import csstype.*
+import emotion.react.css
 import react.*
 import react.dom.html.AnchorTarget
 import react.dom.html.ReactHTML.a
+import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.h3
-import react.dom.span
-import styled.css
-import styled.styledDiv
+import react.dom.html.ReactHTML.span
 
 data class Package(
     val name: String,
@@ -65,18 +64,19 @@ val ShowcaseWrapperItem = fc<ShowcaseWrapperItemProps> { props ->
         ?: ""
 
     // Render
-    styledDiv {
-        css {
-            +ShowcaseStyles.showcaseItem
+    div {
+        attrs.css {
+            padding = Padding(20.px, 20.px)
         }
 
         h3 {
             +props.name
         }
 
-        styledDiv {
-            css {
-                +ShowcaseStyles.showcaseItemPackages
+        div {
+            attrs.css {
+                fontWeight = FontWeight.lighter
+                fontSize = 0.8.rem
             }
             span {
                 +"Packages: "
@@ -93,23 +93,21 @@ val ShowcaseWrapperItem = fc<ShowcaseWrapperItemProps> { props ->
             }
         }
 
-        styledDiv {
-            css {
+        div {
+            attrs.css {
                 // Eliminate margin of tabs
                 marginLeft = -8.px
             }
             Tabs {
                 attrs.tabs = arrayOf(
                     Tab("Example", createElementNullSafe {
-                        styledDiv {
-                            css {
-                                +ShowcaseStyles.showcaseItemExamplesContainer
+                        div {
+                            attrs.css {
+                                display = Display.flex
                             }
                             props.examples.forEach {
-                                styledDiv {
-                                    css {
-                                        +ShowcaseStyles.showcaseItemExample
-                                    }
+                                div {
+                                    attrs.className = ClassName("example")
                                     +it
                                 }
                             }
@@ -118,8 +116,8 @@ val ShowcaseWrapperItem = fc<ShowcaseWrapperItemProps> { props ->
 
                     Tab("Example source", createElementNullSafe {
                         if (code.isNotEmpty()) {
-                            styledDiv {
-                                css {
+                            div {
+                                attrs.css {
                                     width = 100.pct
                                 }
                                 CodeBlock {
@@ -150,5 +148,4 @@ private fun extractSourceCodeExample(overallSourceCode: String, sourceCodeExampl
     } else ""
 }
 
-fun RBuilder.ShowcaseWrapperItem(handler: ShowcaseWrapperItemProps.() -> Unit) =
-    child(ShowcaseWrapperItem) { attrs { handler() } }
+

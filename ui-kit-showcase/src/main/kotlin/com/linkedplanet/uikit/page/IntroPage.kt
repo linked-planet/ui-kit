@@ -17,7 +17,7 @@ package com.linkedplanet.uikit.page
 
 import com.linkedplanet.uikit.wrapper.atlaskit.code.CodeBlock
 import react.Props
-import react.dom.div
+import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.h1
 import react.dom.html.ReactHTML.h3
 import react.dom.html.ReactHTML.p

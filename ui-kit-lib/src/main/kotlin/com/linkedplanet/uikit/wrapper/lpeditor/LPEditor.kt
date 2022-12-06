@@ -15,8 +15,8 @@
  */
 package com.linkedplanet.uikit.wrapper.lpeditor
 
-import kotlinx.js.Object
-import kotlinx.js.ReadonlyArray
+import js.core.Object
+import js.core.ReadonlyArray
 import react.*
 import kotlin.js.Json
 import kotlin.js.json

@@ -13,23 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.linkedplanet.uikit
+package com.linkedplanet.uikit.util
 
-import browser.document
-import browser.window
-import react.createElement
-import react.dom.client.createRoot
-import react.react
+import com.linkedplanet.uikit.component.ShowcaseWrapperItemProps
+import react.Props
+import react.RBuilder
 
-@ExperimentalJsExport
-fun main() {
-    window.onload = {
-        document.getElementById("root")
-            ?.let { doc ->
-                val root = createRoot(doc)
-                val app = createElement(ShowcaseApp::class.react)
-                root.render(app)
-            }
-            ?: console.error("No element with id 'root' found")
-    }
+fun RBuilder.ShowcaseWrapperItem(handler: ShowcaseWrapperItemProps.() -> Unit) =
+    child(com.linkedplanet.uikit.component.ShowcaseWrapperItem) { attrs { handler() } }
+
+external interface ShowcaseProps: Props {
+    var overallSourceCode: String
 }

@@ -21,15 +21,17 @@ import com.linkedplanet.uikit.wrapper.atlaskit.icon.FileIcon
 import com.linkedplanet.uikit.wrapper.atlaskit.pagelayout.LeftSidebar
 import com.linkedplanet.uikit.wrapper.atlaskit.sidenavigation.*
 import com.linkedplanet.uikit.wrapper.atlaskit.textfield.TextField
+import csstype.Display
 import csstype.FlexDirection
+import emotion.react.css
+import js.core.jso
 import kotlinx.browser.document
-import kotlinx.js.jso
 import nesting
 import nestingFC
 import org.w3c.dom.HTMLInputElement
 import overrideBackButton
 import react.*
-import react.dom.a
+import react.dom.html.ReactHTML.a
 import react.dom.html.ReactHTML.div
 
 external interface ShowcaseLeftSidebarProps : Props
@@ -38,16 +40,17 @@ val nestingTextFieldWithClearButtonCustomComponent = nestingFC<Props> {
     var data by useState("")
 
     div {
-        style = jso {
-            display = csstype.Display.flex
-            flexDirection = FlexDirection.row
+        css {
+            display = Display.flex
+            flexDirection = FlexDirection.column
         }
+
         TextField {
             placeholder = "Custom Nesting TextField"
             value = data
             isCompact = true
             type = "text"
-            onChange ={
+            onChange = {
                 data = (it.target as HTMLInputElement).value.trim()
             }
         }
@@ -55,7 +58,7 @@ val nestingTextFieldWithClearButtonCustomComponent = nestingFC<Props> {
             onClick = {
                 data = ""
             }
-            + "Clear ${data.take(10)}"
+            +"Clear ${data.take(10)}"
         }
     }
 }
@@ -91,8 +94,8 @@ val ShowcaseLeftSidebar = fc<ShowcaseLeftSidebarProps> {
                         attrs.title = "Nested menu item"
                         attrs.iconBefore = createElement(FileIcon, jso {})
                         attrs.overrideBackButton { props ->
-                                props.description = "BackDescription!"
-                                +"Custom GoBackItem"
+                            props.description = "BackDescription!"
+                            +"Custom GoBackItem"
                         }
 
                         Section {
@@ -153,13 +156,15 @@ val ShowcaseLeftSidebar = fc<ShowcaseLeftSidebarProps> {
             NavigationFooter {
                 Footer {
                     +"Made with ❤ by "
-                    a(href = "https://www.linked-planet.com/") {
+                    a {
+                        attrs.href = "https://www.linked-planet.com/"
                         +"linked-planet"
                     }
                 }
                 Footer {
                     +"Licensed under "
-                    a(href = "http://www.apache.org/licenses/LICENSE-2.0") {
+                    a {
+                        attrs.href = "http://www.apache.org/licenses/LICENSE-2.0"
                         +"Apache License, Version 2.0"
                     }
                 }

@@ -9,28 +9,29 @@ repositories {
     mavenCentral()
 }
 
-// See https://kotlinlang.org/docs/releases.html#release-details for recommended library versions of kotlin version
+// ATTENTION!
+// ----------
+// See recommended kotlin library versions for kotlin version: https://kotlinlang.org/docs/releases.html#release-details
+// See the official bom (pom.xml) for other library versions: https://repo1.maven.org/maven2/org/jetbrains/kotlin-wrappers/kotlin-wrappers-bom/
 dependencies {
     // Kotlin
-    api(kotlin("stdlib-js", "1.6.20"))
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.6.0")
-    api("org.jetbrains.kotlinx:kotlinx-html-js:0.7.3")
+    api(kotlin("stdlib-js", "1.7.21"))
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.6.4")
+    api("org.jetbrains.kotlinx:kotlinx-html-js:0.8.0")
 
     // React & Redux
-    api("org.jetbrains.kotlin-wrappers:kotlin-react:18.0.0-pre.328-kotlin-1.6.20")
-    api("org.jetbrains.kotlin-wrappers:kotlin-react-dom:18.0.0-pre.328-kotlin-1.6.20")
-    api("org.jetbrains.kotlin-wrappers:kotlin-react-router-dom:6.3.0-pre.328-kotlin-1.6.20")
-    api("org.jetbrains.kotlin-wrappers:kotlin-redux:4.1.2-pre.328-kotlin-1.6.20")
-    api("org.jetbrains.kotlin-wrappers:kotlin-react-redux:7.2.6-pre.328-kotlin-1.6.20")
+    api("org.jetbrains.kotlin-wrappers:kotlin-react:18.2.0-pre.456")
+    api("org.jetbrains.kotlin-wrappers:kotlin-react-dom:18.2.0-pre.456")
+    api("org.jetbrains.kotlin-wrappers:kotlin-react-router-dom:6.3.0-pre.456")
+    api("org.jetbrains.kotlin-wrappers:kotlin-redux:4.1.2-pre.456")
+    api("org.jetbrains.kotlin-wrappers:kotlin-react-redux:7.2.6-pre.456")
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-styled:5.3.6-pre.456") // <-- implementation as it's for internal use only
 
-    // Styled
-    api("org.jetbrains.kotlin-wrappers:kotlin-styled:5.3.5-pre.328-kotlin-1.6.20")
+    // Emotion for styling
+    api("org.jetbrains.kotlin-wrappers:kotlin-emotion:11.10.5-pre.456")
 
     // Moment
     api("io.github.samgarasx:kotlin-moment:2.27.0-pre.12-kotlin-1.5.21")
-
-    // Serialization
-    api("org.jetbrains.kotlinx", "kotlinx-serialization-json", "1.3.3")
 
     // Atlaskit
     implementation(npm("@atlaskit/atlassian-navigation", "2.1.3"))
@@ -71,7 +72,7 @@ dependencies {
     implementation(npm("mime-types", "2.1.34"))
 
     // Monaco Editor for LPEditor
-    implementation(npm("@monaco-editor/react", "4.4.5", generateExternals = true))
+    implementation(npm("@monaco-editor/react", "4.4.5"))
 
     // Awesome Slider
     implementation(npm("react-awesome-slider", "4.1.0"))
