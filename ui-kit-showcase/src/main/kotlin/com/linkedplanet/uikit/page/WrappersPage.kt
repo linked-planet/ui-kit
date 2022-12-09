@@ -178,5 +178,9 @@ val WrappersPage = fc<WrappersPageProps> { _ ->
         LPEditorShowcase {
             attrs.overallSourceCode = overallSourceCode
         }
+
+        MenuShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
     }
 }

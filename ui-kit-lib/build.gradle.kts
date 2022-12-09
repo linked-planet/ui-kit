@@ -65,6 +65,7 @@ dependencies {
     implementation(npm("@atlaskit/textarea", "4.3.2"))
     implementation(npm("@atlaskit/textfield", "5.1.8"))
     implementation(npm("@atlaskit/toggle", "12.4.5"))
+    implementation(npm("@atlaskit/menu", "1.4.1"))
 
     // Misc
     implementation(npm("react-joyride", "2.4.0"))
