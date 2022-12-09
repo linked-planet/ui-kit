@@ -89,7 +89,6 @@ external interface CreatableSelectProps : Props {
     var options: Array<SelectOption>
     var value: SelectOption?
     var placeholder: String
-    var isCompact: Boolean
     var isMulti: Boolean
     var className: String
     var classNamePrefix: String

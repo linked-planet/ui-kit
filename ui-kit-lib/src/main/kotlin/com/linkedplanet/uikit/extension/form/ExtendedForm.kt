@@ -311,7 +311,7 @@ fun RBuilder.ExtendedFormCreatableSelectField(
         validate
     ) { props ->
         val selectProps: CreatableSelectProps = props.fieldProps
-        selectProps.isCompact = isCompact
+        selectProps.spacing = if (isCompact) "compact" else "default"
         selectProps.inputId = name
         selectProps.options = options
         selectProps.onCreateOption = onCreate
@@ -365,7 +365,6 @@ fun RBuilder.ExtendedFormCheckboxField(
             checkboxProps.onChange = {
                 val el = it.target as HTMLInputElement?
                 if (el != null) {
-                    console.log("valueeeee: ${el.checked}")
                     onChange(el.checked)
                 }
                 origOnChange(it)
