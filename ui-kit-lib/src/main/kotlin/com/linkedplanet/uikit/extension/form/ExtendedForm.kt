@@ -259,6 +259,7 @@ fun <T> RBuilder.ExtendedFormCreatableSelectField(
     onCreate: (String) -> Unit,
     defaultValue: SelectOption? = null,
     isRequired: Boolean = false,
+    isCompact: Boolean = false,
     validationMapping: ValidationMapping? = null,
     validate: (value: dynamic, form: dynamic, fieldState: dynamic) -> String? = { _, _, _ -> "" },
     onChange: (SelectOption) -> Unit = {},
@@ -273,6 +274,7 @@ fun <T> RBuilder.ExtendedFormCreatableSelectField(
     onCreate,
     defaultValue,
     isRequired,
+    isCompact,
     validationMapping,
     validate,
     onChange,
@@ -290,6 +292,7 @@ fun RBuilder.ExtendedFormCreatableSelectField(
     onCreate: (String) -> Unit,
     defaultValue: SelectOption? = null,
     isRequired: Boolean = false,
+    isCompact: Boolean = false,
     validationMapping: ValidationMapping? = null,
     validate: (value: dynamic, form: dynamic, fieldState: dynamic) -> String? = { _, _, _ -> "" },
     onChange: (SelectOption) -> Unit = {},
@@ -304,6 +307,7 @@ fun RBuilder.ExtendedFormCreatableSelectField(
         validate
     ) { props ->
         val selectProps: CreatableSelectProps = props.fieldProps
+        selectProps.isCompact = isCompact
         selectProps.inputId = name
         selectProps.options = options
         selectProps.onCreateOption = onCreate
