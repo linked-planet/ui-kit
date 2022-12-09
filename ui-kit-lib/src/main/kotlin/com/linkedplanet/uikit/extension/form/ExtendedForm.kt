@@ -191,6 +191,7 @@ fun <T> RBuilder.ExtendedFormSelectField(
     options: Array<SelectOption>,
     defaultValue: SelectOption? = null,
     isRequired: Boolean = false,
+    isCompact: Boolean = false,
     validationMapping: ValidationMapping? = null,
     validate: (value: dynamic, form: dynamic, fieldState: dynamic) -> String? = { _, _, _ -> "" },
     onChange: (SelectOption) -> Unit = {},
@@ -204,6 +205,7 @@ fun <T> RBuilder.ExtendedFormSelectField(
     options,
     defaultValue,
     isRequired,
+    isCompact,
     validationMapping,
     validate,
     onChange,
@@ -220,6 +222,7 @@ fun RBuilder.ExtendedFormSelectField(
     options: Array<SelectOption>,
     defaultValue: SelectOption? = null,
     isRequired: Boolean = false,
+    isCompact: Boolean = false,
     validationMapping: ValidationMapping? = null,
     validate: (value: dynamic, form: dynamic, fieldState: dynamic) -> String? = { _, _, _ -> "" },
     onChange: (SelectOption) -> Unit = {},
@@ -234,6 +237,7 @@ fun RBuilder.ExtendedFormSelectField(
         validate
     ) { props ->
         val selectProps: SelectProps = props.fieldProps
+        selectProps.spacing = if (isCompact) "compact" else "default"
         selectProps.inputId = name
         selectProps.options = options
         selectProps.menuPosition = menuPosition
