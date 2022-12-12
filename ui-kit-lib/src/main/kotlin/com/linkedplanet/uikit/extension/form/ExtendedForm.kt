@@ -122,7 +122,7 @@ fun RBuilder.ExtendedFormField(
 }
 
 fun <T> RBuilder.ExtendedFormTextField(
-    formProperty: KProperty1<T, String>,
+    formProperty: KProperty1<T, String?>,
     label: String,
     placeholder: String? = null,
     defaultValue: dynamic = null,
@@ -183,7 +183,7 @@ fun RBuilder.ExtendedFormTextField(
 }
 
 fun <T> RBuilder.ExtendedFormSelectField(
-    formProperty: KProperty1<T, SelectOption>,
+    formProperty: KProperty1<T, SelectOption?>,
     label: String,
     placeholder: String? = null,
     noOptionsMessage: ((searchString: String) -> String)? = null,
@@ -254,7 +254,7 @@ fun RBuilder.ExtendedFormSelectField(
 }
 
 fun <T> RBuilder.ExtendedFormCreatableSelectField(
-    formProperty: KProperty1<T, SelectOption>,
+    formProperty: KProperty1<T, SelectOption?>,
     label: String,
     placeholder: String? = null,
     formatCreateLabel: ((String) -> String)? = null,
