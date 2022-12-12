@@ -1,0 +1,3309 @@
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.page
+
+import com.linkedplanet.uikit.util.createElementNullSafe
+import com.linkedplanet.uikit.wrapper.atlaskit.button.Button
+import com.linkedplanet.uikit.wrapper.atlaskit.emptystate.EmptyState
+import kotlinx.browser.window
+import react.Props
+import react.dom.html.ReactHTML.span
+import react.fc
+
+external interface NotFoundPageProps : Props
+
+val NotFoundPage = fc<NotFoundPageProps> { _ ->
+
+    EmptyState {
+        attrs.header = "404 - Not Found"
+        attrs.description = createElementNullSafe {
+            span {
+                +"The page you were looking for doesn't exist..."
+            }
+        }
+
+        attrs.primaryAction = createElementNullSafe {
+            Button {
+                attrs.onClick = {
+                    window.location.href = "/"
+                }
+                attrs.appearance = "primary"
+                +"Back to start"
+            }
+        }
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.page
+
+import com.linkedplanet.uikit.component.showcase.wrapper.*
+import com.linkedplanet.uikit.util.Async
+import com.linkedplanet.uikit.util.RequestUtil
+import kotlinx.coroutines.await
+import react.*
+import react.dom.html.ReactHTML.div
+import react.dom.html.ReactHTML.h1
+
+external interface WrappersPageProps : Props
+
+val WrappersPage = fc<WrappersPageProps> { _ ->
+
+    val (overallSourceCode, setOverallSourceCode) = useState("")
+
+
+    // Retrieve source code
+    Async.complete(
+        taskName = "fetch-showcase-code-${this.hashCode()}",
+        taskFun = {
+            RequestUtil.requestAndHandle(
+                url = "./showcase-sources.txt",
+                handler = {
+                    it.text().await()
+                }
+            )
+        },
+        completeFun = { sourceCode ->
+            setOverallSourceCode(sourceCode)
+        },
+        catchFun = {
+            console.error("Couldn't load source code...", it)
+        }
+    )
+
+    div {
+        h1 {
+            +"Wrappers"
+        }
+
+        AvatarShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        AwesomeSliderShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        BadgeShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        ButtonShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        BannerShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        CalendarShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        CheckboxShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        CodeBlockShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        DateTimePickerShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        DateTimeRangePickerShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        DropdownMenuShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        EmptyStateShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        FlagShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        FormShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        IconShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        JoyrideShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        LozengeShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        ModalShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        PaginationShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        PanelShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        PopupShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        SelectShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        TabsShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        TagShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        DynamicTableShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        TableTreeShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+
+        TextAreaShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        TextFieldShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        ToggleShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        TooltipShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        LPEditorShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+
+        MenuShowcase {
+            attrs.overallSourceCode = overallSourceCode
+        }
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.page
+
+import com.linkedplanet.uikit.wrapper.atlaskit.code.CodeBlock
+import react.Props
+import react.dom.html.ReactHTML.div
+import react.dom.html.ReactHTML.h1
+import react.dom.html.ReactHTML.h3
+import react.dom.html.ReactHTML.h5
+import react.dom.html.ReactHTML.p
+import react.fc
+
+external interface UtilsPageProps : Props
+
+val UtilsPage = fc<UtilsPageProps> { _ ->
+
+    div {
+        h1 {
+            +"Utilities"
+        }
+
+        // --------------------------------------
+        h3 {
+            +"RequestUtil"
+        }
+
+        p {
+            +"RequestUtil contains multiple functions to execute a http request and parse the corresponding json response."
+        }
+
+        h5 {
+            +"Example"
+        }
+
+        CodeBlock {
+            attrs.language = "kotlin"
+            attrs.text = """
+                requestAndParseResultWithError(
+                    url = "/rest/v1/items",
+                    headers = json(
+                        "Accept" to "application/json"
+                    ),
+                    parse = { json ->
+                        Object.keys(json).map { item ->
+                            val entries = json[item] as Array<dynamic>
+                            item.toInt() to
+                                    entries.map {
+                                        Item(
+                                            it.id as Int,
+                                            it.name as String,
+                                            it.parentId as Int
+                                        )
+                                    }
+                        }.toMap()
+                    }
+                )
+            """.trimIndent()
+        }
+
+        // --------------------------------------
+        h3 {
+            +"Async"
+        }
+
+        p {
+            +"Utility that can be used to asynchronously send HTTP requests, while only executing callbacks on "
+            +"success for the latest request of that type."
+        }
+
+        p {
+            +"Consider a dropdown that causes an HTTP request to be sent on selection "
+            +"change. If the user changes the selection in quick succession, multiple "
+            +"HTTP requests will be in flight. The responses for these requests are "
+            +"not guaranteed to arrive in order. But to be consistent, the UI must "
+            +"only update in accordance with the latest selection. Thus, the `complete` "
+            +"function takes care of discarding success responses of obsolete requests. "
+        }
+
+        h5 {
+            +"Example"
+        }
+
+        CodeBlock {
+            attrs.language = "kotlin"
+            attrs.text = """
+                Async.complete(
+                    taskName = "send-documents",
+                    taskFun = {
+                        SendDocumentsRequest.sendDocuments(
+                            methodByIssue
+                                .filterKeys { selectedIssues.contains(it) }
+                                .filterNullValues()
+                        )
+                    },
+                    completeFun = {
+                        console.log("success")
+                    },
+                    catchFun = {
+                        console.log("error")
+                    }
+                )
+            """.trimIndent()
+        }
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.page
+
+import com.linkedplanet.uikit.wrapper.atlaskit.code.CodeBlock
+import react.Props
+import react.dom.html.ReactHTML.div
+import react.dom.html.ReactHTML.h1
+import react.dom.html.ReactHTML.h3
+import react.dom.html.ReactHTML.p
+import react.fc
+
+external interface IntroPageProps : Props
+
+val IntroPage = fc<IntroPageProps> { _ ->
+
+    div {
+        h1 {
+            +"Welcome to UI-Kit"
+        }
+
+        h3 {
+            +"Usage"
+        }
+
+        p {
+            +"UI-Kit is published to Maven Central."
+        }
+
+        p {
+            +" To use it in your project simply add the following dependency to your build.gradle:"
+        }
+
+        p {
+            CodeBlock {
+                attrs.text = "implementation 'com.linked-planet.ui:ui-kit-lib:{VERSION}'"
+                attrs.showLineNumbers = false
+            }
+        }
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit
+
+import com.linkedplanet.uikit.component.ShowcaseLeftSidebar
+import com.linkedplanet.uikit.component.ShowcaseTopNavigation
+import com.linkedplanet.uikit.page.*
+import com.linkedplanet.uikit.util.createElementNullSafe
+import com.linkedplanet.uikit.wrapper.atlaskit.cssreset.CssReset
+import com.linkedplanet.uikit.wrapper.atlaskit.pagelayout.*
+import csstype.*
+import emotion.react.css
+import react.*
+import react.dom.html.ReactHTML.div
+import react.dom.html.ReactHTML.span
+import react.router.*
+import react.router.dom.HashRouter
+import kotlin.js.Date
+
+external interface ShowcaseAppProps : Props {
+    var name: String
+}
+
+external interface ShowcaseAppState : State
+
+class ShowcaseApp(props: ShowcaseAppProps) : RComponent<ShowcaseAppProps, ShowcaseAppState>(props) {
+
+    override fun RBuilder.render() {
+        kotlinext.js.require("./style/custom.scss")
+
+        CssReset
+
+        PageLayout {
+
+            ShowcaseTopNavigation {}
+
+            Content {
+
+                ShowcaseLeftSidebar {}
+
+                Main {
+                    div {
+                        attrs.css {
+                            margin = Margin(50.px, 50.px)
+                            display = Display.flex
+                            flexDirection = FlexDirection.column
+                        }
+
+                        HashRouter {
+                            Routes { // use switch to render only the first matching result
+                                Route {
+                                    attrs.path = "/"
+                                    attrs.element = createElementNullSafe {
+                                        Navigate {
+                                            attrs.to = "/intro"
+                                        }
+                                    }
+                                }
+
+                                Route {
+                                    attrs.path = "/intro"
+                                    attrs.element = createElement(IntroPage)
+                                }
+
+                                Route {
+                                    attrs.path = "/wrappers"
+                                    attrs.element = createElement(WrappersPage)
+                                }
+
+                                Route {
+                                    attrs.path = "/utils"
+                                    attrs.element = createElement(UtilsPage)
+                                }
+
+                                Route {
+                                    attrs.element = createElement(NotFoundPage)
+                                }
+                            }
+                        }
+
+                        // Copyright footer
+                        div {
+                            attrs.css {
+                                fontSize = 0.7.rem
+                                fontWeight = FontWeight.lighter
+                                marginTop = 30.px
+                            }
+
+                            span {
+                                val dynAttrs = attrs.asDynamic()
+                                dynAttrs["data-year"] = "${Date().getFullYear()}"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component
+
+import com.linkedplanet.uikit.util.createElementNullSafe
+import com.linkedplanet.uikit.util.createSpan
+import com.linkedplanet.uikit.wrapper.atlaskit.navigation.*
+import com.linkedplanet.uikit.wrapper.atlaskit.pagelayout.TopNavigation
+import csstype.pct
+import csstype.px
+import emotion.react.css
+import js.core.jso
+import kotlinx.browser.window
+import react.*
+import react.dom.html.ReactHTML.img
+
+external interface ShowcaseTopNavigationProps : Props
+
+val ShowcaseTopNavigation = fc<ShowcaseTopNavigationProps> { _ ->
+
+    TopNavigation {
+        attrs.isFixed = true
+
+        AtlassianNavigation {
+
+            // Product Home
+            attrs.renderProductHome = {
+                createElement(CustomProductHome, jso {
+                    onClick = { window.location.href = "/#/intro" }
+                    iconUrl = "images/logo.png"
+                    logoUrl = "images/logo.png"
+                    siteTitle = "UI-Kit"
+                })
+            }
+
+            // Menu items
+            attrs.primaryItems = arrayOf(
+                createElement(
+                    PrimaryButton,
+                    jso { onClick = { window.location.href = "./#/intro" } },
+                    createSpan("Intro")
+                ),
+                createElement(
+                    PrimaryButton,
+                    jso { onClick = { window.location.href = "./#/wrappers" } },
+                    createSpan("Wrappers")
+                ),
+                createElement(
+                    PrimaryButton,
+                    jso { onClick = { window.location.href = "./#/utils" } },
+                    createSpan("Utils")
+                )
+            )
+
+            // Profile
+            val profileIcon = createElementNullSafe {
+                img {
+                    attrs.src = "images/github-logo.png"
+                    attrs.css {
+                        borderRadius = 50.pct
+                        width = 32.px
+                        height = 32.px
+                    }
+                }
+            }
+
+            attrs.renderProfile = {
+                createElement(Profile, jso {
+                    href = "https://github.com/linked-planet/ui-kit"
+                    target = "_blank"
+                    icon = profileIcon
+                })
+            }
+        }
+    }
+}
+
+fun RBuilder.ShowcaseTopNavigation(handler: ShowcaseTopNavigationProps.() -> Unit) =
+    child(ShowcaseTopNavigation) { attrs { handler() } }
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.badge.Badge
+import com.linkedplanet.uikit.wrapper.atlaskit.menu.HeadingItem
+import com.linkedplanet.uikit.wrapper.atlaskit.menu.MenuGroup
+import com.linkedplanet.uikit.wrapper.atlaskit.tag.SimpleTag
+import com.linkedplanet.uikit.wrapper.lpeditor.LPEditor
+import csstype.px
+import emotion.react.css
+import react.dom.html.ReactHTML
+import react.dom.html.ReactHTML.a
+import react.dom.html.ReactHTML.div
+import react.dom.html.ReactHTML.h4
+import react.fc
+import react.useState
+
+val MenuShowcase = fc<ShowcaseProps> { props ->
+
+    var items by useState(listOf("Menu A", "Menu B", "Menu C"))
+    var selectedItems by useState(listOf("Menu A"))
+
+    ShowcaseWrapperItem {
+        name = "Menu"
+        packages =
+            Package("@atlaskit/menu", "https://atlassian.design/components/menu/examples").toList()
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "menu"
+
+        val example = createElementNullSafe {
+            div {
+                // region:menu
+                /**
+                 * States
+                 * var items by useState(listOf("Menu A", "Menu B", "Menu C"))
+                 * var selectedItems by useState(listOf("Menu A"))
+                 */
+                MenuGroup{
+
+                    HeadingItem{
+                        h4{+"Filter"}
+                    }
+
+                    items.forEach {currentItem ->
+                        a {
+                            attrs.onClick = {
+                                val newList = if(selectedItems.contains(currentItem)) {
+                                    selectedItems.minus(currentItem)
+                                } else {
+                                    selectedItems.plus(currentItem)
+                                }
+                                selectedItems = newList
+                            }
+                            SimpleTag {
+                                if (selectedItems.contains(currentItem)){
+                                    attrs.color = "grey"
+                                }
+                                attrs.text = currentItem
+                            }
+                            Badge {
+                                attrs.appearance = "default"
+                                +"0"
+                            }
+                        }
+                    }
+                }
+                // endregion:menu
+            }
+        }
+
+        examples = listOfNotNull(example)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.avatar.Avatar
+import com.linkedplanet.uikit.wrapper.atlaskit.avatar.AvatarItem
+import react.fc
+
+val AvatarShowcase = fc<ShowcaseProps> { props ->
+    ShowcaseWrapperItem {
+        name = "Avatar"
+        packages =
+            Package("@atlaskit/avatar", "https://atlassian.design/components/avatar/examples").toList()
+
+        overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "avatar"
+
+        // region:avatar
+        val avatar = createElementNullSafe {
+            Avatar {
+                attrs.size = "large"
+                attrs.presence = "online"
+            }
+        }
+
+        val example1 = createElementNullSafe {
+            AvatarItem {
+                attrs.avatar = avatar
+            }
+        }
+
+        val example2 = createElementNullSafe {
+            AvatarItem {
+                attrs.avatar = avatar
+                attrs.primaryText = "Carl Coder"
+                attrs.secondaryText = "Software Engineer"
+            }
+        }
+        // endregion:avatar
+
+        examples = listOfNotNull(example1, example2)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.dropdownmenu.*
+import react.fc
+
+val DropdownMenuShowcase = fc<ShowcaseProps> { props ->
+    ShowcaseWrapperItem {
+        name = "Dropdown menu"
+        packages = Package(
+            "@atlaskit/dropdown-menu",
+            "https://atlassian.design/components/dropdown-menu/examples"
+        ).toList()
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "dropdown-menu"
+
+        val example = createElementNullSafe {
+            // region:dropdown-menu
+            DropdownMenu {
+                attrs.trigger = "Dropdown"
+
+                DropdownItemCheckbox { +"Dropdown Checkbox Item" }
+                DropdownItemGroup {
+                    attrs.title = "Group"
+
+                    DropdownItem { +"First dropdown Item" }
+                    DropdownItem { +"First dropdown Item" }
+                }
+            }
+            // endregion:dropdown-menu
+        }
+
+        examples = listOfNotNull(example)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.button.Button
+import com.linkedplanet.uikit.wrapper.atlaskit.table.*
+import csstype.px
+import emotion.react.css
+import react.dom.html.ReactHTML.div
+import react.dom.html.ReactHTML.span
+import react.fc
+
+val DynamicTableShowcase = fc<ShowcaseProps> { props ->
+    ShowcaseWrapperItem {
+        name = "Dynamic table"
+        packages = Package(
+            "@atlaskit/dynamic-table",
+            "https://atlassian.design/components/dynamic-table/examples"
+        ).toList()
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "table"
+
+        val example = createElementNullSafe {
+            div {
+                attrs.css {
+                    minWidth = 300.px
+                }
+                // region:table
+                DynamicTable {
+                    attrs.caption = createElementNullSafe { +"" }
+                    attrs.head = DynamicTableHead(
+                        arrayOf(
+                            StringHeaderCell("first", "First col", isSortable = true),
+                            StringHeaderCell("second", "Second col", isSortable = true),
+                            ElementHeaderCell("third", createElementNullSafe { span { +"Action col" } })
+                        )
+                    )
+                    attrs.rowsPerPage = 3
+                    attrs.rows = arrayOf(
+                        DynamicTableRow(
+                            "1stRow",
+                            arrayOf(
+                                StringRowCell("1-1"),
+                                StringRowCell("1-2"),
+                                ElementRowCell(createElementNullSafe {
+                                    Button {
+                                        +"Delete"
+                                        attrs.appearance = "primary"
+                                    }
+                                })
+                            )
+                        ),
+                        DynamicTableRow(
+                            "2ndRow",
+                            arrayOf(
+                                StringRowCell("2-1"),
+                                StringRowCell("2-2"),
+                                ElementRowCell(createElementNullSafe {
+                                    Button {
+                                        +"Delete"
+                                        attrs.appearance = "primary"
+                                    }
+                                })
+                            )
+                        ),
+                        DynamicTableRow(
+                            "3rdRow",
+                            arrayOf(
+                                StringRowCell("3-1"),
+                                StringRowCell("3-2"),
+                                ElementRowCell(createElementNullSafe {
+                                    Button {
+                                        +"Delete"
+                                        attrs.appearance = "primary"
+                                    }
+                                })
+                            )
+                        ),
+                        DynamicTableRow(
+                            "4thRow",
+                            arrayOf(
+                                StringRowCell("4-1"),
+                                StringRowCell("4-2"),
+                                ElementRowCell(createElementNullSafe {
+                                    Button {
+                                        +"Delete"
+                                        attrs.appearance = "primary"
+                                    }
+                                })
+                            )
+                        ),
+                        DynamicTableRow(
+                            "5thRow",
+                            arrayOf(
+                                StringRowCell("5-1"),
+                                StringRowCell("5-2"),
+                                ElementRowCell(createElementNullSafe {
+                                    Button {
+                                        +"Delete"
+                                        attrs.appearance = "primary"
+                                    }
+                                })
+                            )
+                        ),
+                        DynamicTableRow(
+                            "6thRow",
+                            arrayOf(
+                                StringRowCell("6-1"),
+                                StringRowCell("6-2"),
+                                ElementRowCell(createElementNullSafe {
+                                    Button {
+                                        +"Delete"
+                                        attrs.appearance = "primary"
+                                    }
+                                })
+                            )
+                        )
+                    )
+                    attrs.onSort = {
+                        console.log(it)
+                    }
+                    attrs.onSetPage = {
+                        console.log(it)
+                    }
+                }
+                // endregion:table
+            }
+        }
+
+        examples = listOfNotNull(example)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.toggle.Toggle
+import react.fc
+import react.useState
+
+val ToggleShowcase = fc<ShowcaseProps> { props ->
+    val (isToggleActive, setIsToggleActive) = useState(false)
+
+    ShowcaseWrapperItem {
+        name = "Toggle"
+        packages =
+            Package("@atlaskit/toggle", "https://atlassian.design/components/toggle/examples").toList()
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "toggle"
+
+        val example = createElementNullSafe {
+            // region:toggle
+            Toggle {
+                attrs.isChecked = isToggleActive
+                attrs.onChange = {
+                    setIsToggleActive(!isToggleActive)
+                }
+            }
+            // endregion:toggle
+        }
+
+        examples = listOfNotNull(example)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.icon.*
+import react.fc
+
+val IconShowcase = fc<ShowcaseProps> { props ->
+    ShowcaseWrapperItem {
+        name = "Icon"
+        packages =
+            Package("@atlaskit/icon", "https://atlassian.design/components/icon/icon-explorer").toList()
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "icon"
+
+        val example = createElementNullSafe {
+            // region:icon
+            ArrowDownIcon {}
+            BulletListIcon {}
+            CheckCircleIcon {}
+            LogIcon {}
+            RefreshIcon {}
+            SendIcon {}
+            TrashIcon {
+                attrs.primaryColor = "red"
+            }
+            // endregion:icon
+        }
+
+        examples = listOfNotNull(example)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.code.CodeBlock
+import react.fc
+
+val CodeBlockShowcase = fc<ShowcaseProps> { props ->
+    ShowcaseWrapperItem {
+        name = "Code block"
+        packages =
+            Package("@atlaskit/code", "https://atlassian.design/components/code/code-block/examples").toList()
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "code-block"
+
+        val example = createElementNullSafe {
+            // region:code-block
+            CodeBlock {
+                attrs.language = "java"
+                attrs.text = """
+                        class Hello {
+                            public static void main(String args...) {
+                                System.out.println("Hello World!)
+                            }
+                        }
+                        """.trimIndent()
+            }
+            // endregion:code-block
+        }
+
+        examples = listOfNotNull(example)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.textarea.TextArea
+import csstype.px
+import emotion.react.css
+import react.dom.html.ReactHTML.div
+import react.fc
+
+val TextAreaShowcase = fc<ShowcaseProps> { props ->
+    ShowcaseWrapperItem {
+        name = "Text area"
+        packages =
+            Package("@atlaskit/textarea", "https://atlassian.design/components/textarea/examples").toList()
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "textarea"
+
+        val example = createElementNullSafe {
+            div {
+                attrs.css {
+                    minWidth = 300.px
+                }
+                // region:textarea
+                TextArea {
+                    attrs.defaultValue = "Content of text area..."
+                }
+                // endregion:textarea
+            }
+        }
+
+        examples = listOfNotNull(example)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.badge.Badge
+import react.fc
+
+val BadgeShowcase = fc<ShowcaseProps> { props ->
+    ShowcaseWrapperItem {
+        name = "Badge"
+        packages =
+            Package("@atlaskit/badge", "https://atlassian.design/components/badge/examples").toList()
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "badge"
+
+        val badge = createElementNullSafe {
+            // region:badge
+            Badge {}
+            Badge {
+                attrs.appearance = "added"
+            }
+            Badge {
+                attrs.appearance = "important"
+            }
+            // endregion:badge
+        }
+
+        examples = listOfNotNull(badge)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.lpeditor.LPEditor
+import csstype.px
+import emotion.react.css
+import react.dom.html.ReactHTML.div
+import react.fc
+import react.useState
+
+val LPEditorShowcase = fc<ShowcaseProps> { props ->
+    val (editorString, setEditorString) = useState("<h1>Hello \$object.Person</h1>")
+    val (objectString, setObjectString) = useState("""{ "object": { "Person": { "First Name" : [{"k1":"v1"},{"k2":"v2"}], "Last Name": "2ndValue", "Age": 30, "VIP": true } } }""")
+
+    ShowcaseWrapperItem {
+        name = "LPEditor"
+        packages =
+            Package("@monaco-editor/react", "https://github.com/suren-atoyan/monaco-react").toList()
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "lpeditor"
+
+        val example = createElementNullSafe {
+            div {
+                attrs.css {
+                    minWidth = 600.px
+                    minHeight = 300.px
+                }
+
+                // region:lpeditor
+                LPEditor {
+                    attrs.objectString = objectString
+                    attrs.onChange = { value, event ->
+                        setEditorString(value)
+                        console.info("IntroPage OnChange for LPEditor was called:", value)
+                    }
+                    attrs.defaultLanguage = "html"
+                    attrs.value = editorString
+                    attrs.height = "300px"
+                }
+                // endregion:lpeditor
+            }
+        }
+
+        examples = listOfNotNull(example)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.flag.Flag
+import com.linkedplanet.uikit.wrapper.atlaskit.icon.WarningIcon
+import react.fc
+
+val FlagShowcase = fc<ShowcaseProps> { props ->
+    ShowcaseWrapperItem {
+        name = "Flag"
+        packages = Package("@atlaskit/flag", "https://atlassian.design/components/flag/examples").toList()
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "flag"
+
+        val example = createElementNullSafe {
+            // region:flag
+            Flag {
+                attrs.title = "Flag"
+                attrs.icon = createElementNullSafe {
+                    WarningIcon {}
+                }
+                attrs.description = "Description of flag."
+            }
+            // endregion:flag
+        }
+
+        examples = listOfNotNull(example)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.modal.*
+import com.linkedplanet.uikit.wrapper.atlaskit.tabletree.*
+import kotlinx.browser.window
+import react.*
+import react.dom.html.ReactHTML.div
+import react.dom.html.ReactHTML.span
+
+val TableTreeShowcase = fc<ShowcaseProps> { props ->
+    ShowcaseWrapperItem {
+        name = "TableTree"
+        packages = Package("@atlaskit/table-tree", "https://atlassian.design/components/table-tree").toList()
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "table_tree"
+
+        @Suppress("NonExternalClassifierExtendingStateOrProps")
+        // region:table_tree
+        data class BookData(override var key: Key?, val title: String, val numbering: String) : Props
+
+        data class BookTreeItem(
+            override val id: String,
+            override val content: BookData,
+            override val children: Array<TableTreeItem>? = null,
+            override val hasChildren: Boolean = children?.isNotEmpty() ?: false,
+        ) : TableTreeBasicUseCaseItem<BookData>
+
+        val bookDataTree = arrayOf(
+            BookTreeItem(
+                "1", BookData("1", "It is lonely at the top.", "1"), children = arrayOf(
+                    BookTreeItem(
+                        "1.1", BookData("2", "Look at me! I am nested.", "1.1"), children = arrayOf(
+                            BookTreeItem("1.1.1", BookData("3", "I am deeply nested.", "1.1.1"))
+                        )
+                    )
+                )
+            ),
+            BookTreeItem("2", BookData("4", "Kotlin is  fun", "2"))
+        )
+
+        val example1 = createElementNullSafe {
+            val fcTitle = fc<BookData> { myprops -> span { +myprops.title } }
+            val fcNumbering = fc<BookData> { myprops -> span { +myprops.numbering } }
+
+            TableTree {
+                attrs.headers = arrayOf("Title", "Numbering")
+                attrs.columns = arrayOf(fcTitle, fcNumbering)
+                attrs.columnWidths = arrayOf(300, 100)
+
+                attrs.items = bookDataTree
+            }
+        }
+
+        val example2 = createElementNullSafe {
+            TableTree {
+                TTHeaders {
+                    TTHeader {
+                        attrs.width = "400px"
+                        attrs.onClick = { _ ->
+                            window.alert("OnClick Chapter Title Header")
+                        }
+                        +"Chapter Title (Click me)"
+                    }
+                    TTHeader {
+                        attrs.width = "100px"
+                        +"Numbering"
+                    }
+                }
+                TTRows {
+                    attrs.items = bookDataTree
+                    attrs.render = { data: BookTreeItem ->
+                        createElementNullSafe {
+                            TTRow {
+                                attrs.itemId = data.content.numbering
+                                attrs.items = data.children
+                                attrs.hasChildren = data.hasChildren
+                                attrs.isDefaultExpanded = false
+
+                                TTCell {
+                                    attrs.singleLine = true
+                                    div {
+                                        attrs.onClick = { _ -> window.alert("onClick:" + data.content.title) }
+                                        +data.content.title
+                                    }
+                                }
+                                TTCell {
+                                    attrs.singleLine = true
+                                    attrs.onClick = { _ -> window.alert("onClick:" + data.content.numbering) }
+                                    +data.content.numbering
+                                }
+                            }
+                        }
+                    }
+                }
+            } // of TableTree
+        }
+        // endregion:table_tree
+        examples = listOfNotNull(example1, example2)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.button.Button
+import com.linkedplanet.uikit.wrapper.atlaskit.button.ButtonGroup
+import com.linkedplanet.uikit.wrapper.joyride.Joyride
+import com.linkedplanet.uikit.wrapper.joyride.JoyrideLocale
+import js.core.jso
+import react.dom.html.ReactHTML.span
+import react.fc
+import react.useState
+
+val JoyrideShowcase = fc<ShowcaseProps> { props ->
+    val (isJoyrideActive, setIsJoyrideActive) = useState(false)
+
+    ShowcaseWrapperItem {
+        name = "Joyride"
+        packages =
+            Package("react-joyride", "https://docs.react-joyride.com/").toList()
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "joyride"
+
+        val example = createElementNullSafe {
+            // region:joyride
+            ButtonGroup {
+                Button {
+                    attrs.isSelected = isJoyrideActive
+                    attrs.onClick = {
+                        setIsJoyrideActive(true)
+                    }
+                    +"Start Tour"
+                }
+
+                Button {
+                    attrs.className = "joyride-first"
+                    +"First step"
+                }
+
+                Button {
+                    attrs.className = "joyride-second"
+                    +"Second step"
+                }
+
+                Button {
+                    attrs.className = "joyride-third"
+                    +"Third step"
+                }
+            }
+
+            Joyride {
+                attrs.run = isJoyrideActive
+                attrs.continuous = true
+                attrs.showProgress = true
+                attrs.disableScrolling = true
+                attrs.scrollToFirstStep = false
+                attrs.scrollOffset = 220
+                attrs.locale = JoyrideLocale(
+                    "Zurück",
+                    "Schließen",
+                    "Fertig",
+                    "Weiter",
+                    "Öffnen",
+                    "Überspringen"
+                )
+                attrs.callback = { joyrideState ->
+                    when (joyrideState.action) {
+                        "close", "reset" -> {
+                            setIsJoyrideActive(false)
+                        }
+                    }
+                }
+                attrs.steps = arrayOf(
+                    jso {
+                        title = "First step title"
+                        target = ".joyride-first"
+                        disableBeacon = true
+                        showSkipButton = true
+                        content = createElementNullSafe {
+                            span {
+                                +"First step content..."
+                            }
+                        }
+                    },
+                    jso {
+                        title = "Second step title"
+                        target = ".joyride-second"
+                        disableBeacon = true
+                        showSkipButton = true
+                        content = createElementNullSafe {
+                            span {
+                                +"Second step content..."
+                            }
+                        }
+                    },
+                    jso {
+                        title = "Third step title"
+                        target = ".joyride-third"
+                        disableBeacon = true
+                        showSkipButton = true
+                        content = createElementNullSafe {
+                            span {
+                                +"Third step content..."
+                            }
+                        }
+                    }
+                )
+            }
+            // endregion:joyride
+        }
+
+        examples = listOfNotNull(example)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.awesomeslider.AwesomeSlider
+import csstype.*
+import emotion.react.css
+import react.dom.html.ReactHTML.div
+import react.dom.html.ReactHTML.img
+import react.fc
+
+val AwesomeSliderShowcase = fc<ShowcaseProps> { props ->
+    ShowcaseWrapperItem {
+        name = "Awesome Slider"
+        packages =
+            Package("react-awesome-slider", "https://github.com/rcaferati/react-awesome-slider").toList()
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "awesome-slider"
+
+        val slider = createElementNullSafe {
+            // region:awesome-slider
+            div {
+                attrs.css {
+                    minWidth = 600.px
+                    display = Display.flex
+                    height = 200.px
+                    position = Position.relative
+                    zIndex = integer(0)
+                }
+
+                kotlinext.js.require("react-awesome-slider/dist/styles.css")
+                AwesomeSlider {
+                    attrs.bullets = false
+
+                    div {
+                        img {
+                            attrs {
+                                css {
+                                    objectFit = ObjectFit.scaleDown
+                                }
+                                src = "images/logo.png"
+                                width = 100.0
+                                height = 100.0
+                            }
+                        }
+                    }
+
+                    div {
+                        img {
+                            attrs {
+                                css {
+                                    objectFit = ObjectFit.scaleDown
+                                }
+                                src = "images/github-logo.png"
+                                width = 100.0
+                                height = 100.0
+                            }
+                        }
+                    }
+                }
+            }
+            // endregion:awesome-slider
+        }
+
+        examples = listOfNotNull(slider)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.button.*
+import kotlinx.browser.window
+import react.fc
+import react.useState
+
+val ButtonShowcase = fc<ShowcaseProps> { props ->
+    val (isLoading, setIsLoading) = useState(false)
+
+    ShowcaseWrapperItem {
+        name = "Button & Button-Group"
+        packages =
+            Package("@atlaskit/button", "https://atlassian.design/components/button/examples").toList()
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "button"
+
+        val example = createElementNullSafe {
+            // region:button
+            ButtonGroup {
+                Button {
+                    +"Normal button"
+                    attrs.appearance = "primary"
+                    attrs.onClick = {
+                        console.log("Button pressed")
+                    }
+                }
+
+                LoadingButton {
+                    +"Loading button"
+                    attrs.isLoading = isLoading
+                    attrs.onClick = { _ ->
+                        setIsLoading(true)
+                        window.setTimeout({ setIsLoading(false) }, 5000)
+                    }
+                }
+            }
+            // endregion:button
+        }
+
+        examples = listOfNotNull(example)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.calendar.Calendar
+import csstype.px
+import emotion.react.css
+import react.dom.html.ReactHTML.div
+import react.fc
+
+val CalendarShowcase = fc<ShowcaseProps> { props ->
+    ShowcaseWrapperItem {
+        name = "Calendar"
+        packages =
+            Package("@atlaskit/calendar", "https://atlassian.design/components/calendar/examples").toList()
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "calendar"
+
+        val example = createElementNullSafe {
+            div {
+                attrs.css {
+                    minWidth = 300.px
+                }
+
+                // region:calendar
+                Calendar {
+                    attrs.locale = "de-DE"
+                    attrs.weekStartDay = 1
+                }
+                // endregion:calendar
+            }
+        }
+
+        examples = listOfNotNull(example)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.textfield.TextField
+import csstype.px
+import emotion.react.css
+import react.dom.html.ReactHTML.div
+import react.fc
+
+val TextFieldShowcase = fc<ShowcaseProps> { props ->
+    ShowcaseWrapperItem {
+        name = "Text field"
+        packages =
+            Package("@atlaskit/textfield", "https://atlassian.design/components/textfield/examples").toList()
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "textfield"
+
+        // region:textfield
+        val example1 = createElementNullSafe {
+            div {
+                attrs.css {
+                    minWidth = 300.px
+                }
+                TextField {
+                    attrs.defaultValue = "Content of text field..."
+                }
+            }
+        }
+
+        val example2 = createElementNullSafe {
+            div {
+                attrs.css {
+                    minWidth = 300.px
+                }
+                TextField {
+                    attrs.defaultValue = "Password"
+                    attrs.type = "password"
+                }
+            }
+        }
+        // endregion:textfield
+
+        examples = listOfNotNull(example1, example2)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.pagination.Pagination
+import react.fc
+import react.useState
+
+val PaginationShowcase = fc<ShowcaseProps> { props ->
+    val (selectedPage, setSelectedPage) = useState(0)
+
+    ShowcaseWrapperItem {
+        name = "Pagination"
+        packages = Package(
+            "@atlaskit/pagination",
+            "https://atlassian.design/components/pagination/examples"
+        ).toList()
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "pagination"
+
+        val example = createElementNullSafe {
+            // region:pagination
+            Pagination {
+                attrs.pages = (1..10).toList().toTypedArray()
+                attrs.defaultSelectedIndex = 0
+                attrs.max = 10
+                attrs.selectedIndex = selectedPage
+                attrs.onChange = { _, pageLabel, _ ->
+                    setSelectedPage(pageLabel - 1)
+                }
+            }
+            // endregion:pagination
+        }
+
+        examples = listOfNotNull(example)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.panel.PanelStateless
+import csstype.px
+import emotion.react.css
+import react.dom.html.ReactHTML.div
+import react.dom.html.ReactHTML.span
+import react.fc
+import react.useState
+
+val PanelShowcase = fc<ShowcaseProps> { props ->
+    val (isPanelActive, setIsPanelActive) = useState(false)
+
+    ShowcaseWrapperItem {
+        name = "Panel"
+        packages = Package(
+            "@atlaskit/panel",
+            "https://atlaskit.atlassian.com/packages/bitbucket/panel"
+        ).toList()
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "panel"
+
+        val example = createElementNullSafe {
+            div {
+                attrs.css {
+                    minWidth = 300.px
+                    paddingLeft = 24.px
+                }
+
+                // region:panel
+                PanelStateless {
+                    attrs.isExpanded = isPanelActive
+                    attrs.onChange = {
+                        setIsPanelActive(!isPanelActive)
+                    }
+                    attrs.header = createElementNullSafe {
+                        span {
+                            +"Panel"
+                        }
+                    }
+
+                    span {
+                        +"Panel content..."
+                    }
+                }
+                // endregion:panel
+            }
+        }
+
+        examples = listOfNotNull(example)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.tag.SimpleTag
+import com.linkedplanet.uikit.wrapper.atlaskit.taggroup.TagGroup
+import react.fc
+
+val TagShowcase = fc<ShowcaseProps> { props ->
+    ShowcaseWrapperItem {
+        name = "Tag & Tag-Group"
+        packages = Package("@atlaskit/tag", "https://atlassian.design/components/tag/examples").toList()
+            .plus(Package("@atlaskit/tag-group", "https://atlassian.design/components/tag-group/examples"))
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "tags"
+
+        val example = createElementNullSafe {
+            // region:tags
+            TagGroup {
+                SimpleTag {
+                    attrs.text = "Simple Tag"
+                }
+                SimpleTag {
+                    attrs.text = "Colored simple Tag"
+                    attrs.color = "purple"
+                }
+            }
+            // endregion:tags
+        }
+
+        examples = listOfNotNull(example)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.button.Button
+import com.linkedplanet.uikit.wrapper.atlaskit.popup.Popup
+import csstype.Padding
+import csstype.px
+import emotion.react.css
+import react.dom.html.ReactHTML.div
+import react.dom.html.ReactHTML.span
+import react.fc
+import react.useState
+
+val PopupShowcase = fc<ShowcaseProps> { props ->
+    val (isPopupActive, setIsPopupActive) = useState(false)
+
+    ShowcaseWrapperItem {
+        name = "Popup"
+        packages =
+            Package("@atlaskit/popup", "https://atlassian.design/components/popup/examples").toList()
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "popup"
+
+        val example = createElementNullSafe {
+            // region:popup
+            Popup {
+                attrs.isOpen = isPopupActive
+                attrs.placement = "top"
+                attrs.onClose = {
+                    setIsPopupActive(false)
+                }
+                attrs.content = {
+                    createElementNullSafe {
+                        div {
+                            attrs.css {
+                                padding = Padding(15.px, 15.px)
+                            }
+                            span {
+                                +"Popup content"
+                            }
+                        }
+                    }
+                }
+                attrs.trigger = {
+                    createElementNullSafe {
+                        Button {
+                            +"Open popup"
+                            attrs.onClick = {
+                                setIsPopupActive(true)
+                            }
+                            attrs.isSelected = isPopupActive
+                        }
+                    }
+                }
+            }
+            // endregion:popup
+        }
+
+        examples = listOfNotNull(example)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.checkbox.Checkbox
+import react.fc
+import react.useState
+
+val CheckboxShowcase = fc<ShowcaseProps> { props ->
+    val (isCheckboxActive, setIsCheckboxActive) = useState(false)
+
+    ShowcaseWrapperItem {
+        name = "Checkbox"
+        packages =
+            Package("@atlaskit/checkbox", "https://atlassian.design/components/checkbox/example").toList()
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "checkbox"
+
+        val example = createElementNullSafe {
+            // region:checkbox
+            Checkbox {
+                attrs.isChecked = isCheckboxActive
+                attrs.onChange = {
+                    setIsCheckboxActive(!isCheckboxActive)
+                }
+            }
+            // endregion:checkbox
+        }
+
+        examples = listOfNotNull(example)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.button.Button
+import com.linkedplanet.uikit.wrapper.atlaskit.emptystate.EmptyState
+import csstype.px
+import emotion.react.css
+import react.dom.html.ReactHTML.div
+import react.dom.html.ReactHTML.span
+import react.fc
+
+val EmptyStateShowcase = fc<ShowcaseProps> { props ->
+    ShowcaseWrapperItem {
+        name = "Empty state"
+        packages = Package(
+            "@atlaskit/empty-state",
+            "https://atlassian.design/components/empty-state/examples"
+        ).toList()
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "empty-state"
+
+        val example = createElementNullSafe {
+            div {
+                attrs.css {
+                    minWidth = 300.px
+                }
+                // region:empty-state
+                EmptyState {
+                    attrs.header = "Empty state"
+                    attrs.description = createElementNullSafe {
+                        span {
+                            +"Content of this state..."
+                        }
+                    }
+                    attrs.primaryAction = createElementNullSafe {
+                        Button {
+                            +"Dummy button"
+                        }
+                    }
+                }
+                // endregion:empty-state
+            }
+        }
+
+        examples = listOfNotNull(example)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.tab.Tab
+import com.linkedplanet.uikit.wrapper.atlaskit.tab.Tabs
+import csstype.px
+import emotion.react.css
+import react.dom.html.ReactHTML.div
+import react.fc
+
+val TabsShowcase = fc<ShowcaseProps> { props ->
+    ShowcaseWrapperItem {
+        name = "Tabs"
+        packages = Package("@atlaskit/tabs", "https://atlassian.design/components/tabs/examples").toList()
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "tabs"
+
+        val example = createElementNullSafe {
+            div {
+                attrs.css {
+                    minWidth = 300.px
+                }
+                // region:tabs
+                Tabs {
+                    attrs.tabs = arrayOf(
+                        Tab("First tab", createSpan("First")),
+                        Tab("Second tab", createSpan("Second")),
+                    )
+                }
+                // endregion:tabs
+            }
+        }
+
+        examples = listOfNotNull(example)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.datetimepicker.DateTimeRange
+import csstype.px
+import emotion.react.css
+import moment.moment
+import react.dom.html.ReactHTML.div
+import react.fc
+
+val DateTimeRangePickerShowcase = fc<ShowcaseProps> { props ->
+    ShowcaseWrapperItem {
+        name = "Date time Range picker"
+        packages = Package(
+            "@atlaskit/datetime-picker",
+            "https://atlassian.design/components/datetime-picker/examples"
+        ).toList()
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "datetime-range-picker"
+
+        val example = createElementNullSafe {
+            div {
+                attrs.css {
+                    minWidth = 300.px
+                }
+                // region:datetime-range-picker
+                val today = moment().format("yyyy-MM-DD")
+                val todayPlus2 = moment().add(2, "day").format("yyyy-MM-DD")
+                val todayPlus10 = moment().add(10, "day").format("yyyy-MM-DD")
+                DateTimeRange {
+                    attrs.minDate = today
+                    attrs.maxDate = todayPlus10
+                    attrs.disabledDates = arrayOf(todayPlus2)
+                    attrs.locale = "de-de"
+                    attrs.onCollision = {
+                        console.info("Collision detected")
+                    }
+                    attrs.onChange = { start, end ->
+                        console.info("Selected Range: ($start) --> ($end)")
+                    }
+                }
+                // endregion:datetime-range-picker
+            }
+        }
+
+        examples = listOfNotNull(example)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.select.*
+import csstype.px
+import emotion.react.css
+import react.dom.html.ReactHTML.div
+import react.fc
+
+val SelectShowcase = fc<ShowcaseProps> { props ->
+    ShowcaseWrapperItem {
+        name = "Select"
+        packages =
+            Package("@atlaskit/select", "https://atlassian.design/components/select/examples").toList()
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "select"
+
+        // region:select
+        val example1 = createElementNullSafe {
+            div {
+                attrs.css {
+                    minWidth = 300.px
+                }
+                Select {
+                    attrs.inputId = "select-1"
+                    attrs.options = arrayOf(
+                        SelectOption("First option", "first"),
+                        SelectOption("Second option", "second")
+                    )
+                }
+            }
+        }
+
+        val example2 = createElementNullSafe {
+            div {
+                attrs.css {
+                    minWidth = 300.px
+                }
+                SelectGroup {
+                    attrs.inputId = "select-2"
+                    attrs.options = arrayOf(
+                        GroupedSelectOptions("First group", arrayOf(SelectOption("First option", "first"))),
+                        GroupedSelectOptions(
+                            "Second group",
+                            arrayOf(SelectOption("Second option", "second"))
+                        )
+                    )
+                }
+            }
+        }
+        // endregion:select
+
+        examples = listOfNotNull(example1, example2)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.banner.Banner
+import com.linkedplanet.uikit.wrapper.atlaskit.icon.ErrorIcon
+import com.linkedplanet.uikit.wrapper.atlaskit.icon.WarningIcon
+import react.dom.html.ReactHTML.span
+import react.fc
+
+val BannerShowcase = fc<ShowcaseProps> { props ->
+    ShowcaseWrapperItem {
+        name = "Banner"
+        packages =
+            Package("@atlaskit/banner", "https://atlassian.design/components/banner/examples").toList()
+
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "banner"
+
+        // region:banner
+        val example1 = createElementNullSafe {
+            Banner {
+                attrs.appearance = "announcement"
+                attrs.isOpen = true
+
+                span {
+                    +"Content of the banner..."
+                }
+            }
+        }
+
+        val example2 = createElementNullSafe {
+            Banner {
+                attrs.appearance = "warning"
+                attrs.icon = createElementNullSafe {
+                    WarningIcon {
+                        attrs.secondaryColor = "var(--ds-background-warning-bold, #FFAB00)"
+                    }
+                }
+                attrs.isOpen = true
+
+                span {
+                    +"Content of the banner..."
+                }
+            }
+        }
+
+        val example3 = createElementNullSafe {
+            Banner {
+                attrs.appearance = "error"
+                attrs.icon = createElementNullSafe {
+                    ErrorIcon {
+                        attrs.secondaryColor = "var(--ds-background-danger-bold, #DE350B)"
+                    }
+                }
+                attrs.isOpen = true
+
+                span {
+                    +"Content of the banner..."
+                }
+            }
+        }
+        // endregion:banner
+
+        examples = listOfNotNull(example1, example2, example3)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.extension.form.*
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.button.ButtonGroup
+import com.linkedplanet.uikit.wrapper.atlaskit.button.LoadingButton
+import com.linkedplanet.uikit.wrapper.atlaskit.code.CodeBlock
+import com.linkedplanet.uikit.wrapper.atlaskit.select.SelectOption
+import react.dom.html.ReactHTML.span
+import react.fc
+import react.useState
+
+val FormShowcase = fc<ShowcaseProps> { props ->
+    val (formData, setFormData) = useState("")
+    val (formSelectOptions, setFormSelectOptions) = useState(
+        listOf(
+            SelectOption("Red", "red"),
+            SelectOption("Blue", "blue")
+        )
+    )
+
+    ShowcaseWrapperItem {
+        name = "Form"
+        packages = Package("@atlaskit/form", "https://atlassian.design/components/form/examples").toList()
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "form"
+
+        val example = createElementNullSafe {
+            // region:form
+            data class FormData(
+                val name: String,
+                val surname: String,
+                val coder: Boolean,
+                val reactFan: Boolean,
+                val color: SelectOption,
+                val creatableColor: SelectOption,
+                val disabledField: String,
+                val readOnlyField: String
+            )
+
+            ExtendedForm<FormData>(
+                onSubmit = { values, _, _ ->
+                    console.info("Value of name after form submission: ${values.name}")
+                    setFormData(JSON.stringify(values))
+                }
+            ) {
+                ExtendedFormHeader("Give me your input", "I describe this form.")
+
+                ExtendedFormSection("Your data", "I'm curious.") {
+                    fun validateString(value: dynamic, form: dynamic, fieldState: dynamic): String? {
+                        val strValue = value as String
+                        return if (strValue.isEmpty()) {
+                            "empty"
+                        } else if (strValue.length > 10) {
+                            "tooLong"
+                        } else {
+                            null
+                        }
+                    }
+
+                    val stringValidationMapping = ValidationMapping(
+                        "Help!",
+                        "Valid - good job!",
+                        listOf(
+                            ValidationMappingEntry("tooLong", "Too long!"),
+                            ValidationMappingEntry("empty", "Fill me!")
+                        )
+                    )
+
+                    ExtendedFormTextField(
+                        formProperty = FormData::name,
+                        label = "Name",
+                        defaultValue = "Carl",
+                        validationMapping = stringValidationMapping,
+                        validate = ::validateString,
+                        onChange = { console.info("Value of name field: $it") }
+                    )
+
+                    ExtendedFormTextField(
+                        formProperty = FormData::readOnlyField,
+                        label = "Read-only Field",
+                        defaultValue = "Read-only Field",
+                        isReadOnly = true
+                    )
+
+                    ExtendedFormTextField(
+                        formProperty = FormData::disabledField,
+                        label = "Disabled Field",
+                        defaultValue = "Disabled Field",
+                        isDisabled = true
+                    )
+
+                    ExtendedFormTextField(
+                        formProperty = FormData::surname,
+                        label = "Surname",
+                        defaultValue = "Coderrrr",
+                        isRequired = true,
+                        validationMapping = stringValidationMapping,
+                        validate = ::validateString
+                    )
+
+                    ExtendedFieldset("Some more info") {
+                        ExtendedFormCheckboxField(
+                            formProperty = FormData::coder,
+                            label = "Coder",
+                            defaultIsChecked = true,
+                            onChange = { console.info("Value of coder: $it") }
+                        )
+
+                        ExtendedFormCheckboxField(
+                            formProperty = FormData::reactFan,
+                            label = "React fan"
+                        )
+                    }
+                }
+
+                ExtendedFormSection("More data", "Tell me more.") {
+                    ExtendedFormSelectField(
+                        formProperty = FormData::color,
+                        label = "Favorite Color",
+                        options = formSelectOptions.toTypedArray(),
+                        defaultValue = formSelectOptions[1],
+                        onChange = { console.info("Value of color: ${it.label}") }
+                    )
+
+                    ExtendedFormCreatableSelectField(
+                        formProperty = FormData::creatableColor,
+                        label = "Favorite Color (Creatable)",
+                        options = formSelectOptions.toTypedArray(),
+                        defaultValue = formSelectOptions[1],
+                        onCreate = {
+                            setFormSelectOptions(
+                                formSelectOptions.plus(
+                                    SelectOption(
+                                        it,
+                                        it.lowercase()
+                                    )
+                                )
+                            )
+                        },
+                        onChange = { console.info("Value of colorCreatable: ${it.label}") }
+                    )
+                }
+
+                ExtendedFormFooter {
+                    ButtonGroup {
+                        LoadingButton {
+                            attrs.type = "submit"
+                            attrs.appearance = "primary"
+                            +"Speichern"
+                        }
+                    }
+                }
+            }
+
+            if (formData.isNotEmpty()) {
+                span { +"Transmitted form data:" }
+                CodeBlock {
+                    attrs.language = "json"
+                    attrs.text = formData
+                }
+            }
+            // endregion:form
+        }
+
+        examples = listOfNotNull(example)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.lozenge.Lozenge
+import react.fc
+
+val LozengeShowcase = fc<ShowcaseProps> { props ->
+    ShowcaseWrapperItem {
+        name = "Lozenge"
+        packages = Package(
+            "@atlaskit/lozenge",
+            "https://atlassian.design/components/lozenge/examples"
+        ).toList()
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "lozenge"
+
+        // region:lozenge
+        val example1 = createElementNullSafe {
+            Lozenge {
+                +"First lozenge"
+            }
+        }
+
+        val example2 = createElementNullSafe {
+            Lozenge {
+                +"Colored lozenge"
+                attrs.appearance = "new"
+            }
+        }
+
+        val example3 = createElementNullSafe {
+            Lozenge {
+                +"Colored bold lozenge"
+                attrs.appearance = "success"
+                attrs.isBold = true
+            }
+        }
+
+        val example4 = createElementNullSafe {
+            Lozenge {
+                +"Colored non-bold lozenge"
+                attrs.appearance = "success"
+                attrs.isBold = false
+            }
+        }
+        // endregion:lozenge
+
+        examples = listOfNotNull(example1, example2, example3, example4)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.button.Button
+import com.linkedplanet.uikit.wrapper.atlaskit.button.ButtonGroup
+import com.linkedplanet.uikit.wrapper.atlaskit.icon.CrossIcon
+import com.linkedplanet.uikit.wrapper.atlaskit.modal.*
+import react.dom.html.ReactHTML.p
+import react.fc
+import react.useState
+
+val ModalShowcase = fc<ShowcaseProps> { props ->
+    val (isModalActive, setIsModalActive) = useState(false)
+
+    ShowcaseWrapperItem {
+        name = "Modal"
+        packages = Package(
+            "@atlaskit/modal-dialog",
+            "https://atlassian.design/components/modal-dialog/examples"
+        ).toList()
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "modal"
+
+        val example = createElementNullSafe {
+            // region:modal
+            Button {
+                +"Show modal"
+
+                attrs.onClick = {
+                    setIsModalActive(true)
+                }
+            }
+
+            if (isModalActive) {
+                ModalTransition {
+                    Modal {
+                        attrs.onClose = {
+                            setIsModalActive(false)
+                        }
+
+                        ModalHeader {
+                            ModalTitle {
+                                +"Sample Modal"
+                            }
+                            Button {
+                                attrs.appearance = "link"
+                                attrs.onClick = {
+                                    setIsModalActive(false)
+                                }
+
+                                CrossIcon {
+                                    attrs.label = "Close popup"
+                                    attrs.primaryColor = "#000"
+                                }
+                            }
+                        }
+
+                        ModalBody {
+                            p {
+                                +"This is the body of the modal."
+                            }
+                        }
+
+                        ModalFooter {
+                            ButtonGroup {
+                                Button {
+                                    // If not autofocused, the other button is focused with a border!
+                                    attrs.autoFocus = true
+                                    attrs.appearance = "primary"
+                                    attrs.onClick = {
+                                        setIsModalActive(false)
+                                    }
+                                    +"Close"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            // endregion:modal
+        }
+
+        examples = listOfNotNull(example)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.icon.SearchIcon
+import com.linkedplanet.uikit.wrapper.tooltip.ReactTooltip
+import com.linkedplanet.uikit.wrapper.tooltip.ReactTooltipOffset
+import react.dom.html.ReactHTML.div
+import react.dom.html.ReactHTML.span
+import react.fc
+
+val TooltipShowcase = fc<ShowcaseProps> { props ->
+    ShowcaseWrapperItem {
+        name = "Tooltip"
+        packages =
+            Package("react-tooltip", "https://github.com/wwayne/react-tooltip").toList()
+
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "tooltip"
+
+        // region:tooltip
+        val key = "tooltip-1"
+        val example = createElementNullSafe {
+            div {
+                val dynAttrs = attrs.asDynamic()
+                dynAttrs["data-tip"] = "true"
+                dynAttrs["data-for"] = key
+                SearchIcon {}
+            }
+
+            ReactTooltip {
+                attrs.id = key
+                attrs.className = "tooltip"
+                attrs.place = "right"
+                attrs.effect = "solid"
+                attrs.type = "light"
+                attrs.border = true
+                attrs.borderColor = "rgb(222, 225, 231)"
+                attrs.offset = ReactTooltipOffset(0, 0, -5, 0)
+
+                span {
+                    +"I'm a tooltip..."
+                }
+            }
+        }
+        examples = listOfNotNull(example)
+        // endregion:tooltip
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component.showcase.wrapper
+
+import com.linkedplanet.uikit.component.Package
+import com.linkedplanet.uikit.util.*
+import com.linkedplanet.uikit.wrapper.atlaskit.datetimepicker.DateTimePicker
+import csstype.px
+import emotion.react.css
+import react.dom.html.ReactHTML.div
+import react.fc
+
+val DateTimePickerShowcase = fc<ShowcaseProps> { props ->
+    ShowcaseWrapperItem {
+        name = "Date time picker"
+        packages = Package(
+            "@atlaskit/datetime-picker",
+            "https://atlassian.design/components/datetime-picker/examples"
+        ).toList()
+
+        this.overallSourceCode = props.overallSourceCode
+        sourceCodeExampleId = "datetime-picker"
+
+        val example = createElementNullSafe {
+            div {
+                attrs.css {
+                    minWidth = 300.px
+                }
+                // region:datetime-picker
+                DateTimePicker {}
+                // endregion:datetime-picker
+            }
+        }
+
+        examples = listOfNotNull(example)
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component
+
+import com.linkedplanet.uikit.util.createElementNullSafe
+import com.linkedplanet.uikit.wrapper.atlaskit.code.CodeBlock
+import com.linkedplanet.uikit.wrapper.atlaskit.tab.Tab
+import com.linkedplanet.uikit.wrapper.atlaskit.tab.Tabs
+import csstype.*
+import emotion.react.css
+import react.*
+import react.dom.html.AnchorTarget
+import react.dom.html.ReactHTML.a
+import react.dom.html.ReactHTML.div
+import react.dom.html.ReactHTML.h3
+import react.dom.html.ReactHTML.span
+
+data class Package(
+    val name: String,
+    val url: String
+) {
+    fun toList(): List<Package> = listOf(this)
+}
+
+external interface ShowcaseWrapperItemProps : PropsWithChildren {
+    var name: String
+    var packages: List<Package>
+
+    /**
+     * Identifies the code block used as source code for the example.
+     *
+     * Mark such code blocks in the source code using comments like this with the desired id (e.g. ex-1):
+     * // region:ex-1
+     * ...
+     * // endregion:ex-1
+     */
+    var sourceCodeExampleId: String?
+    var overallSourceCode: String?
+
+    var examples: List<ReactNode>
+}
+
+val ShowcaseWrapperItem = fc<ShowcaseWrapperItemProps> { props ->
+
+    // Extract code
+    val code = props.overallSourceCode
+        ?.takeIf { it.isNotEmpty() }
+        ?.takeIf { props.sourceCodeExampleId != null }
+        ?.takeIf { props.sourceCodeExampleId!!.isNotEmpty() }
+        ?.let { extractSourceCodeExample(it, props.sourceCodeExampleId!!) }
+        ?: ""
+
+    // Render
+    div {
+        attrs.css {
+            padding = Padding(20.px, 20.px)
+        }
+
+        h3 {
+            +props.name
+        }
+
+        div {
+            attrs.css {
+                fontWeight = FontWeight.lighter
+                fontSize = 0.8.rem
+            }
+            span {
+                +"Packages: "
+            }
+            props.packages.forEachIndexed { index, pack ->
+                a {
+                    attrs.href = pack.url
+                    attrs.target = AnchorTarget._blank
+                    +pack.name
+                }
+                if (index != props.packages.size - 1) {
+                    +", "
+                }
+            }
+        }
+
+        div {
+            attrs.css {
+                // Eliminate margin of tabs
+                marginLeft = -8.px
+            }
+            Tabs {
+                attrs.tabs = arrayOf(
+                    Tab("Example", createElementNullSafe {
+                        div {
+                            attrs.css {
+                                display = Display.flex
+                            }
+                            props.examples.forEach {
+                                div {
+                                    attrs.className = ClassName("example")
+                                    +it
+                                }
+                            }
+                        }
+                    }),
+
+                    Tab("Example source", createElementNullSafe {
+                        if (code.isNotEmpty()) {
+                            div {
+                                attrs.css {
+                                    width = 100.pct
+                                }
+                                CodeBlock {
+                                    attrs.text = code
+                                    attrs.language = "kotlin"
+                                }
+                            }
+                        } else {
+                            span { +"No sources found..." }
+                        }
+                    }),
+                )
+            }
+        }
+    }
+}
+
+private fun extractSourceCodeExample(overallSourceCode: String, sourceCodeExampleId: String): String {
+    val exampleCodeStartMarker = "// region:$sourceCodeExampleId"
+    val exampleCodeEndMarker = "// endregion:$sourceCodeExampleId"
+    return if (overallSourceCode.contains(exampleCodeStartMarker) && overallSourceCode.contains(exampleCodeEndMarker)) {
+        overallSourceCode
+            .replaceBefore(exampleCodeStartMarker, "")
+            .replace(exampleCodeStartMarker, "")
+            .replaceAfter(exampleCodeEndMarker, "")
+            .replace(exampleCodeEndMarker, "")
+            .trimIndent()
+    } else ""
+}
+
+
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.component
+
+import com.linkedplanet.uikit.wrapper.atlaskit.button.Button
+import com.linkedplanet.uikit.wrapper.atlaskit.icon.EmojiTravelIcon
+import com.linkedplanet.uikit.wrapper.atlaskit.icon.FileIcon
+import com.linkedplanet.uikit.wrapper.atlaskit.pagelayout.LeftSidebar
+import com.linkedplanet.uikit.wrapper.atlaskit.sidenavigation.*
+import com.linkedplanet.uikit.wrapper.atlaskit.textfield.TextField
+import csstype.Display
+import csstype.FlexDirection
+import emotion.react.css
+import js.core.jso
+import kotlinx.browser.document
+import nesting
+import nestingFC
+import org.w3c.dom.HTMLInputElement
+import overrideBackButton
+import react.*
+import react.dom.html.ReactHTML.a
+import react.dom.html.ReactHTML.div
+
+external interface ShowcaseLeftSidebarProps : Props
+
+val nestingTextFieldWithClearButtonCustomComponent = nestingFC<Props> {
+    var data by useState("")
+
+    div {
+        css {
+            display = Display.flex
+            flexDirection = FlexDirection.column
+        }
+
+        TextField {
+            placeholder = "Custom Nesting TextField"
+            value = data
+            isCompact = true
+            type = "text"
+            onChange = {
+                data = (it.target as HTMLInputElement).value.trim()
+            }
+        }
+        Button {
+            onClick = {
+                data = ""
+            }
+            +"Clear ${data.take(10)}"
+        }
+    }
+}
+
+val nestingTextField = TextField.nesting()
+
+
+val ShowcaseLeftSidebar = fc<ShowcaseLeftSidebarProps> {
+
+    LeftSidebar {
+
+        SideNavigation {
+
+            NavigationHeader {
+                Header {
+                    +document.title.uppercase()
+                    attrs.description = "linked-planet"
+                }
+            }
+
+            NestableNavigationContent {
+                Section {
+                    ButtonItem {
+                        +"Menu item"
+                        attrs.iconBefore = createElement(EmojiTravelIcon, jso {})
+                        attrs.onClick = {
+                            console.log("My Flights clicked")
+                        }
+                    }
+
+                    NestingItem {
+                        attrs.id = "nesting-item-id"
+                        attrs.title = "Nested menu item"
+                        attrs.iconBefore = createElement(FileIcon, jso {})
+                        attrs.overrideBackButton { props ->
+                            props.description = "BackDescription!"
+                            +"Custom GoBackItem"
+                        }
+
+                        Section {
+                            attrs.title = "Section 1"
+                            ButtonItem {
+                                +"Do something"
+                            }
+                        }
+                        Section {
+                            attrs.title = "Section 2"
+                            ButtonItem {
+                                +"Do something else"
+                            }
+                            NestingItem {
+                                attrs.id = "nesting-item-id-2"
+                                attrs.title = "Go Deeper"
+
+                                Section {
+                                    attrs.title = "Section 2.1"
+                                    ButtonItem {
+                                        +"The end!"
+                                    }
+                                }
+                            }
+                        }
+
+                        Section {
+                            attrs.title = "Custom Component Section"
+                            nestingTextField {
+                                attrs.placeholder = "Nesting Textfield"
+                                attrs.isCompact = true
+                            }
+                            TextField {
+                                attrs.placeholder = "Sticks if Going Deeper"
+                                attrs.isCompact = true
+                            }
+                            nestingTextFieldWithClearButtonCustomComponent {
+                            }
+                        }
+
+                        Section {
+                            attrs.title = "Link Section"
+                            CustomItem {
+                                attrs.id = "custom-item-id"
+                                attrs.component = fc<Props> {
+                                    react.dom.html.ReactHTML.a {
+                                        attrs.href = "/"
+                                        +"Link to Home"
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+
+            NavigationFooter {
+                Footer {
+                    +"Made with ❤ by "
+                    a {
+                        attrs.href = "https://www.linked-planet.com/"
+                        +"linked-planet"
+                    }
+                }
+                Footer {
+                    +"Licensed under "
+                    a {
+                        attrs.href = "http://www.apache.org/licenses/LICENSE-2.0"
+                        +"Apache License, Version 2.0"
+                    }
+                }
+            }
+        }
+    }
+}
+
+fun RBuilder.ShowcaseLeftSidebar(handler: ShowcaseLeftSidebarProps.() -> Unit) =
+    child(ShowcaseLeftSidebar) { attrs { handler() } }
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit
+
+import browser.document
+import browser.window
+import react.createElement
+import react.dom.client.createRoot
+import react.react
+
+@ExperimentalJsExport
+fun main() {
+    window.onload = {
+        document.getElementById("root")
+            ?.let { doc ->
+                val root = createRoot(doc)
+                val app = createElement(ShowcaseApp::class.react)
+                root.render(app)
+            }
+            ?: console.error("No element with id 'root' found")
+    }
+}
+/**
+ * Copyright 2022 linked-planet GmbH.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.linkedplanet.uikit.util
+
+import com.linkedplanet.uikit.component.ShowcaseWrapperItemProps
+import react.Props
+import react.RBuilder
+
+fun RBuilder.ShowcaseWrapperItem(handler: ShowcaseWrapperItemProps.() -> Unit) =
+    child(com.linkedplanet.uikit.component.ShowcaseWrapperItem) { attrs { handler() } }
+
+external interface ShowcaseProps: Props {
+    var overallSourceCode: String
+}
